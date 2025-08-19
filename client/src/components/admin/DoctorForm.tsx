@@ -84,10 +84,9 @@ export const DoctorForm: React.FC<DoctorFormProps> = ({ initialData, onSubmit, o
         <Label htmlFor="department">Department</Label>
         <Select value={formData.department_id} onValueChange={(value) => handleChange('department_id', value)}>
           <SelectTrigger>
-            <SelectValue placeholder="Select department" />
+            <SelectValue placeholder="Select department (optional)" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">No department</SelectItem>
             {departments?.map((dept) => (
               <SelectItem key={dept.id} value={dept.id.toString()}>
                 {dept.name}

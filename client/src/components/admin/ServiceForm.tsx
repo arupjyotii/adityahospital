@@ -33,30 +33,35 @@ export const ServiceForm: React.FC<ServiceFormProps> = ({ initialData, onSubmit,
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-6">
       <div>
-        <Label htmlFor="name">Service Name</Label>
+        <Label htmlFor="name" className="text-sm font-medium">Service Name *</Label>
         <Input
           id="name"
           value={formData.name}
           onChange={(e) => handleChange('name', e.target.value)}
+          placeholder="Enter service name"
           required
+          className="mt-1"
         />
       </div>
       
       <div>
-        <Label htmlFor="description">Description</Label>
+        <Label htmlFor="description" className="text-sm font-medium">Description</Label>
         <Input
           id="description"
           value={formData.description}
           onChange={(e) => handleChange('description', e.target.value)}
+          placeholder="Brief description of the service"
+          className="mt-1"
         />
+        <p className="text-xs text-gray-500 mt-1">Optional: Describe what this service offers</p>
       </div>
 
       <div>
-        <Label htmlFor="department">Department</Label>
+        <Label htmlFor="department" className="text-sm font-medium">Department</Label>
         <Select value={formData.department_id} onValueChange={(value) => handleChange('department_id', value)}>
-          <SelectTrigger>
+          <SelectTrigger className="mt-1">
             <SelectValue placeholder="Select department (optional)" />
           </SelectTrigger>
           <SelectContent>
@@ -67,14 +72,15 @@ export const ServiceForm: React.FC<ServiceFormProps> = ({ initialData, onSubmit,
             ))}
           </SelectContent>
         </Select>
+        <p className="text-xs text-gray-500 mt-1">Choose which department this service belongs to</p>
       </div>
       
-      <div className="flex justify-end space-x-2">
+      <div className="flex justify-end space-x-3 pt-4">
         <Button type="button" variant="outline" onClick={onCancel}>
           Cancel
         </Button>
         <Button type="submit">
-          {initialData ? 'Update' : 'Create'}
+          {initialData ? 'Update Service' : 'Add Service'}
         </Button>
       </div>
     </form>

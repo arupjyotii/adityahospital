@@ -25,32 +25,37 @@ export const DepartmentForm: React.FC<DepartmentFormProps> = ({ initialData, onS
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-6">
       <div>
-        <Label htmlFor="name">Department Name</Label>
+        <Label htmlFor="name" className="text-sm font-medium">Department Name *</Label>
         <Input
           id="name"
           value={formData.name}
           onChange={(e) => handleChange('name', e.target.value)}
+          placeholder="Enter department name"
           required
+          className="mt-1"
         />
       </div>
       
       <div>
-        <Label htmlFor="description">Description</Label>
+        <Label htmlFor="description" className="text-sm font-medium">Description</Label>
         <Input
           id="description"
           value={formData.description}
           onChange={(e) => handleChange('description', e.target.value)}
+          placeholder="Brief description of the department"
+          className="mt-1"
         />
+        <p className="text-xs text-gray-500 mt-1">Optional: Describe the department's focus or services</p>
       </div>
       
-      <div className="flex justify-end space-x-2">
+      <div className="flex justify-end space-x-3 pt-4">
         <Button type="button" variant="outline" onClick={onCancel}>
           Cancel
         </Button>
         <Button type="submit">
-          {initialData ? 'Update' : 'Create'}
+          {initialData ? 'Update Department' : 'Add Department'}
         </Button>
       </div>
     </form>

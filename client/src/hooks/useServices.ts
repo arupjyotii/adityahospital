@@ -4,10 +4,10 @@ interface Service {
   id: number;
   name: string;
   description: string;
-  department_id: number;
-  department_name: string;
+  department_id: number | null;
   created_at: string;
   updated_at: string;
+  department_name: string | null;
 }
 
 export const useServices = () => {
@@ -18,10 +18,32 @@ export const useServices = () => {
   const fetchServices = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/services');
-      if (!response.ok) {
-        throw new Error('Failed to fetch services');
+      const token = localStorage.getItem('authToken');
+      if (!token) {
+        setError('No authentication token found');
+        setLoading(false);
+        return;
       }
+
+      const response = await fetch('/api/services', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        if (response.status === 401) {
+          setError('Authentication failed. Please login again.');
+          localStorage.removeItem('authToken');
+          localStorage.removeItem('user');
+          window.location.reload();
+        } else {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return;
+      }
+
       const data = await response.json();
       setServices(data);
       setError(null);
@@ -32,49 +54,95 @@ export const useServices = () => {
     }
   };
 
-  const createService = async (serviceData: any) => {
+  const createService = async (serviceData: Omit<Service, 'id' | 'created_at' | 'updated_at' | 'department_name'>) => {
     try {
+      const token = localStorage.getItem('authToken');
+      if (!token) {
+        throw new Error('No authentication token found');
+      }
+
       const response = await fetch('/api/services', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(serviceData)
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(serviceData),
       });
+
       if (!response.ok) {
-        throw new Error('Failed to create service');
+        if (response.status === 401) {
+          throw new Error('Authentication failed. Please login again.');
+        }
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-      await fetchServices();
+
+      const newService = await response.json();
+      setServices(prev => [...prev, { ...newService, department_name: null }]);
+      return newService;
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
+      throw err;
     }
   };
 
-  const updateService = async (id: number, serviceData: any) => {
+  const updateService = async (id: number, serviceData: Partial<Service>) => {
     try {
+      const token = localStorage.getItem('authToken');
+      if (!token) {
+        throw new Error('No authentication token found');
+      }
+
       const response = await fetch(`/api/services/${id}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(serviceData)
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(serviceData),
       });
+
       if (!response.ok) {
-        throw new Error('Failed to update service');
+        if (response.status === 401) {
+          throw new Error('Authentication failed. Please login again.');
+        }
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-      await fetchServices();
+
+      const updatedService = await response.json();
+      setServices(prev => prev.map(service => 
+        service.id === id ? { ...service, ...updatedService, department_name: service.department_name } : service
+      ));
+      return updatedService;
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
+      throw err;
     }
   };
 
   const deleteService = async (id: number) => {
     try {
-      const response = await fetch(`/api/services/${id}`, {
-        method: 'DELETE'
-      });
-      if (!response.ok) {
-        throw new Error('Failed to delete service');
+      const token = localStorage.getItem('authToken');
+      if (!token) {
+        throw new Error('No authentication token found');
       }
-      await fetchServices();
+
+      const response = await fetch(`/api/services/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        if (response.status === 401) {
+          throw new Error('Authentication failed. Please login again.');
+        }
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      setServices(prev => prev.filter(service => service.id !== id));
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
+      throw err;
     }
   };
 
@@ -82,5 +150,5 @@ export const useServices = () => {
     fetchServices();
   }, []);
 
-  return { services, loading, error, createService, updateService, deleteService };
+  return { services, loading, error, createService, updateService, deleteService, refetch: fetchServices };
 };

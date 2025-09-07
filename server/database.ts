@@ -9,6 +9,8 @@ export interface DatabaseSchema {
     description: string | null;
     created_at: string;
     updated_at: string;
+    doctor_count?: number;
+    service_count?: number;
   };
   doctors: {
     id: number;

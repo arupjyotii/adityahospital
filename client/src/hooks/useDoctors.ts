@@ -6,12 +6,12 @@ interface Doctor {
   email: string;
   phone: string;
   specialization: string;
-  department_id: number;
-  department_name: string;
-  photo_url: string;
-  schedule: string;
+  department_id: number | null;
+  photo_url: string | null;
+  schedule: string | null;
   created_at: string;
   updated_at: string;
+  department_name: string | null;
 }
 
 export const useDoctors = () => {
@@ -22,10 +22,32 @@ export const useDoctors = () => {
   const fetchDoctors = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/doctors');
-      if (!response.ok) {
-        throw new Error('Failed to fetch doctors');
+      const token = localStorage.getItem('authToken');
+      if (!token) {
+        setError('No authentication token found');
+        setLoading(false);
+        return;
       }
+
+      const response = await fetch('/api/doctors', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        if (response.status === 401) {
+          setError('Authentication failed. Please login again.');
+          localStorage.removeItem('authToken');
+          localStorage.removeItem('user');
+          window.location.reload();
+        } else {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return;
+      }
+
       const data = await response.json();
       setDoctors(data);
       setError(null);
@@ -36,49 +58,95 @@ export const useDoctors = () => {
     }
   };
 
-  const createDoctor = async (doctorData: any) => {
+  const createDoctor = async (doctorData: Omit<Doctor, 'id' | 'created_at' | 'updated_at' | 'department_name'>) => {
     try {
+      const token = localStorage.getItem('authToken');
+      if (!token) {
+        throw new Error('No authentication token found');
+      }
+
       const response = await fetch('/api/doctors', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(doctorData)
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(doctorData),
       });
+
       if (!response.ok) {
-        throw new Error('Failed to create doctor');
+        if (response.status === 401) {
+          throw new Error('Authentication failed. Please login again.');
+        }
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-      await fetchDoctors();
+
+      const newDoctor = await response.json();
+      setDoctors(prev => [...prev, { ...newDoctor, department_name: null }]);
+      return newDoctor;
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
+      throw err;
     }
   };
 
-  const updateDoctor = async (id: number, doctorData: any) => {
+  const updateDoctor = async (id: number, doctorData: Partial<Doctor>) => {
     try {
+      const token = localStorage.getItem('authToken');
+      if (!token) {
+        throw new Error('No authentication token found');
+      }
+
       const response = await fetch(`/api/doctors/${id}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(doctorData)
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(doctorData),
       });
+
       if (!response.ok) {
-        throw new Error('Failed to update doctor');
+        if (response.status === 401) {
+          throw new Error('Authentication failed. Please login again.');
+        }
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-      await fetchDoctors();
+
+      const updatedDoctor = await response.json();
+      setDoctors(prev => prev.map(doc => 
+        doc.id === id ? { ...doc, ...updatedDoctor, department_name: doc.department_name } : doc
+      ));
+      return updatedDoctor;
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
+      throw err;
     }
   };
 
   const deleteDoctor = async (id: number) => {
     try {
-      const response = await fetch(`/api/doctors/${id}`, {
-        method: 'DELETE'
-      });
-      if (!response.ok) {
-        throw new Error('Failed to delete doctor');
+      const token = localStorage.getItem('authToken');
+      if (!token) {
+        throw new Error('No authentication token found');
       }
-      await fetchDoctors();
+
+      const response = await fetch(`/api/doctors/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        if (response.status === 401) {
+          throw new Error('Authentication failed. Please login again.');
+        }
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      setDoctors(prev => prev.filter(doc => doc.id !== id));
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
+      throw err;
     }
   };
 
@@ -86,5 +154,5 @@ export const useDoctors = () => {
     fetchDoctors();
   }, []);
 
-  return { doctors, loading, error, createDoctor, updateDoctor, deleteDoctor };
+  return { doctors, loading, error, createDoctor, updateDoctor, deleteDoctor, refetch: fetchDoctors };
 };

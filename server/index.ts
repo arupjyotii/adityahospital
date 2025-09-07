@@ -1,18 +1,197 @@
-import express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import dotenv from 'dotenv';
 import { setupStaticServing } from './static-serve.js';
 import { db } from './database.js';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import fs from 'fs';
+import path from 'path';
 
 dotenv.config();
 
 const app = express();
+const JWT_SECRET = process.env.JWT_SECRET || 'b7e2f8c1-4d3a-4e9b-9c2a-7f6e5d4c3b2a-2025-!@#S3cure$%^JwT&*()-Key_2025';
+const NODE_ENV = process.env.NODE_ENV || 'development';
+const PORT = process.env.PORT || 3001;
+const HOST = process.env.HOST || '0.0.0.0';
 
-// Body parsing middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// Basic security headers
+app.use((req: Request, res: Response, next: NextFunction) => {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  next();
+});
+
+// CORS for production domain
+app.use((req: Request, res: Response, next: NextFunction) => {
+  const allowedOrigins = [
+    'https://adityahospitalnagaon.com',
+    'https://www.adityahospitalnagaon.com',
+    'http://localhost:3000',
+    'http://localhost:5173'
+  ];
+  
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin as string) || NODE_ENV === 'development') {
+    res.setHeader('Access-Control-Allow-Origin', origin || '*');
+  }
+  
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  
+  if (req.method === 'OPTIONS') {
+    res.sendStatus(200);
+  } else {
+    next();
+  }
+});
+
+ 
+
+// Extend Request interface to include user
+interface AuthenticatedRequest extends Request {
+  user?: any;
+}
+
+// Body parsing middleware with size limits
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// Health check endpoint
+app.get('/health', (req: Request, res: Response) => {
+  res.status(200).json({
+    status: 'healthy',
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    environment: NODE_ENV,
+    domain: 'adityahospitalnagaon.com',
+    version: '1.0.0'
+  });
+});
+
+// Global error handling middleware
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+  console.error('Error:', err);
+  
+  // Log error to file in production
+  if (NODE_ENV === 'production') {
+    const logsDir = path.join(process.cwd(), 'logs');
+    if (!fs.existsSync(logsDir)) {
+      fs.mkdirSync(logsDir, { recursive: true });
+    }
+    
+    const errorLog = {
+      timestamp: new Date().toISOString(),
+      method: req.method,
+      url: req.url,
+      error: err.message,
+      stack: err.stack,
+      ip: req.ip || req.connection.remoteAddress,
+      userAgent: req.get('User-Agent')
+    };
+    
+    const errorLogPath = path.join(logsDir, 'error.log');
+    fs.appendFileSync(errorLogPath, JSON.stringify(errorLog) + '\n');
+  }
+  
+  res.status(500).json({
+    error: NODE_ENV === 'production' ? 'Internal server error' : err.message
+  });
+});
+
+// 404 handler will be added after all routes
+
+// Authentication middleware
+const authenticateToken = (req: AuthenticatedRequest, res: Response, next: NextFunction): void => {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+
+  if (!token) {
+    res.status(401).json({ error: 'Access token required' });
+    return;
+  }
+
+  jwt.verify(token, JWT_SECRET, (err, user) => {
+    if (err) {
+      res.status(403).json({ error: 'Invalid or expired token' });
+      return;
+    }
+    req.user = user;
+    next();
+  });
+};
+
+// Auth endpoints
+app.post('/api/auth/login', async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { username, password } = req.body;
+
+    if (!username || !password) {
+      res.status(400).json({ error: 'Username and password are required' });
+      return;
+    }
+
+    // For demo purposes, using hardcoded admin user
+    // In production, you'd query from a users table
+    const validUsers = [
+      {
+        id: 1,
+        username: 'joonborah',
+        password: '$2b$10$epzRWnVmk07Ukg6sXeeZdOXHR8oJSP8NkAP3ptNQOTXCrUJFRK.3.', // 'r4nd0mP@ssw0rd123'
+        name: 'Joon Borah',
+        role: 'admin'
+      }
+    ];
+
+    const user = validUsers.find(u => u.username === username);
+    
+    if (!user) {
+      res.status(401).json({ error: 'Invalid credentials' });
+      return;
+    }
+
+    const validPassword = await bcrypt.compare(password, user.password);
+    
+    if (!validPassword) {
+      res.status(401).json({ error: 'Invalid credentials' });
+      return;
+    }
+
+    const token = jwt.sign(
+      { id: user.id, username: user.username, role: user.role },
+      JWT_SECRET,
+      { expiresIn: '24h' }
+    );
+
+    res.json({
+      token,
+      user: {
+        id: user.id,
+        username: user.username,
+        name: user.name,
+        role: user.role
+      }
+    });
+  } catch (error) {
+    console.error('Login error:', error);
+    res.status(500).json({ error: 'Login failed' });
+  }
+});
+
+app.post('/api/auth/verify', authenticateToken, (req: AuthenticatedRequest, res: Response): void => {
+  res.json({ user: req.user });
+});
+
+app.post('/api/auth/logout', (req: Request, res: Response): void => {
+  // In a real app, you might want to blacklist the token
+  res.json({ message: 'Logged out successfully' });
+});
 
 // Dashboard API
-app.get('/api/dashboard', async (req, res) => {
+app.get('/api/dashboard', authenticateToken, async (req: AuthenticatedRequest, res: Response): Promise<void> => {
   try {
     const doctorsCount = await db.selectFrom('doctors').select(db.fn.count('id').as('count')).executeTakeFirst();
     const departmentsCount = await db.selectFrom('departments').select(db.fn.count('id').as('count')).executeTakeFirst();
@@ -30,7 +209,7 @@ app.get('/api/dashboard', async (req, res) => {
 });
 
 // Department APIs
-app.get('/api/departments', async (req, res) => {
+app.get('/api/departments', authenticateToken, async (req: AuthenticatedRequest, res: Response): Promise<void> => {
   try {
     const departments = await db.selectFrom('departments')
       .selectAll()
@@ -43,7 +222,7 @@ app.get('/api/departments', async (req, res) => {
   }
 });
 
-app.post('/api/departments', async (req, res) => {
+app.post('/api/departments', authenticateToken, async (req: Request, res: Response): Promise<void> => {
   try {
     const { name, description } = req.body;
     const result = await db.insertInto('departments')
@@ -63,7 +242,7 @@ app.post('/api/departments', async (req, res) => {
   }
 });
 
-app.put('/api/departments/:id', async (req, res) => {
+app.put('/api/departments/:id', authenticateToken, async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
     const { name, description } = req.body;
@@ -84,7 +263,7 @@ app.put('/api/departments/:id', async (req, res) => {
   }
 });
 
-app.delete('/api/departments/:id', async (req, res) => {
+app.delete('/api/departments/:id', authenticateToken, async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
     await db.deleteFrom('departments').where('id', '=', Number(id)).execute();
@@ -96,7 +275,7 @@ app.delete('/api/departments/:id', async (req, res) => {
 });
 
 // Doctor APIs
-app.get('/api/doctors', async (req, res) => {
+app.get('/api/doctors', authenticateToken, async (req: AuthenticatedRequest, res: Response): Promise<void> => {
   try {
     const doctors = await db.selectFrom('doctors')
       .leftJoin('departments', 'doctors.department_id', 'departments.id')
@@ -122,7 +301,7 @@ app.get('/api/doctors', async (req, res) => {
   }
 });
 
-app.post('/api/doctors', async (req, res) => {
+app.post('/api/doctors', authenticateToken, async (req: Request, res: Response): Promise<void> => {
   try {
     const { name, email, phone, specialization, department_id, photo_url, schedule } = req.body;
     const result = await db.insertInto('doctors')
@@ -147,7 +326,7 @@ app.post('/api/doctors', async (req, res) => {
   }
 });
 
-app.put('/api/doctors/:id', async (req, res) => {
+app.put('/api/doctors/:id', authenticateToken, async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
     const { name, email, phone, specialization, department_id, photo_url, schedule } = req.body;
@@ -173,7 +352,7 @@ app.put('/api/doctors/:id', async (req, res) => {
   }
 });
 
-app.delete('/api/doctors/:id', async (req, res) => {
+app.delete('/api/doctors/:id', authenticateToken, async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
     await db.deleteFrom('doctors').where('id', '=', Number(id)).execute();
@@ -185,7 +364,7 @@ app.delete('/api/doctors/:id', async (req, res) => {
 });
 
 // Service APIs
-app.get('/api/services', async (req, res) => {
+app.get('/api/services', authenticateToken, async (req: AuthenticatedRequest, res: Response): Promise<void> => {
   try {
     const services = await db.selectFrom('services')
       .leftJoin('departments', 'services.department_id', 'departments.id')
@@ -207,7 +386,7 @@ app.get('/api/services', async (req, res) => {
   }
 });
 
-app.post('/api/services', async (req, res) => {
+app.post('/api/services', authenticateToken, async (req: Request, res: Response): Promise<void> => {
   try {
     const { name, description, department_id } = req.body;
     const result = await db.insertInto('services')
@@ -228,7 +407,7 @@ app.post('/api/services', async (req, res) => {
   }
 });
 
-app.put('/api/services/:id', async (req, res) => {
+app.put('/api/services/:id', authenticateToken, async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
     const { name, description, department_id } = req.body;
@@ -250,7 +429,7 @@ app.put('/api/services/:id', async (req, res) => {
   }
 });
 
-app.delete('/api/services/:id', async (req, res) => {
+app.delete('/api/services/:id', authenticateToken, async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
     await db.deleteFrom('services').where('id', '=', Number(id)).execute();
@@ -261,23 +440,161 @@ app.delete('/api/services/:id', async (req, res) => {
   }
 });
 
-// Export a function to start the server
-export async function startServer(port) {
+// Public API endpoints (no authentication required)
+app.get('/api/public/departments', async (req: Request, res: Response): Promise<void> => {
   try {
-    if (process.env.NODE_ENV === 'production') {
-      setupStaticServing(app);
+    const departments = await db.selectFrom('departments')
+      .selectAll()
+      .orderBy('name')
+      .execute();
+
+    // Calculate doctor_count and service_count for each department
+    const departmentsWithCounts = await Promise.all(
+      departments.map(async (dept) => {
+        const doctorCount = await db.selectFrom('doctors')
+          .select(db.fn.count('id').as('count'))
+          .where('department_id', '=', dept.id)
+          .executeTakeFirst();
+
+        const serviceCount = await db.selectFrom('services')
+          .select(db.fn.count('id').as('count'))
+          .where('department_id', '=', dept.id)
+          .executeTakeFirst();
+
+        return {
+          ...dept,
+          doctor_count: Number(doctorCount?.count) || 0,
+          service_count: Number(serviceCount?.count) || 0
+        };
+      })
+    );
+
+    res.json(departmentsWithCounts);
+  } catch (error) {
+    console.error('Get public departments error:', error);
+    res.status(500).json({ error: 'Failed to fetch departments' });
+  }
+});
+
+app.get('/api/public/doctors', async (req: Request, res: Response): Promise<void> => {
+  try {
+    const doctors = await db.selectFrom('doctors')
+      .leftJoin('departments', 'doctors.department_id', 'departments.id')
+      .select([
+        'doctors.id',
+        'doctors.name',
+        'doctors.email',
+        'doctors.phone',
+        'doctors.specialization',
+        'doctors.department_id',
+        'doctors.photo_url',
+        'doctors.schedule',
+        'doctors.created_at',
+        'doctors.updated_at',
+        'departments.name as department_name'
+      ])
+      .orderBy('doctors.name')
+      .execute();
+    
+    res.json(doctors);
+  } catch (error) {
+    console.error('Get public doctors error:', error);
+    res.status(500).json({ error: 'Failed to fetch doctors' });
+  }
+});
+
+app.get('/api/public/services', async (req: Request, res: Response): Promise<void> => {
+  try {
+    const services = await db.selectFrom('services')
+      .leftJoin('departments', 'services.department_id', 'departments.id')
+      .select([
+        'services.id',
+        'services.name',
+        'services.description',
+        'services.department_id',
+        'services.created_at',
+        'services.updated_at',
+        'departments.name as department_name'
+      ])
+      .orderBy('services.name')
+      .execute();
+    
+    res.json(services);
+  } catch (error) {
+    console.error('Get public services error:', error);
+    res.status(500).json({ error: 'Failed to fetch services' });
+  }
+});
+
+// Setup static serving for production (must be before 404 handler)
+if (NODE_ENV === 'production') {
+  setupStaticServing(app);
+}
+
+// 404 handler (must be after all routes)
+app.use((req: Request, res: Response) => {
+  res.status(404).json({
+    error: 'Route not found',
+    path: req.originalUrl
+  });
+});
+
+// Graceful shutdown handling
+process.on('SIGTERM', () => {
+  console.log('SIGTERM received, shutting down gracefully');
+  process.exit(0);
+});
+
+process.on('SIGINT', () => {
+  console.log('SIGINT received, shutting down gracefully');
+  process.exit(0);
+});
+
+// Export a function to start the server
+export async function startServer(port: number = Number(PORT), host: string = HOST): Promise<void> {
+  try {
+    // Ensure data directory exists
+    const dataDir = process.env.DATA_DIRECTORY || './data';
+    if (!fs.existsSync(dataDir)) {
+      fs.mkdirSync(dataDir, { recursive: true });
     }
-    app.listen(port, () => {
-      console.log(`API Server running on port ${port}`);
+
+    // Static serving is already set up above
+
+    const server = app.listen(port, host, () => {
+      console.log(` Aditya Hospital Admin Panel running on ${host}:${port}`);
+      console.log(` Environment: ${NODE_ENV}`);
+      console.log(` Domain: adityahospitalnagaon.com`);
+      console.log(` Database: ${dataDir}/database.sqlite`);
+      console.log(` JWT Secret: ${JWT_SECRET.substring(0, 10)}...`);
+    });
+
+    // Set server timeout
+    server.timeout = 30000; // 30 seconds
+
+    return new Promise((resolve, reject) => {
+      server.on('error', (error: any) => {
+        if (error.code === 'EADDRINUSE') {
+          console.error(` Port ${port} is already in use`);
+        } else {
+          console.error(' Server error:', error);
+        }
+        reject(error);
+      });
+      
+      server.on('listening', () => {
+        resolve();
+      });
     });
   } catch (err) {
-    console.error('Failed to start server:', err);
+    console.error(' Failed to start server:', err);
     process.exit(1);
   }
 }
 
 // Start the server directly if this is the main module
-if (import.meta.url === `file://${process.argv[1]}`) {
-  console.log('Starting server...');
-  startServer(process.env.PORT || 3001);
-}
+console.log(' Starting Aditya Hospital Admin Panel...');
+startServer().catch((error) => {
+  console.error(' Failed to start server:', error);
+  process.exit(1);
+});

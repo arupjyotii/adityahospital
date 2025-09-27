@@ -131,7 +131,7 @@ cat > .env << EOF
 NODE_ENV=production
 PORT=3001
 HOST=0.0.0.0
-MONGODB_URI=mongodb://localhost:27017/aditya_hospital_prod
+MONGODB_URI=mongodb+srv://codemicofficial_db_user:Vhv7Tjr0uIVg3wuA@cluster0.my5lehs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 JWT_SECRET=$(openssl rand -base64 32)
 DOMAIN=$DOMAIN
 FRONTEND_URL=https://$DOMAIN

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { API_ENDPOINTS, apiFetch } from '../lib/config';
 
 interface DashboardData {
   doctors: number;
@@ -21,24 +22,10 @@ export const useDashboardData = () => {
           return;
         }
 
-        const response = await fetch('/api/dashboard', {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-        });
+        const response = await apiFetch(API_ENDPOINTS.DASHBOARD);
 
         if (!response.ok) {
-          if (response.status === 401) {
-            setError('Authentication failed. Please login again.');
-            // Clear invalid token
-            localStorage.removeItem('authToken');
-            localStorage.removeItem('user');
-            window.location.reload();
-          } else {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-          return;
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
 
         const result = await response.json();

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { SEO } from '@/components/SEO';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -89,6 +90,12 @@ export const ContactPage: React.FC = () => {
 
   return (
     <div className="bg-white">
+      <SEO 
+        title="Contact Us - Aditya Hospital Nagaon"
+        description="Contact Aditya Hospital for appointments, inquiries, or emergency care. Located at Medical College Road, Diphalu, Nagaon - 782003. Call +91 8638559875 for immediate assistance."
+        keywords="contact aditya hospital, hospital nagaon contact, emergency care nagaon, medical appointment nagaon, hospital address diphalu"
+        url="https://adityahospitalnagaon.com/contact"
+      />
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-blue-50 via-white to-purple-50 py-20">
         <div className="container mx-auto px-4 text-center">

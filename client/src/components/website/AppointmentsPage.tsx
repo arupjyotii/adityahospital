@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { SEO } from '@/components/SEO';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -93,6 +94,12 @@ export const AppointmentsPage: React.FC = () => {
 
   return (
     <div className="bg-white">
+      <SEO 
+        title="Book Appointment - Aditya Hospital Nagaon"
+        description="Book your medical appointment online at Aditya Hospital. Schedule consultations with our specialist doctors for quality healthcare services in Nagaon, Assam. Easy online booking available."
+        keywords="book appointment nagaon, online appointment hospital, medical consultation nagaon, doctor appointment assam, healthcare booking"
+        url="https://adityahospitalnagaon.com/appointments"
+      />
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-blue-50 via-white to-purple-50 py-20">
         <div className="container mx-auto px-4 text-center">

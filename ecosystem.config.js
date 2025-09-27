@@ -1,57 +1,69 @@
 module.exports = {
-  apps: [{
-    name: 'aditya-hospital-admin',
-    script: 'dist/server/index.js',
-    instances: 'max', // Use all CPU cores
-    exec_mode: 'cluster',
-    env: {
-      NODE_ENV: 'development',
-      PORT: 3001
-    },
-    env_production: {
-      NODE_ENV: 'production',
-      PORT: 3001,
-      HOST: '0.0.0.0',
-      DOMAIN: 'adityahospitalnagaon.com'
-    },
-    // Logging
-    log_file: './logs/combined.log',
-    out_file: './logs/out.log',
-    error_file: './logs/error.log',
-    log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
-    
-    // Auto restart
-    watch: false,
-    ignore_watch: ['node_modules', 'logs', 'data', 'uploads'],
-    max_memory_restart: '1G',
-    
-    // Advanced PM2 features
-    min_uptime: '10s',
-    max_restarts: 10,
-    restart_delay: 4000,
-    
-    // Health monitoring
-    health_check_grace_period: 3000,
-    health_check_fatal_exceptions: true,
-    
-    // Process management
-    kill_timeout: 5000,
-    listen_timeout: 3000,
-    
-    // Environment variables
-    env_file: 'env.production'
-  }],
-
+  apps: [
+    {
+      name: 'aditya-hospital',
+      script: './server/index.js',
+      instances: 'max', // Use all available CPU cores for production
+      exec_mode: 'cluster',
+      env: {
+        NODE_ENV: 'development',
+        PORT: 3001,
+        HOST: 'localhost'
+      },
+      env_production: {
+        NODE_ENV: 'production',
+        PORT: 3001,
+        HOST: '0.0.0.0'
+      },
+      // PM2 Configuration
+      watch: false,
+      max_memory_restart: '1G',
+      log_file: './logs/combined.log',
+      out_file: './logs/out.log',
+      error_file: './logs/error.log',
+      log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
+      merge_logs: true,
+      
+      // Cluster Configuration
+      kill_timeout: 5000,
+      wait_ready: true,
+      listen_timeout: 10000,
+      
+      // Auto-restart Configuration
+      min_uptime: '10s',
+      max_restarts: 10,
+      restart_delay: 4000,
+      
+      // Advanced Configuration
+      node_args: '--max-old-space-size=1024',
+      
+      // Process Management
+      autorestart: true,
+      ignore_watch: [
+        'node_modules',
+        'logs',
+        'uploads',
+        '.git',
+        'dist',
+        'client'
+      ],
+      
+      // Environment file
+      env_file: '.env'
+    }
+  ],
+  
+  // Deployment configuration (optional)
   deploy: {
     production: {
-      user: 'deploy',
-      host: ['adityahospitalnagaon.com'],
+      user: 'root',
+      host: 'your-server-ip',
       ref: 'origin/main',
-      path: '/var/www/aditya-hospital-admin',
-      'pre-deploy-local': '',
-      'post-deploy': 'npm install && npm run build && pm2 reload ecosystem.config.js --env production',
-      'pre-setup': ''
+      repo: 'https://github.com/yourusername/aditya-hospital.git',
+      path: '/domains/adityahospitalnagaon.com/public_html',
+      'pre-deploy': 'git fetch --all',
+      'post-deploy': 'npm ci --production && npm run build && pm2 reload ecosystem.config.js --env production && pm2 save',
+      'pre-setup': 'apt update && apt install git -y'
     }
   }
 };
-

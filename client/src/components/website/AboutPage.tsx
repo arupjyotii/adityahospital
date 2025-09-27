@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { SEO } from '@/components/SEO';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { 
@@ -52,6 +53,12 @@ export const AboutPage: React.FC = () => {
 
   return (
     <div className="bg-white">
+      <SEO 
+        title="About Us - Aditya Hospital Nagaon"
+        description="Learn about Aditya Hospital's 25+ years of excellence in healthcare. Discover our mission, vision, values, and commitment to providing world-class medical care in Nagaon, Assam."
+        keywords="about aditya hospital, hospital history nagaon, healthcare excellence assam, medical care mission, hospital values nagaon"
+        url="https://adityahospitalnagaon.com/about"
+      />
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-blue-50 via-white to-purple-50 py-20">
         <div className="container mx-auto px-4 text-center">

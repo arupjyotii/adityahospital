@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { SEO, createHospitalSchema } from '@/components/SEO';
 import { usePublicDoctors } from '@/hooks/usePublicDoctors';
 import { usePublicDepartments } from '@/hooks/usePublicDepartments';
 import { usePublicServices } from '@/hooks/usePublicServices';
@@ -56,6 +57,13 @@ export const HomePage: React.FC = () => {
 
   return (
     <div className="bg-white">
+      <SEO 
+        title="Aditya Hospital - Best Multispeciality Hospital in Nagaon, Assam"
+        description="Aditya Hospital is the leading multispeciality hospital in Nagaon, Assam. We provide world-class healthcare services with 24/7 emergency care, expert doctors, and advanced medical technology."
+        keywords="hospital nagaon, multispeciality hospital assam, emergency care nagaon, doctors nagaon, healthcare assam, medical treatment nagaon, aditya hospital, best hospital nagaon"
+        url="https://adityahospitalnagaon.com"
+        schema={createHospitalSchema()}
+      />
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         {/* Video Background */}

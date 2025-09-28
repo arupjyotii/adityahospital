@@ -198,7 +198,7 @@ server {
     
     # API routes
     location /api/ {
-        proxy_pass http://localhost:3001;
+        proxy_pass http://adityahospitalnagaon.com;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -525,7 +525,7 @@ server {
     
     # API routes
     location /api/ {
-        proxy_pass http://localhost:3001;
+        proxy_pass http://adityahospitalnagaon.com;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -852,7 +852,7 @@ server {
     
     # API routes
     location /api/ {
-        proxy_pass http://localhost:3001;
+        proxy_pass http://adityahospitalnagaon.com;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -1179,7 +1179,7 @@ server {
     
     # API routes
     location /api/ {
-        proxy_pass http://localhost:3001;
+        proxy_pass http://adityahospitalnagaon.com;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -1506,7 +1506,7 @@ server {
     
     # API routes
     location /api/ {
-        proxy_pass http://localhost:3001;
+        proxy_pass http://adityahospitalnagaon.com;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -1833,7 +1833,7 @@ server {
     
     # API routes
     location /api/ {
-        proxy_pass http://localhost:3001;
+        proxy_pass http://adityahospitalnagaon.com;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -2160,7 +2160,7 @@ server {
     
     # API routes
     location /api/ {
-        proxy_pass http://localhost:3001;
+        proxy_pass http://adityahospitalnagaon.com;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -2487,7 +2487,7 @@ server {
     
     # API routes
     location /api/ {
-        proxy_pass http://localhost:3001;
+        proxy_pass http://adityahospitalnagaon.com;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -2814,7 +2814,7 @@ server {
     
     # API routes
     location /api/ {
-        proxy_pass http://localhost:3001;
+        proxy_pass http://adityahospitalnagaon.com;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -3141,7 +3141,7 @@ server {
     
     # API routes
     location /api/ {
-        proxy_pass http://localhost:3001;
+        proxy_pass http://adityahospitalnagaon.com;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -3468,7 +3468,7 @@ server {
     
     # API routes
     location /api/ {
-        proxy_pass http://localhost:3001;
+        proxy_pass http://adityahospitalnagaon.com;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -3795,7 +3795,7 @@ server {
     
     # API routes
     location /api/ {
-        proxy_pass http://localhost:3001;
+        proxy_pass http://adityahospitalnagaon.com;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -4122,7 +4122,7 @@ server {
     
     # API routes
     location /api/ {
-        proxy_pass http://localhost:3001;
+        proxy_pass http://adityahospitalnagaon.com;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -4449,7 +4449,7 @@ server {
     
     # API routes
     location /api/ {
-        proxy_pass http://localhost:3001;
+        proxy_pass http://adityahospitalnagaon.com;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -4776,7 +4776,7 @@ server {
     
     # API routes
     location /api/ {
-        proxy_pass http://localhost:3001;
+        proxy_pass http://adityahospitalnagaon.com;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -5103,7 +5103,7 @@ server {
     
     # API routes
     location /api/ {
-        proxy_pass http://localhost:3001;
+        proxy_pass http://adityahospitalnagaon.com;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -5430,7 +5430,7 @@ server {
     
     # API routes
     location /api/ {
-        proxy_pass http://localhost:3001;
+        proxy_pass http://adityahospitalnagaon.com;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -5757,7 +5757,7 @@ server {
     
     # API routes
     location /api/ {
-        proxy_pass http://localhost:3001;
+        proxy_pass http://adityahospitalnagaon.com;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -6084,7 +6084,7 @@ server {
     
     # API routes
     location /api/ {
-        proxy_pass http://localhost:3001;
+        proxy_pass http://adityahospitalnagaon.com;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -6411,7 +6411,7 @@ server {
     
     # API routes
     location /api/ {
-        proxy_pass http://localhost:3001;
+        proxy_pass http://adityahospitalnagaon.com;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -6738,7 +6738,7 @@ server {
     
     # API routes
     location /api/ {
-        proxy_pass http://localhost:3001;
+        proxy_pass http://adityahospitalnagaon.com;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -7065,7 +7065,7 @@ server {
     
     # API routes
     location /api/ {
-        proxy_pass http://localhost:3001;
+        proxy_pass http://adityahospitalnagaon.com;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -7392,7 +7392,7 @@ server {
     
     # API routes
     location /api/ {
-        proxy_pass http://localhost:3001;
+        proxy_pass http://adityahospitalnagaon.com;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';

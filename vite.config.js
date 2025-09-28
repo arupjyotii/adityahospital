@@ -9,7 +9,7 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   
   // Default API URL for development
-  const apiUrl = env.VITE_API_URL || 'http://localhost:3001';
+  const apiUrl = env.VITE_API_URL || 'http://adityahospitalnagaon.com';
   const apiTarget = apiUrl.replace('/api', '');
 
   return {

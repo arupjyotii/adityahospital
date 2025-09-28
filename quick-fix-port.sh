@@ -67,7 +67,7 @@ if pm2 start server/index.js --name "aditya-hospital" --watch false --env produc
     # Test the server
     echo "🧪 Testing server..."
     sleep 3
-    if curl -s http://localhost:3001/api/health >/dev/null 2>&1; then
+    if curl -s http://adityahospitalnagaon.com/api/health >/dev/null 2>&1; then
         echo "✅ Server is responding on port 3001"
     else
         echo "⚠️ Server may not be responding, checking logs..."

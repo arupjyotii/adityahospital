@@ -157,7 +157,7 @@ if [ $? -eq 0 ]; then
     echo ""
     echo "🌐 Testing server..."
     sleep 2
-    if curl -s http://localhost:3001/api/health > /dev/null; then
+    if curl -s http://adityahospitalnagaon.com/api/health > /dev/null; then
         echo "✅ Server is responding on port 3001"
     else
         echo "⚠️ Server may not be responding properly"
@@ -192,5 +192,5 @@ echo "📝 Server status:"
 pm2 status
 echo ""
 echo "🔗 Your backend should now be accessible at:"
-echo "   - Local: http://localhost:3001"
+echo "   - Local: http://adityahospitalnagaon.com"
 echo "   - Production: https://adityahospitalnagaon.com (via Nginx proxy)"

@@ -76,8 +76,8 @@ npm run dev:frontend
 ### 6. Access the Application
 
 - **Frontend**: http://localhost:3000
-- **Backend API**: http://localhost:3001
-- **API Health Check**: http://localhost:3001/api/health
+- **Backend API**: http://adityahospitalnagaon.com
+- **API Health Check**: http://adityahospitalnagaon.com/api/health
 - **Admin Panel**: http://localhost:3000/admin (login with admin/admin123)
 
 ## Production Deployment

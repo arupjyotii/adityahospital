@@ -31,7 +31,7 @@ Created helper scripts for future deployment and maintenance:
 - Troubleshooting section added for common issues
 
 ## Current Status
-✅ Server is running successfully on http://localhost:3001
+✅ Server is running successfully on http://adityahospitalnagaon.com
 ✅ MongoDB is connected
 ✅ All API endpoints are accessible
 ✅ Frontend can be accessed on http://localhost:3000
@@ -62,7 +62,7 @@ Created helper scripts for future deployment and maintenance:
 ## Testing the Deployment
 
 1. **API Health Check**:
-   Visit http://localhost:3001/api/health to verify the API is running
+   Visit http://adityahospitalnagaon.com/api/health to verify the API is running
 
 2. **Dependency Verification**:
    Run `npm run test:deps` to verify all dependencies are installed

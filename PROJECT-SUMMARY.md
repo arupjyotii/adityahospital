@@ -33,8 +33,8 @@ I've successfully created a fresh, clean MERN stack hospital website with a work
 
 ### Development (Local Testing)
 - **Frontend**: http://localhost:3000
-- **Backend API**: http://localhost:3001
-- **API Health**: http://localhost:3001/api/health
+- **Backend API**: http://adityahospitalnagaon.com
+- **API Health**: http://adityahospitalnagaon.com/api/health
 - **Admin Panel**: http://localhost:3000/admin
 
 ### Production (Live Website)

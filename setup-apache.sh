@@ -60,8 +60,8 @@ sudo tee "$APACHE_CONFIG" > /dev/null <<EOF
     # API Proxy to backend
     ProxyPreserveHost On
     ProxyRequests Off
-    ProxyPass /api/ http://localhost:3001/api/
-    ProxyPassReverse /api/ http://localhost:3001/api/
+    ProxyPass /api/ http://adityahospitalnagaon.com/api/
+    ProxyPassReverse /api/ http://adityahospitalnagaon.com/api/
     
     # Frontend fallback for React routing
     <Directory "$WEB_ROOT/dist/public">
@@ -102,8 +102,8 @@ sudo tee "$APACHE_CONFIG" > /dev/null <<EOF
     # API Proxy to backend
     ProxyPreserveHost On
     ProxyRequests Off
-    ProxyPass /api/ http://localhost:3001/api/
-    ProxyPassReverse /api/ http://localhost:3001/api/
+    ProxyPass /api/ http://adityahospitalnagaon.com/api/
+    ProxyPassReverse /api/ http://adityahospitalnagaon.com/api/
     
     # Frontend fallback for React routing
     <Directory "$WEB_ROOT/dist/public">

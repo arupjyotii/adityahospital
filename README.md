@@ -143,7 +143,7 @@ FRONTEND_URL=http://localhost:3000
 ### Frontend (client/.env)
 
 ```env
-VITE_API_URL=http://localhost:3001/api
+VITE_API_URL=http://adityahospitalnagaon.com/api
 ```
 
 ## 🐳 Deployment
@@ -182,7 +182,7 @@ server {
 
     # API Proxy
     location /api/ {
-        proxy_pass http://localhost:3001;
+        proxy_pass http://adityahospitalnagaon.com;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';

@@ -34,7 +34,7 @@ Created helper scripts for future deployment and maintenance:
 ✅ Server is running successfully on http://adityahospitalnagaon.com
 ✅ MongoDB is connected
 ✅ All API endpoints are accessible
-✅ Frontend can be accessed on http://localhost:3000
+✅ Frontend can be accessed on http://adityahospitalnagaon.com
 
 ## Next Steps for Production Deployment
 
@@ -68,7 +68,7 @@ Created helper scripts for future deployment and maintenance:
    Run `npm run test:deps` to verify all dependencies are installed
 
 3. **Frontend Access**:
-   Visit http://localhost:3000 to access the frontend (if running)
+   Visit http://adityahospitalnagaon.com to access the frontend (if running)
 
 ## Troubleshooting
 

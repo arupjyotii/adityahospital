@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Aggressive fix for port 3001 conflict
-echo "🚀 Aggressive Fix: Forcefully clearing port 3001..."
+# Aggressive fix for port 4173 conflict
+echo "🚀 Aggressive Fix: Forcefully clearing port 4173..."
 
 # Stop ALL PM2 processes
 echo "⏹️ Stopping PM2 processes..."
@@ -15,29 +15,29 @@ sudo pkill -f node 2>/dev/null || true
 sudo pkill -f "server/index.js" 2>/dev/null || true
 sudo pkill -f "aditya-hospital" 2>/dev/null || true
 
-# Forcefully kill anything on port 3001
-echo "🔫 Force killing processes on port 3001..."
-sudo fuser -k 3001/tcp 2>/dev/null || true
-sudo lsof -ti:3001 | xargs -r sudo kill -9 2>/dev/null || true
-sudo ss -lptn 'sport = :3001' | grep -oP 'pid=\K[0-9]+' | xargs -r sudo kill -9 2>/dev/null || true
+# Forcefully kill anything on port 4173
+echo "🔫 Force killing processes on port 4173..."
+sudo fuser -k 4173/tcp 2>/dev/null || true
+sudo lsof -ti:4173 | xargs -r sudo kill -9 2>/dev/null || true
+sudo ss -lptn 'sport = :4173' | grep -oP 'pid=\K[0-9]+' | xargs -r sudo kill -9 2>/dev/null || true
 
 # Wait longer for processes to fully terminate
 echo "⏳ Waiting for processes to terminate..."
 sleep 5
 
 # Check if port is still in use
-echo "🔍 Checking if port 3001 is free..."
-if sudo netstat -tlnp | grep :3001; then
-    echo "⚠️ Port 3001 still in use! Trying more aggressive approach..."
+echo "🔍 Checking if port 4173 is free..."
+if sudo netstat -tlnp | grep :4173; then
+    echo "⚠️ Port 4173 still in use! Trying more aggressive approach..."
     # Find and kill the specific process
-    PID=$(sudo netstat -tlnp | grep :3001 | awk '{print $7}' | cut -d'/' -f1)
+    PID=$(sudo netstat -tlnp | grep :4173 | awk '{print $7}' | cut -d'/' -f1)
     if [ -n "$PID" ]; then
         echo "🎯 Killing specific PID: $PID"
         sudo kill -9 $PID 2>/dev/null || true
         sleep 2
     fi
 else
-    echo "✅ Port 3001 is now free!"
+    echo "✅ Port 4173 is now free!"
 fi
 
 # Navigate to project directory
@@ -68,7 +68,7 @@ if pm2 start server/index.js --name "aditya-hospital" --watch false --env produc
     echo "🧪 Testing server..."
     sleep 3
     if curl -s http://adityahospitalnagaon.com/api/health >/dev/null 2>&1; then
-        echo "✅ Server is responding on port 3001"
+        echo "✅ Server is responding on port 4173"
     else
         echo "⚠️ Server may not be responding, checking logs..."
         pm2 logs aditya-hospital --lines 5

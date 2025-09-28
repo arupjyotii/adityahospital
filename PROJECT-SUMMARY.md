@@ -32,10 +32,10 @@ I've successfully created a fresh, clean MERN stack hospital website with a work
 ## 🌐 URLs & Access
 
 ### Development (Local Testing)
-- **Frontend**: http://localhost:3000
+- **Frontend**: http://adityahospitalnagaon.com
 - **Backend API**: http://adityahospitalnagaon.com
 - **API Health**: http://adityahospitalnagaon.com/api/health
-- **Admin Panel**: http://localhost:3000/admin
+- **Admin Panel**: http://adityahospitalnagaon.com/admin
 
 ### Production (Live Website)
 - **Website**: https://adityahospitalnagaon.com
@@ -107,7 +107,7 @@ npm run dev
 
 # Or start individually
 npm run dev:frontend  # Port 3000
-npm run dev:backend   # Port 3001
+npm run dev:backend   # Port 4173
 ```
 
 ### 2. **Production Deployment**

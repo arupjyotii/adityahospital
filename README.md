@@ -123,7 +123,7 @@ adityahospital/
 ```env
 # Environment Configuration
 NODE_ENV=development|production
-PORT=3001
+PORT=4173
 HOST=localhost
 
 # Database Configuration
@@ -134,10 +134,10 @@ JWT_SECRET=your-super-secret-jwt-key
 JWT_EXPIRES_IN=7d
 
 # CORS Configuration
-CORS_ORIGINS=http://localhost:3000,https://yourdomain.com
+CORS_ORIGINS=http://adityahospitalnagaon.com,https://yourdomain.com
 
 # Frontend URL
-FRONTEND_URL=http://localhost:3000
+FRONTEND_URL=http://adityahospitalnagaon.com
 ```
 
 ### Frontend (client/.env)

@@ -41,7 +41,7 @@ nano .env
 **Required Environment Variables:**
 ```env
 NODE_ENV=production
-PORT=3001
+PORT=4173
 MONGODB_URI=your_mongodb_connection_string
 JWT_SECRET=your-secure-jwt-secret
 PRODUCTION_DOMAIN=adityahospitalnagaon.com
@@ -160,8 +160,8 @@ df -h
 ### Port Issues
 ```bash
 # Check if port is in use
-sudo netstat -tlnp | grep :3001
-sudo lsof -i :3001
+sudo netstat -tlnp | grep :4173
+sudo lsof -i :4173
 ```
 
 ### Permission Issues

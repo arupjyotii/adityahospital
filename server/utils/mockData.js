@@ -2,7 +2,7 @@
 
 export const mockDepartments = [
   {
-    _id: '60f3b4b3b3f1b3001f8b4567',
+    _id: '60f3b4b3b3f1b4173f8b4567',
     name: 'Cardiology',
     slug: 'cardiology',
     description: 'Comprehensive heart care and cardiovascular treatments with state-of-the-art equipment',
@@ -18,7 +18,7 @@ export const mockDepartments = [
     }
   },
   {
-    _id: '60f3b4b3b3f1b3001f8b4568',
+    _id: '60f3b4b3b3f1b4173f8b4568',
     name: 'Orthopedics',
     slug: 'orthopedics',
     description: 'Bone, joint, and musculoskeletal system treatments with modern surgical techniques',
@@ -34,7 +34,7 @@ export const mockDepartments = [
     }
   },
   {
-    _id: '60f3b4b3b3f1b3001f8b4569',
+    _id: '60f3b4b3b3f1b4173f8b4569',
     name: 'General Medicine',
     slug: 'general-medicine',
     description: 'Primary healthcare and general medical consultations for all age groups',
@@ -50,7 +50,7 @@ export const mockDepartments = [
     }
   },
   {
-    _id: '60f3b4b3b3f1b3001f8b456a',
+    _id: '60f3b4b3b3f1b4173f8b456a',
     name: 'Pediatrics',
     slug: 'pediatrics',
     description: 'Specialized healthcare for children and adolescents with gentle care',
@@ -69,11 +69,11 @@ export const mockDepartments = [
 
 export const mockDoctors = [
   {
-    _id: '60f3b4b3b3f1b3001f8b456b',
+    _id: '60f3b4b3b3f1b4173f8b456b',
     name: 'Dr. Rajesh Kumar',
     slug: 'dr-rajesh-kumar',
     specialization: 'Interventional Cardiologist',
-    department: '60f3b4b3b3f1b3001f8b4567',
+    department: '60f3b4b3b3f1b4173f8b4567',
     qualification: 'MBBS, MD (Cardiology), DM (Interventional Cardiology)',
     experience: 15,
     image: '/images/doctors/dr-rajesh-kumar.jpg',
@@ -100,11 +100,11 @@ export const mockDoctors = [
     }
   },
   {
-    _id: '60f3b4b3b3f1b3001f8b456c',
+    _id: '60f3b4b3b3f1b4173f8b456c',
     name: 'Dr. Priya Sharma',
     slug: 'dr-priya-sharma',
     specialization: 'Orthopedic Surgeon',
-    department: '60f3b4b3b3f1b3001f8b4568',
+    department: '60f3b4b3b3f1b4173f8b4568',
     qualification: 'MBBS, MS (Orthopedics), Fellowship in Joint Replacement',
     experience: 12,
     image: '/images/doctors/dr-priya-sharma.jpg',
@@ -122,11 +122,11 @@ export const mockDoctors = [
     rating: { average: 4.7, count: 98 }
   },
   {
-    _id: '60f3b4b3b3f1b3001f8b456d',
+    _id: '60f3b4b3b3f1b4173f8b456d',
     name: 'Dr. Amit Das',
     slug: 'dr-amit-das',
     specialization: 'General Physician',
-    department: '60f3b4b3b3f1b3001f8b4569',
+    department: '60f3b4b3b3f1b4173f8b4569',
     qualification: 'MBBS, MD (Internal Medicine)',
     experience: 10,
     image: '/images/doctors/dr-amit-das.jpg',
@@ -142,42 +142,42 @@ export const mockDoctors = [
 
 export const mockServices = [
   {
-    _id: '60f3b4b3b3f1b3001f8b456e',
+    _id: '60f3b4b3b3f1b4173f8b456e',
     name: 'Cardiac Consultation',
     slug: 'cardiac-consultation',
     category: 'diagnostic',
     description: 'Comprehensive cardiac evaluation including ECG, ECHO, and consultation with our expert cardiologists.',
     shortDescription: 'Expert cardiac evaluation and treatment planning',
-    department: '60f3b4b3b3f1b3001f8b4567',
-    relatedDoctors: ['60f3b4b3b3f1b3001f8b456b'],
+    department: '60f3b4b3b3f1b4173f8b4567',
+    relatedDoctors: ['60f3b4b3b3f1b4173f8b456b'],
     features: ['ECG', 'Echocardiography', 'Expert Consultation', 'Treatment Planning'],
     pricing: { basePrice: 1500, currency: 'INR' },
     isActive: true,
     order: 1
   },
   {
-    _id: '60f3b4b3b3f1b3001f8b456f',
+    _id: '60f3b4b3b3f1b4173f8b456f',
     name: 'Joint Replacement Surgery',
     slug: 'joint-replacement-surgery',
     category: 'surgical',
     description: 'Advanced joint replacement procedures for hip and knee with modern prosthetics and minimally invasive techniques.',
     shortDescription: 'Modern joint replacement with quick recovery',
-    department: '60f3b4b3b3f1b3001f8b4568',
-    relatedDoctors: ['60f3b4b3b3f1b3001f8b456c'],
+    department: '60f3b4b3b3f1b4173f8b4568',
+    relatedDoctors: ['60f3b4b3b3f1b4173f8b456c'],
     features: ['Minimally Invasive', 'Modern Prosthetics', 'Quick Recovery', 'Post-op Care'],
     pricing: { basePrice: 250000, currency: 'INR' },
     isActive: true,
     order: 2
   },
   {
-    _id: '60f3b4b3b3f1b3001f8b4570',
+    _id: '60f3b4b3b3f1b4173f8b4570',
     name: 'Health Checkup Package',
     slug: 'health-checkup-package',
     category: 'preventive',
     description: 'Comprehensive health screening package including blood tests, imaging, and consultation.',
     shortDescription: 'Complete health assessment package',
-    department: '60f3b4b3b3f1b3001f8b4569',
-    relatedDoctors: ['60f3b4b3b3f1b3001f8b456d'],
+    department: '60f3b4b3b3f1b4173f8b4569',
+    relatedDoctors: ['60f3b4b3b3f1b4173f8b456d'],
     features: ['Blood Tests', 'X-Ray', 'ECG', 'General Consultation'],
     pricing: { basePrice: 3000, currency: 'INR' },
     isActive: true,
@@ -186,7 +186,7 @@ export const mockServices = [
 ];
 
 export const mockUser = {
-  _id: '60f3b4b3b3f1b3001f8b4571',
+  _id: '60f3b4b3b3f1b4173f8b4571',
   username: 'admin',
   email: 'admin@adityahospitalnagaon.com',
   role: 'admin',

@@ -129,7 +129,7 @@ print_success \"Application built successfully\"
 print_status \"Configuring environment variables...\"
 cat > .env << EOF
 NODE_ENV=production
-PORT=3001
+PORT=4173
 HOST=0.0.0.0
 MONGODB_URI=mongodb+srv://codemicofficial_db_user:Vhv7Tjr0uIVg3wuA@cluster0.my5lehs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 JWT_SECRET=$(openssl rand -base64 32)
@@ -273,7 +273,7 @@ echo \"\"
 echo \"📋 Next Steps:\"
 echo \"1. Update DNS records to point to this server\"
 echo \"2. Set up SSL certificate: sudo certbot --nginx -d $DOMAIN -d www.$DOMAIN\"
-echo \"3. Check application: http://$(curl -s ifconfig.me):3001/api/health\"
+echo \"3. Check application: http://$(curl -s ifconfig.me):4173/api/health\"
 echo \"4. Monitor with: pm2 monit\"
 echo \"5. View logs: pm2 logs $APP_NAME\"
 echo \"\"
@@ -456,7 +456,7 @@ print_success \"Application built successfully\"
 print_status \"Configuring environment variables...\"
 cat > .env << EOF
 NODE_ENV=production
-PORT=3001
+PORT=4173
 HOST=0.0.0.0
 MONGODB_URI=mongodb+srv://codemicofficial_db_user:Vhv7Tjr0uIVg3wuA@cluster0.my5lehs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 JWT_SECRET=$(openssl rand -base64 32)
@@ -600,7 +600,7 @@ echo \"\"
 echo \"📋 Next Steps:\"
 echo \"1. Update DNS records to point to this server\"
 echo \"2. Set up SSL certificate: sudo certbot --nginx -d $DOMAIN -d www.$DOMAIN\"
-echo \"3. Check application: http://$(curl -s ifconfig.me):3001/api/health\"
+echo \"3. Check application: http://$(curl -s ifconfig.me):4173/api/health\"
 echo \"4. Monitor with: pm2 monit\"
 echo \"5. View logs: pm2 logs $APP_NAME\"
 echo \"\"
@@ -783,7 +783,7 @@ print_success \"Application built successfully\"
 print_status \"Configuring environment variables...\"
 cat > .env << EOF
 NODE_ENV=production
-PORT=3001
+PORT=4173
 HOST=0.0.0.0
 MONGODB_URI=mongodb+srv://codemicofficial_db_user:Vhv7Tjr0uIVg3wuA@cluster0.my5lehs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 JWT_SECRET=$(openssl rand -base64 32)
@@ -927,7 +927,7 @@ echo \"\"
 echo \"📋 Next Steps:\"
 echo \"1. Update DNS records to point to this server\"
 echo \"2. Set up SSL certificate: sudo certbot --nginx -d $DOMAIN -d www.$DOMAIN\"
-echo \"3. Check application: http://$(curl -s ifconfig.me):3001/api/health\"
+echo \"3. Check application: http://$(curl -s ifconfig.me):4173/api/health\"
 echo \"4. Monitor with: pm2 monit\"
 echo \"5. View logs: pm2 logs $APP_NAME\"
 echo \"\"
@@ -1110,7 +1110,7 @@ print_success \"Application built successfully\"
 print_status \"Configuring environment variables...\"
 cat > .env << EOF
 NODE_ENV=production
-PORT=3001
+PORT=4173
 HOST=0.0.0.0
 MONGODB_URI=mongodb+srv://codemicofficial_db_user:Vhv7Tjr0uIVg3wuA@cluster0.my5lehs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 JWT_SECRET=$(openssl rand -base64 32)
@@ -1254,7 +1254,7 @@ echo \"\"
 echo \"📋 Next Steps:\"
 echo \"1. Update DNS records to point to this server\"
 echo \"2. Set up SSL certificate: sudo certbot --nginx -d $DOMAIN -d www.$DOMAIN\"
-echo \"3. Check application: http://$(curl -s ifconfig.me):3001/api/health\"
+echo \"3. Check application: http://$(curl -s ifconfig.me):4173/api/health\"
 echo \"4. Monitor with: pm2 monit\"
 echo \"5. View logs: pm2 logs $APP_NAME\"
 echo \"\"
@@ -1437,7 +1437,7 @@ print_success \"Application built successfully\"
 print_status \"Configuring environment variables...\"
 cat > .env << EOF
 NODE_ENV=production
-PORT=3001
+PORT=4173
 HOST=0.0.0.0
 MONGODB_URI=mongodb+srv://codemicofficial_db_user:Vhv7Tjr0uIVg3wuA@cluster0.my5lehs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 JWT_SECRET=$(openssl rand -base64 32)
@@ -1581,7 +1581,7 @@ echo \"\"
 echo \"📋 Next Steps:\"
 echo \"1. Update DNS records to point to this server\"
 echo \"2. Set up SSL certificate: sudo certbot --nginx -d $DOMAIN -d www.$DOMAIN\"
-echo \"3. Check application: http://$(curl -s ifconfig.me):3001/api/health\"
+echo \"3. Check application: http://$(curl -s ifconfig.me):4173/api/health\"
 echo \"4. Monitor with: pm2 monit\"
 echo \"5. View logs: pm2 logs $APP_NAME\"
 echo \"\"
@@ -1764,7 +1764,7 @@ print_success \"Application built successfully\"
 print_status \"Configuring environment variables...\"
 cat > .env << EOF
 NODE_ENV=production
-PORT=3001
+PORT=4173
 HOST=0.0.0.0
 MONGODB_URI=mongodb+srv://codemicofficial_db_user:Vhv7Tjr0uIVg3wuA@cluster0.my5lehs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 JWT_SECRET=$(openssl rand -base64 32)
@@ -1908,7 +1908,7 @@ echo \"\"
 echo \"📋 Next Steps:\"
 echo \"1. Update DNS records to point to this server\"
 echo \"2. Set up SSL certificate: sudo certbot --nginx -d $DOMAIN -d www.$DOMAIN\"
-echo \"3. Check application: http://$(curl -s ifconfig.me):3001/api/health\"
+echo \"3. Check application: http://$(curl -s ifconfig.me):4173/api/health\"
 echo \"4. Monitor with: pm2 monit\"
 echo \"5. View logs: pm2 logs $APP_NAME\"
 echo \"\"
@@ -2091,7 +2091,7 @@ print_success \"Application built successfully\"
 print_status \"Configuring environment variables...\"
 cat > .env << EOF
 NODE_ENV=production
-PORT=3001
+PORT=4173
 HOST=0.0.0.0
 MONGODB_URI=mongodb+srv://codemicofficial_db_user:Vhv7Tjr0uIVg3wuA@cluster0.my5lehs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 JWT_SECRET=$(openssl rand -base64 32)
@@ -2235,7 +2235,7 @@ echo \"\"
 echo \"📋 Next Steps:\"
 echo \"1. Update DNS records to point to this server\"
 echo \"2. Set up SSL certificate: sudo certbot --nginx -d $DOMAIN -d www.$DOMAIN\"
-echo \"3. Check application: http://$(curl -s ifconfig.me):3001/api/health\"
+echo \"3. Check application: http://$(curl -s ifconfig.me):4173/api/health\"
 echo \"4. Monitor with: pm2 monit\"
 echo \"5. View logs: pm2 logs $APP_NAME\"
 echo \"\"
@@ -2418,7 +2418,7 @@ print_success \"Application built successfully\"
 print_status \"Configuring environment variables...\"
 cat > .env << EOF
 NODE_ENV=production
-PORT=3001
+PORT=4173
 HOST=0.0.0.0
 MONGODB_URI=mongodb+srv://codemicofficial_db_user:Vhv7Tjr0uIVg3wuA@cluster0.my5lehs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 JWT_SECRET=$(openssl rand -base64 32)
@@ -2562,7 +2562,7 @@ echo \"\"
 echo \"📋 Next Steps:\"
 echo \"1. Update DNS records to point to this server\"
 echo \"2. Set up SSL certificate: sudo certbot --nginx -d $DOMAIN -d www.$DOMAIN\"
-echo \"3. Check application: http://$(curl -s ifconfig.me):3001/api/health\"
+echo \"3. Check application: http://$(curl -s ifconfig.me):4173/api/health\"
 echo \"4. Monitor with: pm2 monit\"
 echo \"5. View logs: pm2 logs $APP_NAME\"
 echo \"\"
@@ -2745,7 +2745,7 @@ print_success \"Application built successfully\"
 print_status \"Configuring environment variables...\"
 cat > .env << EOF
 NODE_ENV=production
-PORT=3001
+PORT=4173
 HOST=0.0.0.0
 MONGODB_URI=mongodb+srv://codemicofficial_db_user:Vhv7Tjr0uIVg3wuA@cluster0.my5lehs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 JWT_SECRET=$(openssl rand -base64 32)
@@ -2889,7 +2889,7 @@ echo \"\"
 echo \"📋 Next Steps:\"
 echo \"1. Update DNS records to point to this server\"
 echo \"2. Set up SSL certificate: sudo certbot --nginx -d $DOMAIN -d www.$DOMAIN\"
-echo \"3. Check application: http://$(curl -s ifconfig.me):3001/api/health\"
+echo \"3. Check application: http://$(curl -s ifconfig.me):4173/api/health\"
 echo \"4. Monitor with: pm2 monit\"
 echo \"5. View logs: pm2 logs $APP_NAME\"
 echo \"\"
@@ -3072,7 +3072,7 @@ print_success \"Application built successfully\"
 print_status \"Configuring environment variables...\"
 cat > .env << EOF
 NODE_ENV=production
-PORT=3001
+PORT=4173
 HOST=0.0.0.0
 MONGODB_URI=mongodb+srv://codemicofficial_db_user:Vhv7Tjr0uIVg3wuA@cluster0.my5lehs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 JWT_SECRET=$(openssl rand -base64 32)
@@ -3216,7 +3216,7 @@ echo \"\"
 echo \"📋 Next Steps:\"
 echo \"1. Update DNS records to point to this server\"
 echo \"2. Set up SSL certificate: sudo certbot --nginx -d $DOMAIN -d www.$DOMAIN\"
-echo \"3. Check application: http://$(curl -s ifconfig.me):3001/api/health\"
+echo \"3. Check application: http://$(curl -s ifconfig.me):4173/api/health\"
 echo \"4. Monitor with: pm2 monit\"
 echo \"5. View logs: pm2 logs $APP_NAME\"
 echo \"\"
@@ -3399,7 +3399,7 @@ print_success \"Application built successfully\"
 print_status \"Configuring environment variables...\"
 cat > .env << EOF
 NODE_ENV=production
-PORT=3001
+PORT=4173
 HOST=0.0.0.0
 MONGODB_URI=mongodb+srv://codemicofficial_db_user:Vhv7Tjr0uIVg3wuA@cluster0.my5lehs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 JWT_SECRET=$(openssl rand -base64 32)
@@ -3543,7 +3543,7 @@ echo \"\"
 echo \"📋 Next Steps:\"
 echo \"1. Update DNS records to point to this server\"
 echo \"2. Set up SSL certificate: sudo certbot --nginx -d $DOMAIN -d www.$DOMAIN\"
-echo \"3. Check application: http://$(curl -s ifconfig.me):3001/api/health\"
+echo \"3. Check application: http://$(curl -s ifconfig.me):4173/api/health\"
 echo \"4. Monitor with: pm2 monit\"
 echo \"5. View logs: pm2 logs $APP_NAME\"
 echo \"\"
@@ -3726,7 +3726,7 @@ print_success \"Application built successfully\"
 print_status \"Configuring environment variables...\"
 cat > .env << EOF
 NODE_ENV=production
-PORT=3001
+PORT=4173
 HOST=0.0.0.0
 MONGODB_URI=mongodb+srv://codemicofficial_db_user:Vhv7Tjr0uIVg3wuA@cluster0.my5lehs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 JWT_SECRET=$(openssl rand -base64 32)
@@ -3870,7 +3870,7 @@ echo \"\"
 echo \"📋 Next Steps:\"
 echo \"1. Update DNS records to point to this server\"
 echo \"2. Set up SSL certificate: sudo certbot --nginx -d $DOMAIN -d www.$DOMAIN\"
-echo \"3. Check application: http://$(curl -s ifconfig.me):3001/api/health\"
+echo \"3. Check application: http://$(curl -s ifconfig.me):4173/api/health\"
 echo \"4. Monitor with: pm2 monit\"
 echo \"5. View logs: pm2 logs $APP_NAME\"
 echo \"\"
@@ -4053,7 +4053,7 @@ print_success \"Application built successfully\"
 print_status \"Configuring environment variables...\"
 cat > .env << EOF
 NODE_ENV=production
-PORT=3001
+PORT=4173
 HOST=0.0.0.0
 MONGODB_URI=mongodb+srv://codemicofficial_db_user:Vhv7Tjr0uIVg3wuA@cluster0.my5lehs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 JWT_SECRET=$(openssl rand -base64 32)
@@ -4197,7 +4197,7 @@ echo \"\"
 echo \"📋 Next Steps:\"
 echo \"1. Update DNS records to point to this server\"
 echo \"2. Set up SSL certificate: sudo certbot --nginx -d $DOMAIN -d www.$DOMAIN\"
-echo \"3. Check application: http://$(curl -s ifconfig.me):3001/api/health\"
+echo \"3. Check application: http://$(curl -s ifconfig.me):4173/api/health\"
 echo \"4. Monitor with: pm2 monit\"
 echo \"5. View logs: pm2 logs $APP_NAME\"
 echo \"\"
@@ -4380,7 +4380,7 @@ print_success \"Application built successfully\"
 print_status \"Configuring environment variables...\"
 cat > .env << EOF
 NODE_ENV=production
-PORT=3001
+PORT=4173
 HOST=0.0.0.0
 MONGODB_URI=mongodb+srv://codemicofficial_db_user:Vhv7Tjr0uIVg3wuA@cluster0.my5lehs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 JWT_SECRET=$(openssl rand -base64 32)
@@ -4524,7 +4524,7 @@ echo \"\"
 echo \"📋 Next Steps:\"
 echo \"1. Update DNS records to point to this server\"
 echo \"2. Set up SSL certificate: sudo certbot --nginx -d $DOMAIN -d www.$DOMAIN\"
-echo \"3. Check application: http://$(curl -s ifconfig.me):3001/api/health\"
+echo \"3. Check application: http://$(curl -s ifconfig.me):4173/api/health\"
 echo \"4. Monitor with: pm2 monit\"
 echo \"5. View logs: pm2 logs $APP_NAME\"
 echo \"\"
@@ -4707,7 +4707,7 @@ print_success \"Application built successfully\"
 print_status \"Configuring environment variables...\"
 cat > .env << EOF
 NODE_ENV=production
-PORT=3001
+PORT=4173
 HOST=0.0.0.0
 MONGODB_URI=mongodb+srv://codemicofficial_db_user:Vhv7Tjr0uIVg3wuA@cluster0.my5lehs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 JWT_SECRET=$(openssl rand -base64 32)
@@ -4851,7 +4851,7 @@ echo \"\"
 echo \"📋 Next Steps:\"
 echo \"1. Update DNS records to point to this server\"
 echo \"2. Set up SSL certificate: sudo certbot --nginx -d $DOMAIN -d www.$DOMAIN\"
-echo \"3. Check application: http://$(curl -s ifconfig.me):3001/api/health\"
+echo \"3. Check application: http://$(curl -s ifconfig.me):4173/api/health\"
 echo \"4. Monitor with: pm2 monit\"
 echo \"5. View logs: pm2 logs $APP_NAME\"
 echo \"\"
@@ -5034,7 +5034,7 @@ print_success \"Application built successfully\"
 print_status \"Configuring environment variables...\"
 cat > .env << EOF
 NODE_ENV=production
-PORT=3001
+PORT=4173
 HOST=0.0.0.0
 MONGODB_URI=mongodb+srv://codemicofficial_db_user:Vhv7Tjr0uIVg3wuA@cluster0.my5lehs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 JWT_SECRET=$(openssl rand -base64 32)
@@ -5178,7 +5178,7 @@ echo \"\"
 echo \"📋 Next Steps:\"
 echo \"1. Update DNS records to point to this server\"
 echo \"2. Set up SSL certificate: sudo certbot --nginx -d $DOMAIN -d www.$DOMAIN\"
-echo \"3. Check application: http://$(curl -s ifconfig.me):3001/api/health\"
+echo \"3. Check application: http://$(curl -s ifconfig.me):4173/api/health\"
 echo \"4. Monitor with: pm2 monit\"
 echo \"5. View logs: pm2 logs $APP_NAME\"
 echo \"\"
@@ -5361,7 +5361,7 @@ print_success \"Application built successfully\"
 print_status \"Configuring environment variables...\"
 cat > .env << EOF
 NODE_ENV=production
-PORT=3001
+PORT=4173
 HOST=0.0.0.0
 MONGODB_URI=mongodb+srv://codemicofficial_db_user:Vhv7Tjr0uIVg3wuA@cluster0.my5lehs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 JWT_SECRET=$(openssl rand -base64 32)
@@ -5505,7 +5505,7 @@ echo \"\"
 echo \"📋 Next Steps:\"
 echo \"1. Update DNS records to point to this server\"
 echo \"2. Set up SSL certificate: sudo certbot --nginx -d $DOMAIN -d www.$DOMAIN\"
-echo \"3. Check application: http://$(curl -s ifconfig.me):3001/api/health\"
+echo \"3. Check application: http://$(curl -s ifconfig.me):4173/api/health\"
 echo \"4. Monitor with: pm2 monit\"
 echo \"5. View logs: pm2 logs $APP_NAME\"
 echo \"\"
@@ -5688,7 +5688,7 @@ print_success \"Application built successfully\"
 print_status \"Configuring environment variables...\"
 cat > .env << EOF
 NODE_ENV=production
-PORT=3001
+PORT=4173
 HOST=0.0.0.0
 MONGODB_URI=mongodb+srv://codemicofficial_db_user:Vhv7Tjr0uIVg3wuA@cluster0.my5lehs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 JWT_SECRET=$(openssl rand -base64 32)
@@ -5832,7 +5832,7 @@ echo \"\"
 echo \"📋 Next Steps:\"
 echo \"1. Update DNS records to point to this server\"
 echo \"2. Set up SSL certificate: sudo certbot --nginx -d $DOMAIN -d www.$DOMAIN\"
-echo \"3. Check application: http://$(curl -s ifconfig.me):3001/api/health\"
+echo \"3. Check application: http://$(curl -s ifconfig.me):4173/api/health\"
 echo \"4. Monitor with: pm2 monit\"
 echo \"5. View logs: pm2 logs $APP_NAME\"
 echo \"\"
@@ -6015,7 +6015,7 @@ print_success \"Application built successfully\"
 print_status \"Configuring environment variables...\"
 cat > .env << EOF
 NODE_ENV=production
-PORT=3001
+PORT=4173
 HOST=0.0.0.0
 MONGODB_URI=mongodb+srv://codemicofficial_db_user:Vhv7Tjr0uIVg3wuA@cluster0.my5lehs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 JWT_SECRET=$(openssl rand -base64 32)
@@ -6159,7 +6159,7 @@ echo \"\"
 echo \"📋 Next Steps:\"
 echo \"1. Update DNS records to point to this server\"
 echo \"2. Set up SSL certificate: sudo certbot --nginx -d $DOMAIN -d www.$DOMAIN\"
-echo \"3. Check application: http://$(curl -s ifconfig.me):3001/api/health\"
+echo \"3. Check application: http://$(curl -s ifconfig.me):4173/api/health\"
 echo \"4. Monitor with: pm2 monit\"
 echo \"5. View logs: pm2 logs $APP_NAME\"
 echo \"\"
@@ -6342,7 +6342,7 @@ print_success \"Application built successfully\"
 print_status \"Configuring environment variables...\"
 cat > .env << EOF
 NODE_ENV=production
-PORT=3001
+PORT=4173
 HOST=0.0.0.0
 MONGODB_URI=mongodb+srv://codemicofficial_db_user:Vhv7Tjr0uIVg3wuA@cluster0.my5lehs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 JWT_SECRET=$(openssl rand -base64 32)
@@ -6486,7 +6486,7 @@ echo \"\"
 echo \"📋 Next Steps:\"
 echo \"1. Update DNS records to point to this server\"
 echo \"2. Set up SSL certificate: sudo certbot --nginx -d $DOMAIN -d www.$DOMAIN\"
-echo \"3. Check application: http://$(curl -s ifconfig.me):3001/api/health\"
+echo \"3. Check application: http://$(curl -s ifconfig.me):4173/api/health\"
 echo \"4. Monitor with: pm2 monit\"
 echo \"5. View logs: pm2 logs $APP_NAME\"
 echo \"\"
@@ -6669,7 +6669,7 @@ print_success \"Application built successfully\"
 print_status \"Configuring environment variables...\"
 cat > .env << EOF
 NODE_ENV=production
-PORT=3001
+PORT=4173
 HOST=0.0.0.0
 MONGODB_URI=mongodb+srv://codemicofficial_db_user:Vhv7Tjr0uIVg3wuA@cluster0.my5lehs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 JWT_SECRET=$(openssl rand -base64 32)
@@ -6813,7 +6813,7 @@ echo \"\"
 echo \"📋 Next Steps:\"
 echo \"1. Update DNS records to point to this server\"
 echo \"2. Set up SSL certificate: sudo certbot --nginx -d $DOMAIN -d www.$DOMAIN\"
-echo \"3. Check application: http://$(curl -s ifconfig.me):3001/api/health\"
+echo \"3. Check application: http://$(curl -s ifconfig.me):4173/api/health\"
 echo \"4. Monitor with: pm2 monit\"
 echo \"5. View logs: pm2 logs $APP_NAME\"
 echo \"\"
@@ -6996,7 +6996,7 @@ print_success \"Application built successfully\"
 print_status \"Configuring environment variables...\"
 cat > .env << EOF
 NODE_ENV=production
-PORT=3001
+PORT=4173
 HOST=0.0.0.0
 MONGODB_URI=mongodb+srv://codemicofficial_db_user:Vhv7Tjr0uIVg3wuA@cluster0.my5lehs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 JWT_SECRET=$(openssl rand -base64 32)
@@ -7140,7 +7140,7 @@ echo \"\"
 echo \"📋 Next Steps:\"
 echo \"1. Update DNS records to point to this server\"
 echo \"2. Set up SSL certificate: sudo certbot --nginx -d $DOMAIN -d www.$DOMAIN\"
-echo \"3. Check application: http://$(curl -s ifconfig.me):3001/api/health\"
+echo \"3. Check application: http://$(curl -s ifconfig.me):4173/api/health\"
 echo \"4. Monitor with: pm2 monit\"
 echo \"5. View logs: pm2 logs $APP_NAME\"
 echo \"\"
@@ -7323,7 +7323,7 @@ print_success \"Application built successfully\"
 print_status \"Configuring environment variables...\"
 cat > .env << EOF
 NODE_ENV=production
-PORT=3001
+PORT=4173
 HOST=0.0.0.0
 MONGODB_URI=mongodb+srv://codemicofficial_db_user:Vhv7Tjr0uIVg3wuA@cluster0.my5lehs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 JWT_SECRET=$(openssl rand -base64 32)
@@ -7467,7 +7467,7 @@ echo \"\"
 echo \"📋 Next Steps:\"
 echo \"1. Update DNS records to point to this server\"
 echo \"2. Set up SSL certificate: sudo certbot --nginx -d $DOMAIN -d www.$DOMAIN\"
-echo \"3. Check application: http://$(curl -s ifconfig.me):3001/api/health\"
+echo \"3. Check application: http://$(curl -s ifconfig.me):4173/api/health\"
 echo \"4. Monitor with: pm2 monit\"
 echo \"5. View logs: pm2 logs $APP_NAME\"
 echo \"\"
@@ -7650,7 +7650,7 @@ print_success \"Application built successfully\"
 print_status \"Configuring environment variables...\"
 cat > .env << EOF
 NODE_ENV=production
-PORT=3001
+PORT=4173
 HOST=0.0.0.0
 MONGODB_URI=mongodb+srv://codemicofficial_db_user:Vhv7Tjr0uIVg3wuA@cluster0.my5lehs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 JWT_SECRET=$(openssl rand -base64 32)

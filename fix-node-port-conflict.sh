@@ -1,26 +1,26 @@
 #!/bin/bash
 
-# Fix Node.js Port 3001 Conflict
+# Fix Node.js Port 4173 Conflict
 # This script stops all conflicting Node.js processes and starts the server properly
 
-echo "🔧 Fixing Node.js Port 3001 Conflict..."
+echo "🔧 Fixing Node.js Port 4173 Conflict..."
 echo "======================================"
 
-# Check what's using port 3001
-echo "🔍 Checking what's using port 3001..."
-PORT_3001_PROCESS=$(sudo netstat -tlnp | grep :3001 | head -1)
-if [ -n "$PORT_3001_PROCESS" ]; then
-    echo "📍 Found process using port 3001:"
-    echo "$PORT_3001_PROCESS"
+# Check what's using port 4173
+echo "🔍 Checking what's using port 4173..."
+PORT_4173_PROCESS=$(sudo netstat -tlnp | grep :4173 | head -1)
+if [ -n "$PORT_4173_PROCESS" ]; then
+    echo "📍 Found process using port 4173:"
+    echo "$PORT_4173_PROCESS"
     
     # Extract process info
-    PROCESS_INFO=$(echo "$PORT_3001_PROCESS" | awk '{print $7}')
+    PROCESS_INFO=$(echo "$PORT_4173_PROCESS" | awk '{print $7}')
     PID=$(echo "$PROCESS_INFO" | cut -d'/' -f1)
     PROCESS_NAME=$(echo "$PROCESS_INFO" | cut -d'/' -f2)
     
     echo "Process: $PROCESS_NAME (PID: $PID)"
 else
-    echo "ℹ️ No process found on port 3001"
+    echo "ℹ️ No process found on port 4173"
 fi
 
 # Check PM2 processes
@@ -40,10 +40,10 @@ else
     echo "ℹ️ PM2 not found or not installed"
 fi
 
-# Kill any Node.js processes on port 3001
+# Kill any Node.js processes on port 4173
 echo ""
-echo "🔫 Killing any Node.js processes on port 3001..."
-sudo fuser -k 3001/tcp 2>/dev/null || true
+echo "🔫 Killing any Node.js processes on port 4173..."
+sudo fuser -k 4173/tcp 2>/dev/null || true
 
 # Kill any node processes that might be running our app
 echo "🔫 Killing any remaining Node.js processes..."
@@ -53,17 +53,17 @@ pkill -f "aditya-hospital" 2>/dev/null || true
 # Wait a moment for processes to fully terminate
 sleep 3
 
-# Verify port 3001 is free
+# Verify port 4173 is free
 echo ""
-echo "🔍 Verifying port 3001 is now free..."
-if ! sudo netstat -tlnp | grep :3001 > /dev/null; then
-    echo "✅ Port 3001 is now available"
+echo "🔍 Verifying port 4173 is now free..."
+if ! sudo netstat -tlnp | grep :4173 > /dev/null; then
+    echo "✅ Port 4173 is now available"
 else
-    echo "⚠️ Port 3001 is still in use:"
-    sudo netstat -tlnp | grep :3001
+    echo "⚠️ Port 4173 is still in use:"
+    sudo netstat -tlnp | grep :4173
     echo ""
     echo "🔫 Force killing remaining processes..."
-    sudo ss -lptn 'sport = :3001' | grep -oP 'pid=\K[0-9]+' | xargs -r sudo kill -9
+    sudo ss -lptn 'sport = :4173' | grep -oP 'pid=\K[0-9]+' | xargs -r sudo kill -9
     sleep 2
 fi
 
@@ -122,7 +122,7 @@ export default {
     exec_mode: 'fork',
     env: {
       NODE_ENV: 'production',
-      PORT: 3001
+      PORT: 4173
     },
     error_file: './logs/err.log',
     out_file: './logs/out.log',
@@ -158,7 +158,7 @@ if [ $? -eq 0 ]; then
     echo "🌐 Testing server..."
     sleep 2
     if curl -s http://adityahospitalnagaon.com/api/health > /dev/null; then
-        echo "✅ Server is responding on port 3001"
+        echo "✅ Server is responding on port 4173"
     else
         echo "⚠️ Server may not be responding properly"
         echo "📋 Checking PM2 logs..."
@@ -187,7 +187,7 @@ else
 fi
 
 echo ""
-echo "🎉 Port 3001 conflict resolved!"
+echo "🎉 Port 4173 conflict resolved!"
 echo "📝 Server status:"
 pm2 status
 echo ""

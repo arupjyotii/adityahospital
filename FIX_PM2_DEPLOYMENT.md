@@ -48,7 +48,7 @@ Make sure your `.env` file in `/domains/adityahospitalnagaon.com/public_html` co
 
 ```env
 NODE_ENV=production
-PORT=3001
+PORT=4173
 HOST=0.0.0.0
 MONGODB_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret_key
@@ -78,7 +78,7 @@ pm2 logs aditya-hospital
 ```
 
 ### Check Application Health
-Visit: http://your-server-ip:3001/api/health
+Visit: http://your-server-ip:4173/api/health
 
 ## Prevention
 

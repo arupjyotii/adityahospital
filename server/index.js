@@ -25,7 +25,7 @@ if (!process.env.JWT_SECRET) {
 }
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 4173;
 const HOST = process.env.HOST || 'localhost';
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
@@ -39,7 +39,7 @@ app.locals.dbConnected = dbConnected;
 app.use(cors({
   origin: NODE_ENV === 'production' 
     ? (process.env.CORS_ORIGINS ? process.env.CORS_ORIGINS.split(',') : ['https://adityahospitalnagaon.com', 'https://www.adityahospitalnagaon.com'])
-    : [process.env.FRONTEND_URL || 'http://localhost:3000', 'http://127.0.0.1:3000'],
+    : [process.env.FRONTEND_URL || 'http://adityahospitalnagaon.com', 'http://127.0.0.1:3000'],
   credentials: true
 }));
 
@@ -95,7 +95,7 @@ app.listen(PORT, HOST, () => {
   console.log(`🌍 Environment: ${NODE_ENV}`);
   console.log(`📊 API Health: http://${HOST}:${PORT}/api/health`);
   if (NODE_ENV === 'development') {
-    console.log(`🖥️  Frontend: ${process.env.FRONTEND_URL || 'http://localhost:3000'}`);
+    console.log(`🖥️  Frontend: ${process.env.FRONTEND_URL || 'http://adityahospitalnagaon.com'}`);
   }
 });
 

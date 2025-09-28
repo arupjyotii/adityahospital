@@ -38,7 +38,7 @@ if (-not (Test-Path ".env")) {
     @"
 # Environment Configuration
 NODE_ENV=production
-PORT=3001
+PORT=4173
 HOST=localhost
 
 # Database Configuration

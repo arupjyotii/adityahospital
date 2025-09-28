@@ -34,7 +34,7 @@
 2. Update the following variables:
    ```
    NODE_ENV=development
-   PORT=3001
+   PORT=4173
    MONGODB_URI=your_mongodb_connection_string
    JWT_SECRET=b7e2f8c1-4d3a-4e9b-9c2a-7f6e5d4c3b2a
    ```
@@ -75,10 +75,10 @@ npm run dev:frontend
 
 ### 6. Access the Application
 
-- **Frontend**: http://localhost:3000
+- **Frontend**: http://adityahospitalnagaon.com
 - **Backend API**: http://adityahospitalnagaon.com
 - **API Health Check**: http://adityahospitalnagaon.com/api/health
-- **Admin Panel**: http://localhost:3000/admin (login with admin/admin123)
+- **Admin Panel**: http://adityahospitalnagaon.com/admin (login with admin/admin123)
 
 ## Production Deployment
 
@@ -135,8 +135,8 @@ npm start
 
 ### Port Already in Use
 ```bash
-# Find process using port 3001
-netstat -ano | findstr :3001
+# Find process using port 4173
+netstat -ano | findstr :4173
 # Kill the process
 taskkill /PID <process_id> /F
 ```

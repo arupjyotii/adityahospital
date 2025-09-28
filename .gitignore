@@ -141,3 +141,4 @@ uploads/
 
 # Production files (uncomment if needed)
 # ecosystem.config.js
+node_modules

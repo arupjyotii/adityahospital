@@ -3,7 +3,7 @@ module.exports = {
     {
       name: 'aditya-hospital',
       script: './server/index.js',
-      instances: 'max', // Use all available CPU cores for production
+      instances: 1, // Changed from 'max' to 1 for stability
       exec_mode: 'cluster',
       env: {
         NODE_ENV: 'development',
@@ -56,13 +56,13 @@ module.exports = {
   // Deployment configuration (optional)
   deploy: {
     production: {
-      user: 'root',
-      host: 'your-server-ip',
+      user: 'node',
+      host: 'adityahospitalnagaon.com',
       ref: 'origin/main',
-      repo: 'https://github.com/yourusername/aditya-hospital.git',
+      repo: 'https://github.com/arupjyoti/adityahospital.git',
       path: '/domains/adityahospitalnagaon.com/public_html',
       'pre-deploy': 'git fetch --all',
-      'post-deploy': 'npm ci --production && npm run build && pm2 reload ecosystem.config.js --env production && pm2 save',
+      'post-deploy': 'npm install --force && npm run build && pm2 reload ecosystem.config.js --env production && pm2 save',
       'pre-setup': 'apt update && apt install git -y'
     }
   }

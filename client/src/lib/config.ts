@@ -42,13 +42,6 @@ export const API_ENDPOINTS = {
   SERVICES: '/api/services',
   SERVICE_BY_ID: (id: string) => `/api/services/${id}`,
   
-  // Public endpoints
-  PUBLIC: {
-    DEPARTMENTS: '/api/public/departments',
-    DOCTORS: '/api/public/doctors',
-    SERVICES: '/api/public/services',
-  },
-  
   // Health check
   HEALTH: '/api/health',
 } as const;

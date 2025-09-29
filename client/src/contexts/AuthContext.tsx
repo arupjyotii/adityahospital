@@ -41,11 +41,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     if (storedToken && storedUser) {
       try {
+        // Check if storedUser is a valid JSON string and not "undefined"
+        if (storedUser === "undefined" || storedUser === null) {
+          throw new Error('Stored user data is undefined or null');
+        }
+        
         const userData = JSON.parse(storedUser);
         setToken(storedToken);
         setUser(userData);
       } catch (error) {
         console.error('Error parsing stored user data:', error);
+        // Clear invalid data
         localStorage.removeItem('authToken');
         localStorage.removeItem('user');
       }

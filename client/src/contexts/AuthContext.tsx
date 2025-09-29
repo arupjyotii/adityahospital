@@ -41,12 +41,19 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     if (storedToken && storedUser) {
       try {
-        // Check if storedUser is a valid JSON string and not "undefined"
-        if (storedUser === "undefined" || storedUser === null) {
-          throw new Error('Stored user data is undefined or null');
+        // Check if storedUser is a valid JSON string and not "undefined" or null
+        if (storedUser === "undefined" || storedUser === "null" || storedUser === null || storedUser === undefined) {
+          throw new Error('Stored user data is invalid (undefined/null)');
         }
         
+        // Try to parse the user data
         const userData = JSON.parse(storedUser);
+        
+        // Validate that we have a proper user object
+        if (!userData || typeof userData !== 'object') {
+          throw new Error('Stored user data is not a valid object');
+        }
+        
         setToken(storedToken);
         setUser(userData);
       } catch (error) {
@@ -60,6 +67,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, []);
 
   const login = (newToken: string, userData: User) => {
+    // Validate user data before storing
+    if (!userData || typeof userData !== 'object') {
+      console.error('Invalid user data provided to login function');
+      return;
+    }
+    
     setToken(newToken);
     setUser(userData);
     localStorage.setItem('authToken', newToken);

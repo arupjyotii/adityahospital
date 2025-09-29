@@ -37,7 +37,12 @@ export const Login: React.FC<LoginProps> = ({ onLogin }) => {
         throw new Error(data.error || 'Login failed');
       }
 
-      // Store token in localStorage
+      // Validate that we have user data before storing
+      if (!data.user) {
+        throw new Error('Invalid response: User data missing');
+      }
+
+      // Store token and user data in localStorage
       localStorage.setItem('authToken', data.token);
       localStorage.setItem('user', JSON.stringify(data.user));
 
@@ -45,6 +50,9 @@ export const Login: React.FC<LoginProps> = ({ onLogin }) => {
       onLogin(data.token, data.user);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
+      // Clear any potentially invalid data
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('user');
     } finally {
       setLoading(false);
     }

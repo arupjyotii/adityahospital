@@ -1,13 +1,43 @@
 import { useState, useEffect } from 'react';
 
 interface Department {
-  id: number;
+  _id: string;
   name: string;
+  slug: string;
   description: string;
-  created_at: string;
-  updated_at: string;
-  doctor_count: number;
-  service_count: number;
+  image?: string;
+  features: string[];
+  services: string[];
+  isActive: boolean;
+  order: number;
+  emergencyAvailable: boolean;
+  contactInfo?: {
+    phone?: string;
+    email?: string;
+    location?: string;
+  };
+  headOfDepartment?: {
+    _id: string;
+    name: string;
+    specialization: string;
+    image?: string;
+  };
+  createdAt: string;
+  updatedAt: string;
+}
+
+interface DepartmentResponse {
+  success: boolean;
+  data: {
+    departments: Department[];
+    pagination?: {
+      current: number;
+      pages: number;
+      total: number;
+    };
+  };
+  message?: string;
+  note?: string;
 }
 
 export const usePublicDepartments = () => {
@@ -18,21 +48,34 @@ export const usePublicDepartments = () => {
   const fetchDepartments = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/public/departments', {
+      setError(null);
+      
+      const response = await fetch('/api/departments', {
         headers: {
           'Content-Type': 'application/json',
         },
       });
 
+      // Check if response is JSON
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        throw new Error('Server returned HTML instead of JSON. API endpoint may not exist.');
+      }
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const data = await response.json();
-      setDepartments(data);
-      setError(null);
+      const result: DepartmentResponse = await response.json();
+      if (result.success) {
+        setDepartments(result.data.departments);
+      } else {
+        setError(result.message || 'Failed to fetch departments');
+      }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
+      const errorMessage = err instanceof Error ? err.message : 'An error occurred';
+      setError(errorMessage);
+      console.error('Error fetching departments:', err);
     } finally {
       setLoading(false);
     }

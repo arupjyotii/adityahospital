@@ -57,17 +57,20 @@ export const Login: React.FC<LoginProps> = ({ onLogin }) => {
         throw new Error(data.message || 'Login failed');
       }
 
-      // Validate that we have user data in the response
-      if (!data.data || !data.data.user) {
-        throw new Error('Invalid response: User data missing');
+      // Validate that we have user data and token in the response
+      if (!data.data) {
+        throw new Error('Invalid response: Missing data object');
       }
 
-      // Extract token and user from the response
-      const { token, user } = data.data;
+      const { user, token } = data.data;
 
       // Validate that we have both token and user
-      if (!token || !user) {
-        throw new Error('Invalid response:Missing authentication data');
+      if (!token) {
+        throw new Error('Invalid response: Missing authentication token');
+      }
+      
+      if (!user) {
+        throw new Error('Invalid response: Missing user data');
       }
 
       // Store token and user data in localStorage using safe methods

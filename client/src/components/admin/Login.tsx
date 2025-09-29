@@ -6,6 +6,21 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Sparkles, User, Lock, Eye, EyeOff } from 'lucide-react';
 
+// Helper function to safely store data in localStorage
+const safeSetItem = (key: string, value: any): void => {
+  try {
+    if (value === undefined || value === null) {
+      localStorage.removeItem(key);
+      return;
+    }
+    
+    const stringValue = typeof value === 'string' ? value : JSON.stringify(value);
+    localStorage.setItem(key, stringValue);
+  } catch (error) {
+    console.error(`Error storing item "${key}" in localStorage:`, error);
+  }
+};
+
 interface LoginProps {
   onLogin: (token: string, user: any) => void;
 }
@@ -34,7 +49,7 @@ export const Login: React.FC<LoginProps> = ({ onLogin }) => {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Login failed');
+        throw new Error(data.message || data.error || 'Login failed');
       }
 
       // Validate that we have user data before storing
@@ -42,9 +57,9 @@ export const Login: React.FC<LoginProps> = ({ onLogin }) => {
         throw new Error('Invalid response: User data missing');
       }
 
-      // Store token and user data in localStorage
-      localStorage.setItem('authToken', data.token);
-      localStorage.setItem('user', JSON.stringify(data.user));
+      // Store token and user data in localStorage using safe methods
+      safeSetItem('authToken', data.token);
+      safeSetItem('user', data.user);
 
       // Call the onLogin callback
       onLogin(data.token, data.user);

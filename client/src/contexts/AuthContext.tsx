@@ -17,6 +17,41 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+// Helper function to safely parse localStorage data
+const safeParseJSON = (key: string): any => {
+  try {
+    const data = localStorage.getItem(key);
+    
+    // Check for invalid values
+    if (!data || data === "undefined" || data === "null") {
+      localStorage.removeItem(key);
+      return null;
+    }
+    
+    // Try to parse JSON
+    return JSON.parse(data);
+  } catch (error) {
+    console.error(`Error parsing localStorage item "${key}":`, error);
+    localStorage.removeItem(key);
+    return null;
+  }
+};
+
+// Helper function to safely store data in localStorage
+const safeSetItem = (key: string, value: any): void => {
+  try {
+    if (value === undefined || value === null) {
+      localStorage.removeItem(key);
+      return;
+    }
+    
+    const stringValue = typeof value === 'string' ? value : JSON.stringify(value);
+    localStorage.setItem(key, stringValue);
+  } catch (error) {
+    console.error(`Error storing item "${key}" in localStorage:`, error);
+  }
+};
+
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {
@@ -35,6 +70,34 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    // Clean up any invalid localStorage data on app start
+    const cleanupLocalStorage = () => {
+      try {
+        const storedToken = localStorage.getItem('authToken');
+        const storedUser = localStorage.getItem('user');
+        
+        // Clean up token
+        if (storedToken === "undefined" || storedToken === "null" || storedToken === null) {
+          localStorage.removeItem('authToken');
+        }
+        
+        // Clean up user data
+        if (storedUser === "undefined" || storedUser === "null" || storedUser === null) {
+          localStorage.removeItem('user');
+        } else {
+          try {
+            JSON.parse(storedUser);
+          } catch (parseError) {
+            localStorage.removeItem('user');
+          }
+        }
+      } catch (error) {
+        console.error('Error during localStorage cleanup:', error);
+      }
+    };
+    
+    cleanupLocalStorage();
+    
     // Check if user is already logged in
     const storedToken = localStorage.getItem('authToken');
     const storedUser = localStorage.getItem('user');
@@ -75,8 +138,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     
     setToken(newToken);
     setUser(userData);
-    localStorage.setItem('authToken', newToken);
-    localStorage.setItem('user', JSON.stringify(userData));
+    safeSetItem('authToken', newToken);
+    safeSetItem('user', userData);
   };
 
   const logout = () => {

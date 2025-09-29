@@ -67,7 +67,7 @@ export const Login: React.FC<LoginProps> = ({ onLogin }) => {
 
       // Validate that we have both token and user
       if (!token || !user) {
-        throw new Error('Invalid response: Missing authentication data');
+        throw new Error('Invalid response:Missing authentication data');
       }
 
       // Store token and user data in localStorage using safe methods

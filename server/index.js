@@ -47,7 +47,7 @@ app.use(cors({
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// API Routes (placed before static file serving to avoid conflicts)
+// API Routes - place before static files to avoid conflicts
 app.use('/api/auth', authRoutes);
 app.use('/api/departments', departmentRoutes);
 app.use('/api/doctors', doctorRoutes);
@@ -67,16 +67,16 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Static files serving (for production) - only for non-API routes
+// Static files serving (for production) - only after API routes
 if (NODE_ENV === 'production') {
   // Serve static files from the React app build directory
   app.use(express.static(path.join(__dirname, '../dist/public')));
   
   // Catch-all handler: send back React's index.html file for any non-API routes
   app.get('*', (req, res) => {
-    // Check if the request is for an API route
+    // If it's an API request, don't serve the React app
     if (req.path.startsWith('/api/')) {
-      return res.status(404).json({ message: 'API route not found' });
+      return;
     }
     res.sendFile(path.join(__dirname, '../dist/public/index.html'));
   });

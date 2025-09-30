@@ -11,6 +11,7 @@ import departmentRoutes from './routes/departments.js';
 import doctorRoutes from './routes/doctors.js';
 import serviceRoutes from './routes/services.js';
 import appointmentRoutes from './routes/appointments.js';
+import dashboardRoutes from './routes/dashboard.js';
 
 // ES Module dirname fix
 const __filename = fileURLToPath(import.meta.url);
@@ -52,6 +53,7 @@ app.use('/api/departments', departmentRoutes);
 app.use('/api/doctors', doctorRoutes);
 app.use('/api/services', serviceRoutes);
 app.use('/api/appointments', appointmentRoutes);
+app.use('/api/dashboard', dashboardRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {

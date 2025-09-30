@@ -25,6 +25,15 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
     setSidebarOpen(false);
   };
 
+  // Get user's full name from profile or fallback to username
+  const getUserFullName = () => {
+    if (!user) return '';
+    if (user.profile?.firstName || user.profile?.lastName) {
+      return `${user.profile.firstName || ''} ${user.profile.lastName || ''}`.trim();
+    }
+    return user.username;
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex">
       {/* Mobile sidebar overlay */}
@@ -114,7 +123,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
           {user && (
             <div className="border-t border-slate-600/30 pt-3">
               <div className="text-center mb-3">
-                <p className="text-sm text-slate-300 font-medium">{user.name}</p>
+                <p className="text-sm text-slate-300 font-medium">{getUserFullName()}</p>
                 <p className="text-xs text-slate-400">{user.role}</p>
               </div>
               <Button

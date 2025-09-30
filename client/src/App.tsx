@@ -63,7 +63,10 @@ function AppContent() {
             </WebsiteLayout>
           } />
           
-          {/* Admin Panel Routes */}
+          {/* Admin Login Route */}
+          <Route path="/admin/login" element={<Login onLogin={login} />} />
+          
+          {/* Redirect admin routes to login if not authenticated */}
           <Route path="/admin/*" element={<Login onLogin={login} />} />
           
           {/* Default redirect */}

@@ -1,10 +1,21 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
+// Updated User interface to match the actual server response
 interface User {
-  id: number;
+  _id: string;
   username: string;
-  name: string;
+  email: string;
   role: string;
+  profile?: {
+    firstName?: string;
+    lastName?: string;
+    phone?: string;
+    address?: string;
+  };
+  isActive: boolean;
+  lastLogin?: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 interface AuthContextType {

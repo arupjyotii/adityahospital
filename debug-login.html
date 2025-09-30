@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Login</title>
+</head>
+<body>
+    <h1>Debug Login</h1>
+    <button onclick="testLogin()">Test Login</button>
+    <div id="result"></div>
+
+    <script>
+        async function testLogin() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<p>Testing login...</p>';
+            
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        username: 'admin',
+                        password: 'admin123'
+                    }),
+                });
+
+                const data = await response.json();
+                
+                resultDiv.innerHTML = `
+                    <h2>Response Details</h2>
+                    <p><strong>Status:</strong> ${response.status}</p>
+                    <p><strong>OK:</strong> ${response.ok}</p>
+                    <h3>Response Data:</h3>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                    
+                    <h3>Structure Analysis:</h3>
+                    <ul>
+                        <li><strong>data exists:</strong> ${!!data}</li>
+                        <li><strong>data.success:</strong> ${data?.success}</li>
+                        <li><strong>data.data exists:</strong> ${!!data?.data}</li>
+                        <li><strong>data.data.user exists:</strong> ${!!data?.data?.user}</li>
+                        <li><strong>data.data.token exists:</strong> ${!!data?.data?.token}</li>
+                        ${data?.data ? `<li><strong>data.data keys:</strong> ${Object.keys(data.data).join(', ')}</li>` : ''}
+                    </ul>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `<p>Error: ${error.message}</p>`;
+                console.error('Error:', error);
+            }
+        }
+    </script>
+</body>
+</html>

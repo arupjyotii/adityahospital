@@ -38,6 +38,8 @@ export const Login: React.FC<LoginProps> = ({ onLogin }) => {
     setError('');
 
     try {
+      console.log('Attempting login with:', { username, password });
+      
       const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {
@@ -46,38 +48,52 @@ export const Login: React.FC<LoginProps> = ({ onLogin }) => {
         body: JSON.stringify({ username, password }),
       });
 
+      console.log('Response received:', response.status, response.ok);
+      
       const data = await response.json();
+      console.log('Response data:', data);
 
       if (!response.ok) {
-        throw new Error(data.message || data.error || 'Login failed');
+        const errorMessage = data.message || data.error || 'Login failed';
+        console.log('Login failed with error:', errorMessage);
+        throw new Error(errorMessage);
       }
 
       // Validate that we have the expected response structure
       if (!data.success) {
-        throw new Error(data.message || 'Login failed');
+        const errorMessage = data.message || 'Login failed';
+        console.log('Login failed with error:', errorMessage);
+        throw new Error(errorMessage);
       }
 
       // Validate that we have user data and token in the response
       if (!data.data) {
-        throw new Error('Invalid response: Missing data object');
+        const errorMessage = 'Invalid response: Missing data object';
+        console.log('Missing data object:', data);
+        throw new Error(errorMessage);
       }
 
       const { user, token } = data.data;
+      console.log('Extracted user and token:', { user, token });
 
       // Validate that we have both token and user
       if (!token) {
-        throw new Error('Invalid response: Missing authentication token');
+        const errorMessage = 'Invalid response: Missing authentication token';
+        console.log('Missing token:', data.data);
+        throw new Error(errorMessage);
       }
       
       if (!user) {
-        throw new Error('Invalid response: Missing user data');
+        const errorMessage = 'Invalid response: Missing user data';
+        console.log('Missing user:', data.data);
+        throw new Error(errorMessage);
       }
 
       // Store token and user data in localStorage using safe methods
       safeSetItem('authToken', token);
       safeSetItem('user', user);
 
-      // Call the onLogin callback
+      // Call the onLogin callback with the user and token
       onLogin(token, user);
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'An error occurred';

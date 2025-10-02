@@ -15,22 +15,40 @@ export const DepartmentManagement: React.FC = () => {
   const [successMessage, setSuccessMessage] = React.useState('');
 
   const handleCreate = async (data: any) => {
-    await createDepartment(data);
-    setIsAddDialogOpen(false);
-    setSuccessMessage(`Department "${data.name}" has been successfully added!`);
-    setShowSuccessDialog(true);
+    try {
+      await createDepartment(data);
+      setIsAddDialogOpen(false);
+      setSuccessMessage(`Department "${data.name}" has been successfully added!`);
+      setShowSuccessDialog(true);
+    } catch (error) {
+      console.error('Error creating department:', error);
+      alert('Failed to create department: ' + (error instanceof Error ? error.message : 'Unknown error'));
+    }
   };
 
   const handleUpdate = async (data: any) => {
-    await updateDepartment(editingDepartment.id, data);
-    setEditingDepartment(null);
-    setSuccessMessage(`Department "${data.name}" has been successfully updated!`);
-    setShowSuccessDialog(true);
+    try {
+      if (!editingDepartment || !editingDepartment._id) {
+        throw new Error('Invalid department data for update');
+      }
+      await updateDepartment(editingDepartment._id, data);
+      setEditingDepartment(null);
+      setSuccessMessage(`Department "${data.name}" has been successfully updated!`);
+      setShowSuccessDialog(true);
+    } catch (error) {
+      console.error('Error updating department:', error);
+      alert('Failed to update department: ' + (error instanceof Error ? error.message : 'Unknown error'));
+    }
   };
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (id: string) => {
     if (confirm('Are you sure you want to delete this department?')) {
-      await deleteDepartment(id);
+      try {
+        await deleteDepartment(id);
+      } catch (error) {
+        console.error('Error deleting department:', error);
+        alert('Failed to delete department: ' + (error instanceof Error ? error.message : 'Unknown error'));
+      }
     }
   };
 
@@ -94,7 +112,8 @@ export const DepartmentManagement: React.FC = () => {
               <Users className="h-8 w-8 text-white" />
             </div>
             <h3 className="text-2xl font-bold text-white mb-2">
-              {departments?.filter(d => d.doctor_count > 0).length || 0}
+              {/* Using a simple count since we don't have doctor_count in the department object */}
+              {departments?.filter(d => d.headOfDepartment).length || 0}
             </h3>
             <p className="text-slate-400">With Staff</p>
           </CardContent>
@@ -106,7 +125,8 @@ export const DepartmentManagement: React.FC = () => {
               <Briefcase className="h-8 w-8 text-white" />
             </div>
             <h3 className="text-2xl font-bold text-white mb-2">
-              {departments?.filter(d => d.service_count > 0).length || 0}
+              {/* Using a simple count since we don't have service_count in the department object */}
+              {departments?.filter(d => d.services && d.services.length > 0).length || 0}
             </h3>
             <p className="text-slate-400">With Services</p>
           </CardContent>
@@ -153,7 +173,7 @@ export const DepartmentManagement: React.FC = () => {
                 </TableHeader>
                 <TableBody>
                   {departments.map((department) => (
-                    <TableRow key={department.id} className="border-slate-600/30 hover:bg-slate-700/30 transition-colors">
+                    <TableRow key={department._id} className="border-slate-600/30 hover:bg-slate-700/30 transition-colors">
                       <TableCell>
                         <div className="flex items-center space-x-3">
                           <div className="w-10 h-10 bg-gradient-to-r from-emerald-500 to-green-500 rounded-full flex items-center justify-center">
@@ -163,7 +183,7 @@ export const DepartmentManagement: React.FC = () => {
                           </div>
                           <div>
                             <div className="font-medium text-white">{department.name}</div>
-                            <div className="text-xs text-slate-400">ID: {department.id}</div>
+                            <div className="text-xs text-slate-400">ID: {department._id}</div>
                           </div>
                         </div>
                       </TableCell>
@@ -179,7 +199,7 @@ export const DepartmentManagement: React.FC = () => {
                       <TableCell>
                         <div className="flex items-center text-sm text-slate-300">
                           <Calendar className="h-4 w-4 mr-2 text-slate-400" />
-                          {new Date(department.created_at).toLocaleDateString()}
+                          {new Date(department.createdAt).toLocaleDateString()}
                         </div>
                       </TableCell>
                       <TableCell className="text-right">
@@ -195,7 +215,7 @@ export const DepartmentManagement: React.FC = () => {
                           <Button
                             variant="ghost"
                             size="sm"
-                            onClick={() => handleDelete(department.id)}
+                            onClick={() => handleDelete(department._id)}
                             className="h-8 w-8 p-0 hover:bg-red-500/20 text-slate-300 hover:text-red-400"
                           >
                             <Trash2 className="h-4 w-4" />

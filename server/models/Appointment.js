@@ -4,63 +4,43 @@ const appointmentSchema = new mongoose.Schema({
   appointmentId: {
     type: String,
     unique: true,
-    required: [true, 'Appointment ID is required']
+    required: true
   },
   patient: {
     firstName: {
       type: String,
-      required: [true, 'Patient first name is required'],
+      required: true,
       trim: true,
-      maxlength: 50,
-      validate: {
-        validator: function(v) {
-          return v && v.trim().length > 0;
-        },
-        message: 'Patient first name cannot be empty'
-      }
+      maxlength: 50
     },
+    
     lastName: {
       type: String,
-      required: [true, 'Patient last name is required'],
+      required: true,
       trim: true,
-      maxlength: 50,
-      validate: {
-        validator: function(v) {
-          return v && v.trim().length > 0;
-        },
-        message: 'Patient last name cannot be empty'
-      }
+      maxlength: 50
     },
+    
     email: {
       type: String,
-      required: [true, 'Patient email is required'],
+      required: true,
       trim: true,
-      lowercase: true,
-      validate: {
-        validator: function(v) {
-          return v && v.trim().length > 0;
-        },
-        message: 'Patient email cannot be empty'
-      }
+      lowercase: true
     },
+    
     phone: {
       type: String,
-      required: [true, 'Patient phone is required'],
-      trim: true,
-      validate: {
-        validator: function(v) {
-          return v && v.trim().length > 0;
-        },
-        message: 'Patient phone cannot be empty'
-      }
+      required: true,
+      trim: true
     },
+    
     dateOfBirth: {
       type: Date
     },
     gender: {
       type: String,
       enum: ['male', 'female', 'other'],
-      required: [true, 'Patient gender is required']
+      required: true
     },
     address: {
       street: String,
@@ -73,12 +53,12 @@ const appointmentSchema = new mongoose.Schema({
   doctor: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Doctor',
-    required: [true, 'Doctor is required']
+    required: true
   },
   department: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Department',
-    required: [true, 'Department is required']
+    required: true
   },
   service: {
     type: mongoose.Schema.Types.ObjectId,
@@ -86,18 +66,12 @@ const appointmentSchema = new mongoose.Schema({
   },
   appointmentDate: {
     type: Date,
-    required: [true, 'Appointment date is required']
+    required: true
   },
   appointmentTime: {
     type: String,
-    required: [true, 'Appointment time is required'],
-    trim: true,
-    validate: {
-      validator: function(v) {
-        return v && v.trim().length > 0;
-      },
-      message: 'Appointment time cannot be empty'
-    }
+    required: true,
+    trim: true
   },
   duration: {
     type: Number,
@@ -122,15 +96,9 @@ const appointmentSchema = new mongoose.Schema({
   },
   reason: {
     type: String,
-    required: [true, 'Appointment reason is required'],
+    required: true,
     trim: true,
-    maxlength: 500,
-    validate: {
-      validator: function(v) {
-        return v && v.trim().length > 0;
-      },
-      message: 'Appointment reason cannot be empty'
-    }
+    maxlength: 500
   },
   symptoms: [{
     type: String,

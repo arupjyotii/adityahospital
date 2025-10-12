@@ -3,15 +3,9 @@ import mongoose from 'mongoose';
 const doctorSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, 'Doctor name is required'],
+    required: true,
     trim: true,
-    maxlength: 100,
-    validate: {
-      validator: function(v) {
-        return v && v.trim().length > 0;
-      },
-      message: 'Doctor name cannot be empty'
-    }
+    maxlength: 100
   },
   slug: {
     type: String,
@@ -21,15 +15,9 @@ const doctorSchema = new mongoose.Schema({
   },
   specialization: {
     type: String,
-    required: [true, 'Specialization is required'],
+    required: true,
     trim: true,
-    maxlength: 200,
-    validate: {
-      validator: function(v) {
-        return v && v.trim().length > 0;
-      },
-      message: 'Specialization cannot be empty'
-    }
+    maxlength: 200
   },
   department: {
     type: mongoose.Schema.Types.ObjectId,
@@ -38,15 +26,9 @@ const doctorSchema = new mongoose.Schema({
   },
   qualification: {
     type: String,
-    required: [true, 'Qualification is required'],
+    required: true,
     trim: true,
-    maxlength: 300,
-    validate: {
-      validator: function(v) {
-        return v && v.trim().length > 0;
-      },
-      message: 'Qualification cannot be empty'
-    }
+    maxlength: 300
   },
   experience: {
     type: Number,

@@ -3,15 +3,9 @@ import mongoose from 'mongoose';
 const serviceSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, 'Service name is required'],
+    required: true,
     trim: true,
-    maxlength: 200,
-    validate: {
-      validator: function(v) {
-        return v && v.trim().length > 0;
-      },
-      message: 'Service name cannot be empty'
-    }
+    maxlength: 200
   },
   slug: {
     type: String,
@@ -22,28 +16,16 @@ const serviceSchema = new mongoose.Schema({
   
   category: {
     type: String,
-    required: [true, 'Category is required'],
+    required: true,
     trim: true,
-    enum: ['diagnostic', 'surgical', 'therapeutic', 'preventive', 'emergency', 'specialized'],
-    validate: {
-      validator: function(v) {
-        return v && v.trim().length > 0;
-      },
-      message: 'Category cannot be empty'
-    }
+    enum: ['diagnostic', 'surgical', 'therapeutic', 'preventive', 'emergency', 'specialized']
   },
   
   description: {
     type: String,
-    required: [true, 'Service description is required'],
+    required: true,
     trim: true,
-    maxlength: 2000,
-    validate: {
-      validator: function(v) {
-        return v && v.trim().length > 0;
-      },
-      message: 'Service description cannot be empty'
-    }
+    maxlength: 2000
   },
   shortDescription: {
     type: String,

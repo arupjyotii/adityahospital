@@ -6,13 +6,7 @@ const departmentSchema = new mongoose.Schema({
     required: [true, 'Department name is required'],
     unique: true,
     trim: true,
-    maxlength: 100,
-    validate: {
-      validator: function(v) {
-        return v && v.trim().length > 0;
-      },
-      message: 'Department name cannot be empty'
-    }
+    maxlength: 100
   },
   slug: {
     type: String,
@@ -24,13 +18,7 @@ const departmentSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Department description is required'],
     trim: true,
-    maxlength: 1000,
-    validate: {
-      validator: function(v) {
-        return v && v.trim().length > 0;
-      },
-      message: 'Department description cannot be empty'
-    }
+    maxlength: 1000
   },
   image: {
     type: String,

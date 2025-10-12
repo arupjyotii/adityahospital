@@ -15,6 +15,11 @@ export const DepartmentManagement: React.FC = () => {
   const [successMessage, setSuccessMessage] = React.useState('');
 
   const handleCreate = async (data: any) => {
+    console.log('=== HANDLE CREATE DEPARTMENT ===');
+    console.log('Received data in handleCreate:', data);
+    console.log('Data type:', typeof data);
+    console.log('Data keys:', Object.keys(data));
+    
     try {
       await createDepartment(data);
       setIsAddDialogOpen(false);

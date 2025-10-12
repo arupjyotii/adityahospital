@@ -3,10 +3,16 @@ import mongoose from 'mongoose';
 const departmentSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
+    required: [true, 'Department name is required'],
     unique: true,
     trim: true,
-    maxlength: 100
+    maxlength: 100,
+    validate: {
+      validator: function(v) {
+        return v && v.trim().length > 0;
+      },
+      message: 'Department name cannot be empty'
+    }
   },
   slug: {
     type: String,
@@ -16,9 +22,15 @@ const departmentSchema = new mongoose.Schema({
   },
   description: {
     type: String,
-    required: true,
+    required: [true, 'Department description is required'],
     trim: true,
-    maxlength: 1000
+    maxlength: 1000,
+    validate: {
+      validator: function(v) {
+        return v && v.trim().length > 0;
+      },
+      message: 'Department description cannot be empty'
+    }
   },
   image: {
     type: String,

@@ -18,10 +18,39 @@ export const DepartmentForm: React.FC<DepartmentFormProps> = ({ department, onSu
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(formData);
+    
+    console.log('=== DEPARTMENT FORM SUBMIT ===');
+    console.log('Raw form data:', formData);
+    
+    // Validate required fields
+    const trimmedName = formData.name.trim();
+    const trimmedDescription = formData.description.trim();
+    
+    console.log('Trimmed name:', trimmedName);
+    console.log('Trimmed description:', trimmedDescription);
+    
+    if (!trimmedName) {
+      alert('Department name is required');
+      return;
+    }
+    
+    if (!trimmedDescription) {
+      alert('Department description is required');
+      return;
+    }
+    
+    // Ensure we're sending non-empty values
+    const submitData = {
+      name: trimmedName,
+      description: trimmedDescription
+    };
+    
+    console.log('Final submit data:', submitData);
+    onSubmit(submitData);
   };
 
   const handleChange = (field: string, value: string) => {
+    console.log('Form field change:', field, '=', value);
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
@@ -47,18 +76,19 @@ export const DepartmentForm: React.FC<DepartmentFormProps> = ({ department, onSu
         </div>
         
         <div className="space-y-2">
-          <Label htmlFor="description" className="text-sm font-medium text-slate-300">Description</Label>
+          <Label htmlFor="description" className="text-sm font-medium text-slate-300">Description *</Label>
           <div className="relative">
-            <FileText className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
+            <FileText className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
             <Input
               id="description"
               value={formData.description}
               onChange={(e) => handleChange('description', e.target.value)}
               placeholder="Brief description of the department"
+              required
               className="mt-1 pl-10 bg-slate-700/50 border-slate-600 text-white placeholder-slate-400 focus:ring-2 focus:ring-emerald-500/50 focus:border-transparent"
             />
           </div>
-          <p className="text-xs text-slate-500">Optional: Describe the department's focus or services</p>
+          <p className="text-xs text-slate-500">Describe the department's focus or services</p>
         </div>
       </div>
       

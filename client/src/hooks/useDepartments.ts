@@ -85,6 +85,11 @@ export const useDepartments = () => {
 
   const createDepartment = async (departmentData: Omit<Department, '_id' | 'createdAt' | 'updatedAt' | 'slug'>) => {
     try {
+      console.log('=== CREATE DEPARTMENT HOOK ===');
+      console.log('Sending department data:', departmentData);
+      console.log('Department data type:', typeof departmentData);
+      console.log('Department data keys:', Object.keys(departmentData));
+      
       const token = localStorage.getItem('authToken');
       if (!token) {
         throw new Error('No authentication token found');
@@ -99,15 +104,29 @@ export const useDepartments = () => {
         body: JSON.stringify(departmentData),
       });
 
+      console.log('Response status:', response.status);
+      console.log('Response ok:', response.ok);
+      
       if (!response.ok) {
         if (response.status === 401) {
           throw new Error('Authentication failed. Please login again.');
+        }
+        // Handle conflict error for duplicate departments
+        if (response.status === 409) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'A department with this name already exists');
+        }
+        // Handle validation errors
+        if (response.status === 400) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'Validation failed. Please check your input.');
         }
         const errorData = await response.json();
         throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
       }
 
       const result = await response.json();
+      console.log('Create department result:', result);
       if (result.success) {
         setDepartments(prev => [...prev, result.data.department]);
         return result.data.department;
@@ -115,6 +134,7 @@ export const useDepartments = () => {
         throw new Error(result.message || 'Failed to create department');
       }
     } catch (err) {
+      console.error('Create department error:', err);
       throw err;
     }
   };
@@ -138,6 +158,16 @@ export const useDepartments = () => {
       if (!response.ok) {
         if (response.status === 401) {
           throw new Error('Authentication failed. Please login again.');
+        }
+        // Handle conflict error for duplicate departments
+        if (response.status === 409) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'A department with this name already exists');
+        }
+        // Handle validation errors
+        if (response.status === 400) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'Validation failed. Please check your input.');
         }
         const errorData = await response.json();
         throw new Error(errorData.message || `HTTP error! status: ${response.status}`);

@@ -3,9 +3,15 @@ import mongoose from 'mongoose';
 const serviceSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
+    required: [true, 'Service name is required'],
     trim: true,
-    maxlength: 200
+    maxlength: 200,
+    validate: {
+      validator: function(v) {
+        return v && v.trim().length > 0;
+      },
+      message: 'Service name cannot be empty'
+    }
   },
   slug: {
     type: String,
@@ -13,17 +19,31 @@ const serviceSchema = new mongoose.Schema({
     lowercase: true,
     trim: true
   },
+  
   category: {
     type: String,
-    required: true,
+    required: [true, 'Category is required'],
     trim: true,
-    enum: ['diagnostic', 'surgical', 'therapeutic', 'preventive', 'emergency', 'specialized']
+    enum: ['diagnostic', 'surgical', 'therapeutic', 'preventive', 'emergency', 'specialized'],
+    validate: {
+      validator: function(v) {
+        return v && v.trim().length > 0;
+      },
+      message: 'Category cannot be empty'
+    }
   },
+  
   description: {
     type: String,
-    required: true,
+    required: [true, 'Service description is required'],
     trim: true,
-    maxlength: 2000
+    maxlength: 2000,
+    validate: {
+      validator: function(v) {
+        return v && v.trim().length > 0;
+      },
+      message: 'Service description cannot be empty'
+    }
   },
   shortDescription: {
     type: String,
@@ -33,7 +53,7 @@ const serviceSchema = new mongoose.Schema({
   department: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Department',
-    required: true
+    required: [true, 'Department is required']
   },
   relatedDoctors: [{
     type: mongoose.Schema.Types.ObjectId,

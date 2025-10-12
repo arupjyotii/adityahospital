@@ -1,14 +1,10 @@
-module.exports = {
+export default {
   apps: [
     {
       name: 'aditya-hospital',
       script: './server/index.js',
-      cwd: '/domains/adityahospitalnagaon.com/public_html',
-<<<<<<< HEAD
-      instances: 1, // Changed from 'max' to 1 for stability
-=======
+      cwd: '/root/adityahospital',
       instances: 1,
->>>>>>> 33d574cf79ef390cab68f2b00d2697a4370734c2
       exec_mode: 'cluster',
       env: {
         NODE_ENV: 'development',
@@ -17,11 +13,7 @@ module.exports = {
       },
       env_production: {
         NODE_ENV: 'production',
-<<<<<<< HEAD
         PORT: 4173,
-=======
-        PORT: 4173,
->>>>>>> 33d574cf79ef390cab68f2b00d2697a4370734c2
         HOST: '67.211.211.34'
       },
       // PM2 Configuration
@@ -71,16 +63,8 @@ module.exports = {
       repo: 'https://github.com/arupjyoti/adityahospital.git',
       path: '/domains/adityahospitalnagaon.com/public_html',
       'pre-deploy': 'git fetch --all',
-<<<<<<< HEAD
       'post-deploy': 'npm install --force && npm run build && pm2 reload ecosystem.config.js --env production && pm2 save',
       'pre-setup': 'apt update && apt install git -y'
     }
   }
 };
-=======
-      'post-deploy': 'npm install --force && npm run build && pm2 reload ecosystem.config.cjs --env production && pm2 save',
-      'pre-setup': 'apt update && apt install git -y'
-    }
-  }
-};
->>>>>>> 33d574cf79ef390cab68f2b00d2697a4370734c2

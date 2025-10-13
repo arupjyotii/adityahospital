@@ -48,14 +48,14 @@ PRODUCTION_DOMAIN=adityahospitalnagaon.com
 FRONTEND_URL=https://adityahospitalnagaon.com
 ```
 
-### 4. Build Frontend
+### 4. Build Frontend with Fixed Script
 ```bash
 npm run build
 ```
 
 ### 5. Start with PM2
 ```bash
-pm2 start ecosystem.config.js
+pm2 start ecosystem.config.js --env production
 pm2 save
 pm2 startup
 ```
@@ -156,6 +156,18 @@ df -h
 ```
 
 ## Troubleshooting
+
+### Frontend Not Loading (ENOENT Errors)
+```bash
+# Run diagnostic script to check build files
+node diagnose-build.js
+
+# Check if dist/public directory exists and contains index.html
+ls -la dist/public/
+
+# Re-run the fixed deployment script
+./fix-deployment.sh
+```
 
 ### Port Issues
 ```bash

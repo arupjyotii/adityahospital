@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 import connectDB from './config/database.js';
 
@@ -76,9 +77,18 @@ if (NODE_ENV === 'production') {
   app.get('*', (req, res) => {
     // If it's an API request, don't serve the React app
     if (req.path.startsWith('/api/')) {
-      return;
+      return res.status(404).json({ message: 'API route not found' });
     }
-    res.sendFile(path.join(__dirname, '../dist/public/index.html'));
+    
+    // Check if the file exists before trying to send it
+    const indexPath = path.join(__dirname, '../dist/public/index.html');
+    fs.access(indexPath, fs.constants.F_OK, (err) => {
+      if (err) {
+        console.error(`Index file not found at: ${indexPath}`);
+        return res.status(404).json({ message: 'Frontend build not found. Please run npm run build.' });
+      }
+      res.sendFile(indexPath);
+    });
   });
 }
 

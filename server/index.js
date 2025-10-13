@@ -74,7 +74,7 @@ if (NODE_ENV === 'production') {
   const staticPath = path.join(__dirname, '../dist/public');
   const indexPath = path.join(__dirname, '../dist/public/index.html');
   
-  console.log('.Static files directory:', staticPath);
+  console.log('Static files directory:', staticPath);
   console.log('Index file path:', indexPath);
   
   // Check if static directory exists
@@ -111,11 +111,28 @@ if (NODE_ENV === 'production') {
     fs.access(indexPath, fs.constants.F_OK, (err) => {
       if (err) {
         console.error(`Index file not found at: ${indexPath}`, err);
-        return res.status(404).json({ 
-          message: 'Frontend build not found. Please run npm run build.',
-          path: indexPath,
-          error: err.message
+        // Also check if the dist directory exists at all
+        const distDir = path.join(__dirname, '../dist');
+        fs.access(distDir, fs.constants.F_OK, (distErr) => {
+          if (distErr) {
+            console.error(`Dist directory not found at: ${distDir}`);
+            return res.status(500).json({ 
+              message: 'Frontend build not found. Please run npm run build.',
+              path: indexPath,
+              error: 'Dist directory does not exist',
+              solution: 'Run "npm run build" from the project root directory'
+            });
+          } else {
+            console.error(`Dist directory exists but index.html is missing`);
+            return res.status(500).json({ 
+              message: 'Frontend build incomplete. Please run npm run build.',
+              path: indexPath,
+              error: 'index.html file does not exist in dist/public',
+              solution: 'Run "npm run build" from the project root directory'
+            });
+          }
         });
+        return;
       }
       console.log('Sending index.html file');
       res.sendFile(indexPath, (err) => {

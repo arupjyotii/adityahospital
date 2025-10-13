@@ -104,3 +104,38 @@ The Tailwind CSS error `The \`border-border\` class does not exist` was resolved
 3. Providing [deploy-fixes.sh](file:///f:/Codemic%20Projects/adityahospital/deploy-fixes.sh) script to apply these fixes on the production server
 
 For detailed information about this specific CSS issue, refer to [TROUBLESHOOT-CSS.md](file:///f:/Codemic%20Projects/adityahospital/TROUBLESHOOT-CSS.md).
+
+## Merge Conflict Resolution
+
+Additionally, there was a merge conflict in the codebase that was causing build failures:
+
+1. The error showed `<<<<<<< HEAD` markers in [DepartmentForm.tsx](file:///f:/Codemic%20Projects/adityahospital/client/src/components/admin/DepartmentForm.tsx)
+2. This was resolved by creating [complete-production-fix.sh](file:///f:/Codemic%20Projects/adityahospital/complete-production-fix.sh) which automatically detects and resolves merge conflicts
+3. The script uses `awk` to remove conflict markers while preserving the working code
+
+## How to Fix All Issues on Production Server
+
+1. **Deploy all fixes using the comprehensive script**:
+   ```bash
+   cd /root/adityahospital
+   chmod +x complete-production-fix.sh
+   ./complete-production-fix.sh
+   ```
+
+2. **Restart the application**:
+   ```bash
+   pm2 restart adityahospital
+   ```
+
+## What the Comprehensive Fix Script Does
+
+1. Detects and resolves any merge conflicts in the codebase
+2. Backs up current files before making changes
+3. Fixes the CSS by replacing `@apply border-border;` with `border-color: hsl(var(--border));`
+4. Creates the missing Tailwind configuration file
+5. Installs/updates all dependencies
+6. Builds the frontend
+7. Verifies the build output
+8. Cleans up backup files if successful
+
+This comprehensive approach ensures that all known issues are resolved and the application can be successfully deployed.

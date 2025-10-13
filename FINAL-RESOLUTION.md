@@ -126,6 +126,45 @@ There are also permission issues with the esbuild binary that prevent the build 
 
 For detailed information about build environment issues, refer to [TROUBLESHOOT-BUILD.md](file:///f:/Codemic%20Projects/adityahospital/TROUBLESHOOT-BUILD.md).
 
+## 500 Internal Server Error Resolution
+
+After addressing the build issues, if you're still experiencing a 500 Internal Server Error on https://adityahospitalnagaon.com/, this is likely due to:
+
+1. **Incorrect Static File Paths**: The server may be looking for static files in the wrong location
+2. **Environment Configuration Issues**: Incorrect NODE_ENV or other environment variables
+3. **PM2 Configuration Problems**: Issues with the PM2 process configuration
+
+### Solutions Implemented
+
+1. **[TROUBLESHOOT-500.md](file:///f:/Codemic%20Projects/adityahospital/TROUBLESHOOT-500.md)** - Detailed troubleshooting guide for 500 errors
+2. **[diagnose-static-files.js](file:///f:/Codemic%20Projects/adityahospital/diagnose-static-files.js)** - Script to diagnose static file path issues
+3. **[diagnose-pm2.js](file:///f:/Codemic%20Projects/adityahospital/diagnose-pm2.js)** - Script to diagnose PM2 configuration issues
+4. **[troubleshoot-500.sh](file:///f:/Codemic%20Projects/adityahospital/troubleshoot-500.sh)** - Comprehensive script to diagnose and fix 500 errors
+5. **Enhanced server logging** in [server/index.js](file:///f:/Codemic%20Projects/adityahospital/server/index.js) to provide better error information
+
+### How to Fix 500 Internal Server Error
+
+1. **Run the comprehensive troubleshooting script**:
+   ```bash
+   chmod +x troubleshoot-500.sh
+   ./troubleshoot-500.sh
+   ```
+
+2. **Check PM2 logs for detailed error information**:
+   ```bash
+   pm2 logs adityahospital --lines 50
+   ```
+
+3. **If there are path issues, verify the static file paths are correct**:
+   ```bash
+   node diagnose-static-files.js
+   ```
+
+4. **Check PM2 configuration**:
+   ```bash
+   node diagnose-pm2.js
+   ```
+
 ## How to Fix All Issues on Production Server
 
 1. **Deploy all fixes using the comprehensive script**:
@@ -141,7 +180,13 @@ For detailed information about build environment issues, refer to [TROUBLESHOOT-
    ./fix-build-environment.sh
    ```
 
-3. **Restart the application**:
+3. **If you're still getting 500 errors, run the 500 error troubleshooter**:
+   ```bash
+   chmod +x troubleshoot-500.sh
+   ./troubleshoot-500.sh
+   ```
+
+4. **Restart the application**:
    ```bash
    pm2 restart adityahospital
    ```

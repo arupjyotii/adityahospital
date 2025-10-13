@@ -70,8 +70,33 @@ app.get('/api/health', (req, res) => {
 
 // Static files serving (for production) - only after API routes
 if (NODE_ENV === 'production') {
+  // Log the paths for debugging
+  const staticPath = path.join(__dirname, '../dist/public');
+  const indexPath = path.join(__dirname, '../dist/public/index.html');
+  
+  console.log('.Static files directory:', staticPath);
+  console.log('Index file path:', indexPath);
+  
+  // Check if static directory exists
+  fs.access(staticPath, fs.constants.F_OK, (err) => {
+    if (err) {
+      console.error('Static files directory not accessible:', err);
+    } else {
+      console.log('Static files directory is accessible');
+    }
+  });
+  
+  // Check if index file exists
+  fs.access(indexPath, fs.constants.F_OK, (err) => {
+    if (err) {
+      console.error('Index file not accessible:', err);
+    } else {
+      console.log('Index file is accessible');
+    }
+  });
+  
   // Serve static files from the React app build directory
-  app.use(express.static(path.join(__dirname, '../dist/public')));
+  app.use(express.static(staticPath));
   
   // Catch-all handler: send back React's index.html file for any non-API routes
   app.get('*', (req, res) => {
@@ -80,14 +105,28 @@ if (NODE_ENV === 'production') {
       return res.status(404).json({ message: 'API route not found' });
     }
     
+    console.log('Serving static file for path:', req.path);
+    
     // Check if the file exists before trying to send it
-    const indexPath = path.join(__dirname, '../dist/public/index.html');
     fs.access(indexPath, fs.constants.F_OK, (err) => {
       if (err) {
-        console.error(`Index file not found at: ${indexPath}`);
-        return res.status(404).json({ message: 'Frontend build not found. Please run npm run build.' });
+        console.error(`Index file not found at: ${indexPath}`, err);
+        return res.status(404).json({ 
+          message: 'Frontend build not found. Please run npm run build.',
+          path: indexPath,
+          error: err.message
+        });
       }
-      res.sendFile(indexPath);
+      console.log('Sending index.html file');
+      res.sendFile(indexPath, (err) => {
+        if (err) {
+          console.error('Error sending index.html:', err);
+          res.status(500).json({ 
+            message: 'Error serving frontend application',
+            error: err.message
+          });
+        }
+      });
     });
   });
 }

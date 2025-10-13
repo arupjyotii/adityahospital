@@ -1,18 +1,35 @@
 import { useState, useEffect } from 'react';
 
 interface Doctor {
-  id: number;
+  id: string; // Changed from number to string to match MongoDB _id
   name: string;
   email: string;
   phone: string;
   specialization: string;
-  department_id: number | null;
+  department_id: string | null;
   photo_url: string | null;
   schedule: string | null;
   created_at: string;
   updated_at: string;
   department_name: string | null;
 }
+
+// Transform API doctor object to match frontend interface
+const transformDoctor = (apiDoctor: any): Doctor => {
+  return {
+    id: apiDoctor._id || apiDoctor.id,
+    name: apiDoctor.name,
+    email: apiDoctor.contactInfo?.email || '',
+    phone: apiDoctor.contactInfo?.phone || '',
+    specialization: apiDoctor.specialization,
+    department_id: apiDoctor.department?._id || apiDoctor.department || null,
+    photo_url: apiDoctor.image || null,
+    schedule: null, // Not provided in API
+    created_at: apiDoctor.createdAt || new Date().toISOString(),
+    updated_at: apiDoctor.updatedAt || new Date().toISOString(),
+    department_name: apiDoctor.department?.name || null
+  };
+};
 
 export const useDoctors = () => {
   const [doctors, setDoctors] = useState<Doctor[]>([]);
@@ -48,8 +65,14 @@ export const useDoctors = () => {
         return;
       }
 
-      const data = await response.json();
-      setDoctors(data);
+      const result = await response.json();
+      // Extract doctors array from the API response structure
+      const doctorsData = result.data?.doctors || result;
+      // Transform API doctors to match frontend interface
+      const transformedDoctors = Array.isArray(doctorsData) 
+        ? doctorsData.map(transformDoctor)
+        : [transformDoctor(doctorsData)];
+      setDoctors(transformedDoctors);
       setError(null);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
@@ -81,15 +104,19 @@ export const useDoctors = () => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const newDoctor = await response.json();
-      setDoctors(prev => [...prev, { ...newDoctor, department_name: null }]);
-      return newDoctor;
+      const result = await response.json();
+      // Extract doctor from the API response structure
+      const newDoctor = result.data?.doctor || result;
+      // Transform API doctor to match frontend interface
+      const transformedDoctor = transformDoctor(newDoctor);
+      setDoctors(prev => [...prev, transformedDoctor]);
+      return transformedDoctor;
     } catch (err) {
       throw err;
     }
   };
 
-  const updateDoctor = async (id: number, doctorData: Partial<Doctor>) => {
+  const updateDoctor = async (id: string, doctorData: Partial<Doctor>) => {
     try {
       const token = localStorage.getItem('authToken');
       if (!token) {
@@ -112,17 +139,21 @@ export const useDoctors = () => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const updatedDoctor = await response.json();
+      const result = await response.json();
+      // Extract doctor from the API response structure
+      const updatedDoctor = result.data?.doctor || result;
+      // Transform API doctor to match frontend interface
+      const transformedDoctor = transformDoctor(updatedDoctor);
       setDoctors(prev => prev.map(doc => 
-        doc.id === id ? { ...doc, ...updatedDoctor, department_name: doc.department_name } : doc
+        doc.id === id ? transformedDoctor : doc
       ));
-      return updatedDoctor;
+      return transformedDoctor;
     } catch (err) {
       throw err;
     }
   };
 
-  const deleteDoctor = async (id: number) => {
+  const deleteDoctor = async (id: string) => {
     try {
       const token = localStorage.getItem('authToken');
       if (!token) {

@@ -17,14 +17,14 @@ export const ServiceForm: React.FC<ServiceFormProps> = ({ service, onSubmit, onC
   const [formData, setFormData] = React.useState({
     name: service?.name || '',
     description: service?.description || '',
-    department_id: service?.department_id?.toString() || ''
+    department_id: service?.department_id || ''
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const submitData = {
       ...formData,
-      department_id: formData.department_id ? parseInt(formData.department_id) : null
+      department_id: formData.department_id || null
     };
     onSubmit(submitData);
   };
@@ -85,7 +85,7 @@ export const ServiceForm: React.FC<ServiceFormProps> = ({ service, onSubmit, onC
             </SelectTrigger>
             <SelectContent className="bg-slate-700 border-slate-600">
               {departments?.map((dept) => (
-                <SelectItem key={dept.id} value={dept.id.toString()} className="text-white hover:bg-slate-600 focus:bg-slate-600">
+                <SelectItem key={dept._id} value={dept._id} className="text-white hover:bg-slate-600 focus:bg-slate-600">
                   {dept.name}
                 </SelectItem>
               ))}

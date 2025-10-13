@@ -30,7 +30,7 @@ export const DoctorManagement: React.FC = () => {
     setShowSuccessDialog(true);
   };
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (id: string) => {
     if (confirm('Are you sure you want to delete this doctor?')) {
       await deleteDoctor(id);
     }

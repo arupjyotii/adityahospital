@@ -1,14 +1,27 @@
 import { useState, useEffect } from 'react';
 
 interface Service {
-  id: number;
+  id: string; // Changed from number to string to match MongoDB _id
   name: string;
   description: string;
-  department_id: number | null;
+  department_id: string | null;
   created_at: string;
   updated_at: string;
   department_name: string | null;
 }
+
+// Transform API service object to match frontend interface
+const transformService = (apiService: any): Service => {
+  return {
+    id: apiService._id || apiService.id,
+    name: apiService.name,
+    description: apiService.description,
+    department_id: apiService.department?._id || apiService.department || null,
+    created_at: apiService.createdAt || new Date().toISOString(),
+    updated_at: apiService.updatedAt || new Date().toISOString(),
+    department_name: apiService.department?.name || null
+  };
+};
 
 export const useServices = () => {
   const [services, setServices] = useState<Service[]>([]);
@@ -44,8 +57,14 @@ export const useServices = () => {
         return;
       }
 
-      const data = await response.json();
-      setServices(data);
+      const result = await response.json();
+      // Extract services array from the API response structure
+      const servicesData = result.data?.services || result;
+      // Transform API services to match frontend interface
+      const transformedServices = Array.isArray(servicesData) 
+        ? servicesData.map(transformService)
+        : [transformService(servicesData)];
+      setServices(transformedServices);
       setError(null);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
@@ -77,15 +96,19 @@ export const useServices = () => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const newService = await response.json();
-      setServices(prev => [...prev, { ...newService, department_name: null }]);
-      return newService;
+      const result = await response.json();
+      // Extract service from the API response structure
+      const newService = result.data?.service || result;
+      // Transform API service to match frontend interface
+      const transformedService = transformService(newService);
+      setServices(prev => [...prev, transformedService]);
+      return transformedService;
     } catch (err) {
       throw err;
     }
   };
 
-  const updateService = async (id: number, serviceData: Partial<Service>) => {
+  const updateService = async (id: string, serviceData: Partial<Service>) => {
     try {
       const token = localStorage.getItem('authToken');
       if (!token) {
@@ -108,17 +131,21 @@ export const useServices = () => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const updatedService = await response.json();
+      const result = await response.json();
+      // Extract service from the API response structure
+      const updatedService = result.data?.service || result;
+      // Transform API service to match frontend interface
+      const transformedService = transformService(updatedService);
       setServices(prev => prev.map(service => 
-        service.id === id ? { ...service, ...updatedService, department_name: service.department_name } : service
+        service.id === id ? transformedService : service
       ));
-      return updatedService;
+      return transformedService;
     } catch (err) {
       throw err;
     }
   };
 
-  const deleteService = async (id: number) => {
+  const deleteService = async (id: string) => {
     try {
       const token = localStorage.getItem('authToken');
       if (!token) {

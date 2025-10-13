@@ -19,7 +19,7 @@ export const DoctorForm: React.FC<DoctorFormProps> = ({ doctor, onSubmit, onCanc
     email: doctor?.email || '',
     phone: doctor?.phone || '',
     specialization: doctor?.specialization || '',
-    department_id: doctor?.department_id?.toString() || '',
+    department_id: doctor?.department_id || '',
     photo_url: doctor?.photo_url || '',
     schedule: doctor?.schedule || ''
   });
@@ -28,7 +28,7 @@ export const DoctorForm: React.FC<DoctorFormProps> = ({ doctor, onSubmit, onCanc
     e.preventDefault();
     const submitData = {
       ...formData,
-      department_id: formData.department_id ? parseInt(formData.department_id) : null
+      department_id: formData.department_id || null
     };
     onSubmit(submitData);
   };
@@ -122,7 +122,7 @@ export const DoctorForm: React.FC<DoctorFormProps> = ({ doctor, onSubmit, onCanc
               </SelectTrigger>
               <SelectContent className="bg-slate-700 border-slate-600">
                 {departments?.map((dept) => (
-                  <SelectItem key={dept.id} value={dept.id.toString()} className="text-white hover:bg-slate-600 focus:bg-slate-600">
+                  <SelectItem key={dept._id} value={dept._id} className="text-white hover:bg-slate-600 focus:bg-slate-600">
                     {dept.name}
                   </SelectItem>
                 ))}
@@ -198,20 +198,20 @@ export const DoctorForm: React.FC<DoctorFormProps> = ({ doctor, onSubmit, onCanc
             <p className="text-xs text-slate-500">Enter working hours and days</p>
           </div>
         </div>
-        
+
         {/* Form Actions */}
-        <div className="flex justify-end space-x-3 pt-6 border-t border-slate-600/30">
-          <Button 
-            type="button" 
-            variant="outline" 
+        <div className="flex justify-end space-x-3 pt-4">
+          <Button
+            type="button"
             onClick={onCancel}
-            className="border-slate-600 text-slate-300 hover:bg-slate-600/50 hover:text-white"
+            variant="outline"
+            className="border-slate-600 text-slate-300 hover:bg-slate-700/50 hover:text-white"
           >
             Cancel
           </Button>
-          <Button 
+          <Button
             type="submit"
-            className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-200"
+            className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white border-0"
           >
             {doctor ? 'Update Doctor' : 'Add Doctor'}
           </Button>

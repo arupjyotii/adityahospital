@@ -165,6 +165,64 @@ After addressing the build issues, if you're still experiencing a 500 Internal S
    node diagnose-pm2.js
    ```
 
+## Backend API Issues Resolution
+
+If the backend is not running properly and you're seeing console errors like "The deferred DOM Node could not be resolved to a valid node," this indicates the frontend cannot connect to the backend API.
+
+### Solutions Implemented
+
+1. **[TROUBLESHOOT-BACKEND.md](file:///f:/Codemic%20Projects/adityahospital/TROUBLESHOOT-BACKEND.md)** - Detailed troubleshooting guide for backend API issues
+2. **[test-backend.sh](file:///f:/Codemic%20Projects/adityahospital/test-backend.sh)** - Script to test backend API endpoints
+3. **[diagnose-backend.js](file:///f:/Codemic%20Projects/adityahospital/diagnose-backend.js)** - Node.js script to diagnose backend connectivity
+4. **[restart-backend.sh](file:///f:/Codemic%20Projects/adityahospital/restart-backend.sh)** - Script to properly restart the backend server
+
+### How to Fix Backend API Issues
+
+1. **Test backend endpoints**:
+   ```bash
+   node diagnose-backend.js
+   ```
+
+2. **Or manually test with curl**:
+   ```bash
+   curl -v http://localhost:4173/api/health
+   ```
+
+3. **Restart the backend server**:
+   ```bash
+   chmod +x restart-backend.sh
+   ./restart-backend.sh
+   ```
+
+## Merge Conflict Resolution
+
+If you're seeing `SyntaxError: Unexpected token '<<'` errors, this indicates unresolved merge conflicts in the code.
+
+### Solutions Implemented
+
+1. **[TROUBLESHOOT-MERGE-CONFLICTS.md](file:///f:/Codemic%20Projects/adityahospital/TROUBLESHOOT-MERGE-CONFLICTS.md)** - Detailed troubleshooting guide for merge conflicts
+2. **[fix-merge-conflicts.sh](file:///f:/Codemic%20Projects/adityahospital/fix-merge-conflicts.sh)** - Automated script to fix merge conflicts
+3. **[fix-merge-conflicts.ps1](file:///f:/Codemic%20Projects/adityahospital/fix-merge-conflicts.ps1)** - PowerShell version for Windows environments
+4. **[find-merge-conflicts.js](file:///f:/Codemic%20Projects/adityahospital/find-merge-conflicts.js)** - Script to identify files with merge conflicts
+
+### How to Fix Merge Conflicts
+
+1. **Find files with merge conflicts**:
+   ```bash
+   node find-merge-conflicts.js
+   ```
+
+2. **Automatically fix merge conflicts**:
+   ```bash
+   chmod +x fix-merge-conflicts.sh
+   ./fix-merge-conflicts.sh
+   ```
+
+3. **Or manually resolve conflicts**:
+   - Open files containing `<<<<<<< HEAD` markers
+   - Remove conflict markers and keep appropriate code
+   - Save the files
+
 ## How to Fix All Issues on Production Server
 
 1. **Deploy all fixes using the comprehensive script**:
@@ -186,7 +244,25 @@ After addressing the build issues, if you're still experiencing a 500 Internal S
    ./troubleshoot-500.sh
    ```
 
-4. **Restart the application**:
+4. **If the issue is missing static files, run**:
+   ```bash
+   chmod +x fix-missing-build.sh
+   ./fix-missing-build.sh
+   ```
+
+5. **If the backend API is not responding, run**:
+   ```bash
+   chmod +x restart-backend.sh
+   ./restart-backend.sh
+   ```
+
+6. **If there are merge conflicts, run**:
+   ```bash
+   chmod +x fix-merge-conflicts.sh
+   ./fix-merge-conflicts.sh
+   ```
+
+7. **Restart the application**:
    ```bash
    pm2 restart adityahospital
    ```

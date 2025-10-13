@@ -1,7 +1,7 @@
-export default {
+module.exports = {
   apps: [
     {
-      name: 'aditya-hospital',
+      name: 'adityahospital',
       script: './server/index.js',
       cwd: '/root/adityahospital',
       instances: 1,
@@ -9,12 +9,12 @@ export default {
       env: {
         NODE_ENV: 'development',
         PORT: 4173,
-        HOST: '67.211.211.34'
+        HOST: '0.0.0.0'
       },
       env_production: {
         NODE_ENV: 'production',
         PORT: 4173,
-        HOST: '67.211.211.34'
+        HOST: '0.0.0.0'
       },
       // PM2 Configuration
       watch: false,

@@ -11,7 +11,12 @@ function hasMergeConflict(filePath) {
     try {
         const content = fs.readFileSync(filePath, 'utf8');
         // Check for actual merge conflict markers - all three must be present
-        return content.includes('<<<<<<<') && content.includes('=======') && content.includes('>>>>>>>');
+        // Look for the specific pattern of conflict markers
+        const hasStartMarker = content.includes('<<<<<<< HEAD') || content.includes('<<<<<<< Updated upstream');
+        const hasMiddleMarker = content.includes('=======');
+        const hasEndMarker = content.includes('>>>>>>> HEAD') || content.includes('>>>>>>> Stashed changes') || content.includes('>>>>>>> main') || content.includes('>>>>>>> master');
+        
+        return hasStartMarker && hasMiddleMarker && hasEndMarker;
     } catch (err) {
         return false;
     }
@@ -31,7 +36,7 @@ function searchDirectory(dir) {
             }
             
             // Skip the fix scripts themselves
-            if (file === 'find-merge-conflicts.js' || file === 'fix-actual-merge-conflicts.js') {
+            if (file === 'find-merge-conflicts.js' || file === 'fix-actual-merge-conflicts.js' || file === 'verify-deployment.js') {
                 continue;
             }
             

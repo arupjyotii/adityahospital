@@ -10,7 +10,7 @@ import { fileURLToPath } from 'url';
 // Get the project root directory
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const projectRoot = path.join(__dirname, '..');
+const projectRoot = __dirname;
 
 console.log('🏥 Aditya Hospital - Build Verification Script');
 console.log('==============================================');
@@ -56,7 +56,7 @@ if (fs.existsSync(distPublicPath)) {
 }
 
 // Also check if the server can access the file
-const serverIndexPath = path.join(__dirname, '../dist/public/index.html');
+const serverIndexPath = path.join(__dirname, 'dist/public/index.html');
 console.log(`\n🔍 Checking server-accessible path: ${serverIndexPath}`);
 
 fs.access(serverIndexPath, fs.constants.F_OK, (err) => {

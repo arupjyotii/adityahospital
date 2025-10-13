@@ -1,39 +1,50 @@
 #!/bin/bash
 
-# Script to fix merge conflicts in the codebase
-# This should be run on the production server
+echo "🏥 Aditya Hospital - Fix Merge Conflicts Script"
+echo "============================================"
 
-echo "🔍 Checking for merge conflicts in the codebase..."
+# Function to resolve merge conflicts in a file
+resolve_conflicts() {
+    local file=$1
+    echo "🔧 Resolving conflicts in $file..."
+    
+    # Create a backup
+    cp "$file" "$file.backup"
+    
+    # Remove conflict markers and keep the working version
+    # This removes the conflict markers and keeps the content between them
+    sed -i '/^<<<<<<< HEAD/,/^>>>>>>> /{//!b}; /^<<<<<<< HEAD/,/^======= /d; /^======= /,/^>>>>>>> /d' "$file"
+    
+    echo "✅ Resolved conflicts in $file"
+}
 
-# Look for merge conflict markers
-CONFLICT_FILES=$(grep -rl "<<<<<<<" /root/adityahospital/client/src/ 2>/dev/null || true)
+# Find and fix all files with merge conflicts
+echo "🔍 Searching for files with merge conflicts..."
+
+# Look for files with conflict markers
+CONFLICT_FILES=$(grep -rl "<<<<<<<" . 2>/dev/null || true)
 
 if [ -n "$CONFLICT_FILES" ]; then
     echo "❌ Found merge conflicts in the following files:"
     echo "$CONFLICT_FILES"
     
-    echo "🔧 Attempting to resolve merge conflicts..."
-    
-    # For each file with conflicts, try to resolve them
+    # Resolve each file
     for file in $CONFLICT_FILES; do
-        echo "Processing $file..."
-        
-        # Create a backup
-        cp "$file" "$file.backup"
-        
-        # Remove conflict markers and keep the working version
-        # This removes the conflict markers and keeps the content between them
-        sed -i '/^<<<<<<< HEAD/,/^>>>>>>> /{//!b}; /^<<<<<<< HEAD/,/^======= /d; /^======= /,/^>>>>>>> /d' "$file"
-        
-        echo "Resolved conflicts in $file"
+        resolve_conflicts "$file"
     done
     
-    echo "✅ Merge conflicts resolved!"
+    echo "✅ All merge conflicts resolved!"
 else
     echo "✅ No merge conflicts found"
 fi
 
-# Now run the deploy-fixes.sh script
-echo "🚀 Running deployment fixes..."
-chmod +x /root/adityahospital/deploy-fixes.sh
-/root/adityahospital/deploy-fixes.sh
+echo ""
+echo "🔄 Restarting application..."
+pm2 restart adityahospital
+
+echo ""
+echo "📋 Checking status..."
+pm2 status
+
+echo ""
+echo "✅ Merge conflict fix complete!"

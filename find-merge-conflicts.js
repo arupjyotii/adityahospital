@@ -10,7 +10,8 @@ console.log('🔍 Searching for files with merge conflicts...');
 function hasMergeConflict(filePath) {
     try {
         const content = fs.readFileSync(filePath, 'utf8');
-        return content.includes('<<<<<<<') || content.includes('>>>>>>>') || content.includes('=======');
+        // Check for actual merge conflict markers - all three must be present
+        return content.includes('<<<<<<<') && content.includes('=======') && content.includes('>>>>>>>');
     } catch (err) {
         return false;
     }
@@ -26,6 +27,11 @@ function searchDirectory(dir) {
             
             // Skip node_modules and other directories we don't need to check
             if (file === 'node_modules' || file === '.git' || file === 'dist') {
+                continue;
+            }
+            
+            // Skip the fix scripts themselves
+            if (file === 'find-merge-conflicts.js' || file === 'fix-actual-merge-conflicts.js') {
                 continue;
             }
             

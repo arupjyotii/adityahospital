@@ -113,6 +113,19 @@ Additionally, there was a merge conflict in the codebase that was causing build 
 2. This was resolved by creating [complete-production-fix.sh](file:///f:/Codemic%20Projects/adityahospital/complete-production-fix.sh) which automatically detects and resolves merge conflicts
 3. The script uses `awk` to remove conflict markers while preserving the working code
 
+## Build Environment Issues
+
+There are also permission issues with the esbuild binary that prevent the build from completing:
+
+1. The error `spawn .../esbuild EACCES` indicates permission problems with the esbuild binary
+2. This was resolved by creating [fix-build-environment.sh](file:///f:/Codemic%20Projects/adityahospital/fix-build-environment.sh) which:
+   - Fixes permissions for node_modules directories
+   - Specifically fixes esbuild binary permissions
+   - Cleans and reinstalls dependencies
+   - Increases memory allocation for the build process
+
+For detailed information about build environment issues, refer to [TROUBLESHOOT-BUILD.md](file:///f:/Codemic%20Projects/adityahospital/TROUBLESHOOT-BUILD.md).
+
 ## How to Fix All Issues on Production Server
 
 1. **Deploy all fixes using the comprehensive script**:
@@ -122,7 +135,13 @@ Additionally, there was a merge conflict in the codebase that was causing build 
    ./complete-production-fix.sh
    ```
 
-2. **Restart the application**:
+2. **If you encounter specific build environment issues, run**:
+   ```bash
+   chmod +x fix-build-environment.sh
+   ./fix-build-environment.sh
+   ```
+
+3. **Restart the application**:
    ```bash
    pm2 restart adityahospital
    ```
@@ -134,8 +153,9 @@ Additionally, there was a merge conflict in the codebase that was causing build 
 3. Fixes the CSS by replacing `@apply border-border;` with `border-color: hsl(var(--border));`
 4. Creates the missing Tailwind configuration file
 5. Installs/updates all dependencies
-6. Builds the frontend
-7. Verifies the build output
-8. Cleans up backup files if successful
+6. Fixes build environment permission issues
+7. Builds the frontend
+8. Verifies the build output
+9. Cleans up backup files if successful
 
 This comprehensive approach ensures that all known issues are resolved and the application can be successfully deployed.

@@ -49,6 +49,28 @@ resolve_merge_conflicts() {
     fi
 }
 
+# Function to fix build environment issues
+fix_build_environment() {
+    echo "🔧 Fixing build environment issues..."
+    
+    # Fix permissions for node_modules
+    echo "🔧 Fixing node_modules permissions..."
+    chmod -R 755 node_modules 2>/dev/null || echo "No node_modules directory or permission issue"
+
+    # Specifically fix esbuild permissions
+    echo "🔧 Fixing esbuild permissions..."
+    find node_modules -name "esbuild" -type d -exec chmod 755 {} \; 2>/dev/null || echo "No esbuild directory found"
+    find node_modules -name "esbuild" -type d -exec chmod +x {} \; 2>/dev/null || echo "Could not make esbuild executable"
+
+    # Fix permissions for esbuild binaries specifically
+    find node_modules -path "*/esbuild/*" -name "esbuild" -type f -exec chmod +x {} \; 2>/dev/null || echo "Could not make esbuild binaries executable"
+
+    # Fix any remaining permission issues
+    echo "🔧 Fixing remaining permission issues..."
+    chmod +x node_modules/.bin/* 2>/dev/null || echo "Could not fix bin permissions"
+    chmod +x client/node_modules/.bin/* 2>/dev/null || echo "Could not fix client bin permissions"
+}
+
 # Resolve any merge conflicts first
 resolve_merge_conflicts
 
@@ -157,6 +179,9 @@ npm install --force
 cd client
 npm install --force
 cd ..
+
+# Fix build environment issues
+fix_build_environment
 
 # Build the frontend
 echo "🏗️  Building frontend..."

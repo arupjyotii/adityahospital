@@ -45,10 +45,10 @@ export const AboutPage: React.FC = () => {
   ];
 
   const team = [
-    { name: 'Dr. Sarah Johnson', role: 'Chief Medical Officer', experience: '20+ years' },
-    { name: 'Dr. Michael Chen', role: 'Head of Cardiology', experience: '18+ years' },
-    { name: 'Dr. Emily Rodriguez', role: 'Head of Pediatrics', experience: '15+ years' },
-    { name: 'Dr. David Kim', role: 'Head of Neurology', experience: '22+ years' }
+    { name: 'Dr. Kishore Sarma', role: 'Neuro Surgeon', experience: '10+ years' },
+    { name: 'Dr. Merazul Hazarika', role: 'OBS. & GYNAE', experience: '12+ years' },
+    { name: 'Dr. Surajit Hazarika', role: 'Urology', experience: '7+ years' },
+    { name: 'Dr. Debaraj Saikia', role: 'DIP,CARDIOLOGY', experience: '10+ years' }
   ];
 
   return (
@@ -66,7 +66,7 @@ export const AboutPage: React.FC = () => {
             About <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Aditya Hospital</span>
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            For over 25 years, we have been at the forefront of healthcare innovation, 
+            For over 8 years, we have been at the forefront of healthcare innovation, 
             providing exceptional medical care with compassion and cutting-edge technology.
           </p>
         </div>
@@ -114,11 +114,11 @@ export const AboutPage: React.FC = () => {
                   </p>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="text-center">
-                      <div className="text-3xl font-bold">25+</div>
+                      <div className="text-3xl font-bold">8+</div>
                       <div className="text-sm text-blue-100">Years of Excellence</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-3xl font-bold">50+</div>
+                      <div className="text-3xl font-bold">27+</div>
                       <div className="text-sm text-blue-100">Specialist Doctors</div>
                     </div>
                   </div>

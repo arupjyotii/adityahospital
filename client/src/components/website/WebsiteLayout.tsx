@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Phone, Mail, MapPin, Clock, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
+import { Phone, Mail, Clock, Facebook, Twitter, Instagram, Linkedin, MapPin } from 'lucide-react';
 
 interface WebsiteLayoutProps {
   children: React.ReactNode;
@@ -33,23 +33,25 @@ export const WebsiteLayout: React.FC<WebsiteLayoutProps> = ({ children }) => {
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white/95 backdrop-blur-md shadow-lg' : 'bg-transparent'
+      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        isScrolled ? 'bg-white/95 backdrop-blur-md shadow-lg' : 'bg-white'
       }`}>
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 py-2">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <Link to="/" className="flex items-center space-x-3">
-            <img 
-                src="/logo.png" 
-                alt="Hospital Logo" 
-                className="h-10 w-10 object-contain"
-              />
-              <div>
-                <h1 className="text-xl font-bold text-gray-900">Aditya Hospital</h1>
-                <p className="text-sm text-gray-600">Multispeciality Hospital</p>
-              </div>
-            </Link>
+            <div className="flex items-center">
+              <Link to="/" className="flex items-center space-x-3">
+                <img 
+                  src="/logo.png" 
+                  alt="Hospital Logo" 
+                  className="h-16 w-16 object-contain"
+                />
+                <div>
+                  <h1 className="text-xl font-bold text-gray-900">Aditya Hospital</h1>
+                  <p className="text-sm text-gray-600">Multispeciality Hospital</p>
+                </div>
+              </Link>
+            </div>
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center space-x-8">
@@ -68,26 +70,47 @@ export const WebsiteLayout: React.FC<WebsiteLayoutProps> = ({ children }) => {
               ))}
             </nav>
 
-            {/* CTA Button */}
-            <div className="hidden lg:flex items-center space-x-4">
+            {/* Emergency Contact Info - Desktop */}
+            <div className="hidden lg:flex flex-col items-end justify-center pt-0">
+              <div className="flex items-center space-x-4 mb-1">
+                <div className="flex items-center space-x-1">
+                  <Phone className="w-4 h-4 text-amber-600" />
+                  <span className="text-sm font-medium text-gray-700">+91 8638559875</span>
+                </div>
+                <div className="flex items-center space-x-1">
+                  <Mail className="w-4 h-4 text-amber-600" />
+                  <span className="text-sm font-medium text-gray-700">info@adityahospitalnagaon.com</span>
+                </div>
+              </div>
+              <div className="flex items-center space-x-1">
+                <Clock className="w-4 h-4 text-amber-600" />
+                <span className="text-xs text-amber-600 font-semibold">24/7 EMERGENCY SERVICES</span>
+              </div>
+              <div className="hidden lg:flex items-center space-x-4 py-2">
               <Button asChild className="bg-blue-600 hover:bg-blue-700 text-white">
                 <Link to="/appointments">Book Appointment</Link>
               </Button>
+              </div>
             </div>
 
+            {/* CTA Button */}
+            
+
             {/* Mobile menu button */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-100"
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                {mobileMenuOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                )}
-              </svg>
-            </button>
+            <div className="lg:hidden flex items-center">
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="p-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-100"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  {mobileMenuOpen ? (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  ) : (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  )}
+                </svg>
+              </button>
+            </div>
           </div>
 
           {/* Mobile Navigation */}
@@ -108,7 +131,25 @@ export const WebsiteLayout: React.FC<WebsiteLayoutProps> = ({ children }) => {
                     {item.name}
                   </Link>
                 ))}
-                <Button asChild className="bg-blue-600 hover:bg-blue-700 w-full">
+                {/* Emergency Contact Info - Mobile */}
+                <div className="pt-4 border-t border-gray-200">
+                  <h4 className="text-base font-semibold text-red-600 mb-2">Emergency Contact</h4>
+                  <div className="space-y-3 text-gray-600">
+                    <div className="flex items-center space-x-3">
+                      <Phone className="w-5 h-5" />
+                      <span className="text-base">+91 8638559875 / +91 8099983875</span>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <Mail className="w-5 h-5" />
+                      <span className="text-base">info@adityahospitalnagaon.com</span>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <Clock className="w-5 h-5" />
+                      <span className="text-green-600">24/7 Emergency Services</span>
+                    </div>
+                  </div>
+                </div>
+                <Button asChild className="bg-blue-600 text-white hover:bg-blue-700 w-full mt-4">
                   <Link to="/appointments" onClick={() => setMobileMenuOpen(false)}>
                     Book Appointment
                   </Link>
@@ -145,10 +186,10 @@ export const WebsiteLayout: React.FC<WebsiteLayoutProps> = ({ children }) => {
                 Providing world-class healthcare services with compassion and cutting-edge technology.
               </p>
               <div className="flex space-x-4">
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <a href="https://www.facebook.com/adityahospitalnagaon/" className="text-gray-400 hover:text-white transition-colors">
                   <Facebook className="w-5 h-5" />
                 </a>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <a href="https://www.instagram.com/adityahospitalnagaon/" className="text-gray-400 hover:text-white transition-colors">
                   <Instagram className="w-5 h-5" />
                 </a>
               </div>
@@ -168,14 +209,6 @@ export const WebsiteLayout: React.FC<WebsiteLayoutProps> = ({ children }) => {
                     </Link>
                   </li>
                 ))}
-                <li>
-                  <Link
-                    to="/admin"
-                    className="text-gray-400 hover:text-white transition-colors text-sm"
-                  >
-                    AD Panel
-                  </Link>
-                </li>
               </ul>
             </div>
 
@@ -218,7 +251,7 @@ export const WebsiteLayout: React.FC<WebsiteLayoutProps> = ({ children }) => {
           </div>
 
           {/* Bottom Footer */}
-          <div className="border-t border-gray-800 mt-12 pt-8 text-center">
+          <div className="border-t border-gray-800 mt-5 pt-3 text-center">
             <p className="text-gray-400 text-sm">
               © 2025 Aditya Hospital. All rights reserved. | Designed & Developed by 
               <a href="https://codemic.in" className="inline-block align-middle" target="_blank" rel="noopener noreferrer">

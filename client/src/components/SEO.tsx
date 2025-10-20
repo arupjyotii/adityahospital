@@ -66,14 +66,6 @@ export const SEO: React.FC<SEOProps> = (props) => {
       <meta property="og:site_name" content="Aditya Hospital" />
       <meta property="og:locale" content="en_IN" />
       
-      {/* Twitter Card */}
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={fullTitle} />
-      <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={image} />
-      <meta name="twitter:url" content={url} />
-      <meta name="twitter:site" content="@AdityaHospital" />
-      
       {/* Additional Open Graph for Articles */}
       {type === 'article' && (
         <>
@@ -107,7 +99,7 @@ export const createHospitalSchema = () => {
     "description": "Leading multispeciality hospital in Nagaon, Assam providing world-class healthcare services with 24/7 emergency care.",
     "url": "https://adityahospitalnagaon.com",
     "logo": "https://adityahospitalnagaon.com/logo.png",
-    "image": "https://adityahospitalnagaon.com/hospital-og-image.jpg",
+    "image": "https://adityahospitalnagaon.com/logo.png",
     "telephone": "+91-8638559875",
     "email": "info@adityahospitalnagaon.com",
     "address": {

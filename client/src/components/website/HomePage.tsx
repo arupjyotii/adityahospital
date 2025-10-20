@@ -64,112 +64,112 @@ export const HomePage: React.FC = () => {
       name: 'Dr. Niyor Hazarika',
       specialization: 'MD',
       experience: 15,
-      image: 'doctors/niyor.png'
+      image: '/doctors/niyor.png'
     },
     {
       id: '2',
       name: 'Dr. Hriday Haloi',
       specialization: 'MS, MCH',
       experience: 12,
-      image: 'doctors/hriday.png'
+      image: '/doctors/hriday.png'
     },
     {
       id: '3',
       name: 'Dr. Dipankar Das',
       specialization: 'MD',
       experience: 10,
-      image: 'doctors/dipankar.png'
+      image: '/doctors/dipankar.png'
     },
     {
       id: '4',
       name: 'Dr. Bhaskar Jyoti Malakar',
       specialization: 'MS',
       experience: 8,
-      image: 'doctors/bhaskar.png'
+      image: '/doctors/bhaskar.png'
     },
     {
       id: '5',
       name: 'Dr. Nizamuddin Khan',
       specialization: 'MS',
       experience: 14,
-      image: 'doctors/niza.png'
+      image: '/doctors/niza.png'
     },
     {
       id: '6',
       name: 'Dr. Shafique Ahmed',
       specialization: 'MS',
       experience: 9,
-      image: 'doctors/safi.png'
+      image: '/doctors/safi.png'
     },
     {
       id: '7',
       name: 'Dr. Pallabi Bhattacharjee',
       specialization: 'MS',
       experience: 16,
-      image: 'doctors/pallabi.png'
+      image: '/doctors/pallabi.png'
     },
     {
       id: '8',
       name: 'Dr. Shahadat Hussain',
       specialization: 'RMO',
       experience: 11,
-      image: 'doctors/shah.png'
+      image: '/doctors/shah.png'
     },
     {
       id: '9',
       name: 'Dr. Arup Choudhury',
       specialization: 'GASTROENTEROLOGY',
       experience: 13,
-      image: 'doctors/arup.jpg'
+      image: '/doctors/arup.jpg'
     },
     {
       id: '10',
       name: 'Dr. Arjun Dey',
       specialization: 'MS',
       experience: 17,
-      image: 'doctors/arjun.jpg'
+      image: '/doctors/arjun.jpg'
     },
     {
       id: '11',
       name: 'Dr. Diganta Das',
       specialization: 'MD, DM',
       experience: 7,
-      image: 'doctors/diganta.jpg'
+      image: '/doctors/diganta.jpg'
     },
     {
       id: '12',
       name: 'Dr. Areendam barua',
       specialization: 'MS, MCH',
       experience: 12,
-      image: 'doctors/areen.jpg'
+      image: '/doctors/areen.jpg'
     },
     {
       id: '13',
       name: 'Dr. Kishore Sarma',
       specialization: 'MS, MCH',
       experience: 15,
-      image: 'doctors/kishor.jpg'
+      image: '/doctors/kishor.jpg'
     },
     {
       id: '14',
       name: 'Dr. Surajit Hazarika',
       specialization: 'MS, MCH(Ahmedabad)',
       experience: 9,
-      image: 'doctors/surajit.jpg'
+      image: '/doctors/surajit.jpg'
     },
     {
       id: '15',
       name: 'Dr. Bijumoni Das',
       specialization: 'PHYSIOTHERAPY',
       experience: 18,
-      image: 'doctors/bijumoni.jpg'
+      image: '/doctors/bijumoni.jpg'
     },
     {
       id: '16',
       name: 'Dr. Siyum Ganguly',
       specialization: 'CONSULTANT PATHOLOGIST',
       experience: 11,
-      image: 'doctors/siyum.png'
+      image: '/doctors/siyum.png'
     }
   ];
 
@@ -350,42 +350,42 @@ export const HomePage: React.FC = () => {
           <div className="grid grid-cols-2 gap-6 md:grid-cols-2 lg:grid-cols-3">
             <div className="overflow-hidden rounded-lg shadow-lg">
               <img 
-                src="extras/p1.webp" 
+                src="/extras/p1.webp" 
                 alt="Hospital Exterior" 
                 className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
               />
             </div>
             <div className="overflow-hidden rounded-lg shadow-lg">
               <img 
-                src="extras/p2.webp" 
+                src="/extras/p2.webp" 
                 alt="Emergency Room" 
                 className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
               />
             </div>
             <div className="overflow-hidden rounded-lg shadow-lg">
               <img 
-                src="extras/p3.webp" 
+                src="/extras/p3.webp" 
                 alt="Operation Theater" 
                 className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
               />
             </div>
             <div className="overflow-hidden rounded-lg shadow-lg">
               <img 
-                src="extras/p5.webp" 
+                src="/extras/p5.webp" 
                 alt="Diagnostic Lab" 
                 className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
               />
             </div>
             <div className="overflow-hidden rounded-lg shadow-lg">
               <img 
-                src="extras/p6.webp" 
+                src="/extras/p6.webp" 
                 alt="Waiting Area" 
                 className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
               />
             </div>
             <div className="overflow-hidden rounded-lg shadow-lg">
               <img 
-                src="extras/p7.webp" 
+                src="/extras/p7.webp" 
                 alt="Waiting Area" 
                 className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
               />

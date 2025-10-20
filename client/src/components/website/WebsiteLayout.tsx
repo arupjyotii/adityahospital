@@ -33,11 +33,7 @@ export const WebsiteLayout: React.FC<WebsiteLayoutProps> = ({ children }) => {
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-<<<<<<< HEAD
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-=======
-      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
->>>>>>> 38be462acc79a59c46de95dfa55f655c61cdeee9
         isScrolled ? 'bg-white/95 backdrop-blur-md shadow-lg' : 'bg-white'
       }`}>
         <div className="container mx-auto px-4 py-2">
@@ -137,11 +133,7 @@ export const WebsiteLayout: React.FC<WebsiteLayoutProps> = ({ children }) => {
                 ))}
                 {/* Emergency Contact Info - Mobile */}
                 <div className="pt-4 border-t border-gray-200">
-<<<<<<< HEAD
                   <h4 className="text-base font-semibold text-red-600 mb-2">Emergency Contact</h4>
-=======
-                  <h4 className="text-base font-semibold text-gray-900 mb-2">Emergency Contact</h4>
->>>>>>> 38be462acc79a59c46de95dfa55f655c61cdeee9
                   <div className="space-y-3 text-gray-600">
                     <div className="flex items-center space-x-3">
                       <Phone className="w-5 h-5" />
@@ -153,19 +145,11 @@ export const WebsiteLayout: React.FC<WebsiteLayoutProps> = ({ children }) => {
                     </div>
                     <div className="flex items-center space-x-3">
                       <Clock className="w-5 h-5" />
-<<<<<<< HEAD
                       <span className="text-green-600">24/7 Emergency Services</span>
                     </div>
                   </div>
                 </div>
                 <Button asChild className="bg-blue-600 text-white hover:bg-blue-700 w-full mt-4">
-=======
-                      <span className="text-base">24/7 Emergency Services</span>
-                    </div>
-                  </div>
-                </div>
-                <Button asChild className="bg-blue-600 hover:bg-blue-700 w-full mt-4">
->>>>>>> 38be462acc79a59c46de95dfa55f655c61cdeee9
                   <Link to="/appointments" onClick={() => setMobileMenuOpen(false)}>
                     Book Appointment
                   </Link>

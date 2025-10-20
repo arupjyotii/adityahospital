@@ -315,6 +315,10 @@ export const HomePage: React.FC = () => {
               src="/director.jpg"
               alt="Managing Director of Aditya Hospital"
               className="w-48 h-48 md:w-96 md:h-96 rounded-full object-cover shadow-lg border-4 border-indigo-500"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.src = '/director.jpg';
+              }}
             />
           </div>
           <div className="w-full md:w-2/3">
@@ -350,44 +354,68 @@ export const HomePage: React.FC = () => {
           <div className="grid grid-cols-2 gap-6 md:grid-cols-2 lg:grid-cols-3">
             <div className="overflow-hidden rounded-lg shadow-lg">
               <img 
-                src="/extras/p1.png" 
+                src="/extras/p1.webp" 
                 alt="Hospital Exterior" 
                 className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = '/images/hospital/hospital-exterior.jpg';
+                }}
               />
             </div>
             <div className="overflow-hidden rounded-lg shadow-lg">
               <img 
-                src="/extras/p2.png" 
+                src="/extras/p2.webp" 
                 alt="Emergency Room" 
                 className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = '/images/hospital/emergency-room.jpg';
+                }}
               />
             </div>
             <div className="overflow-hidden rounded-lg shadow-lg">
               <img 
-                src="/extras/p3.png" 
+                src="/extras/p3.webp" 
                 alt="Operation Theater" 
                 className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = '/images/hospital/operation-theater.jpg';
+                }}
               />
             </div>
             <div className="overflow-hidden rounded-lg shadow-lg">
               <img 
-                src="/extras/p5.png" 
+                src="/extras/p5.webp" 
                 alt="Diagnostic Lab" 
                 className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = '/images/hospital/diagnostic-lab.jpg';
+                }}
               />
             </div>
             <div className="overflow-hidden rounded-lg shadow-lg">
               <img 
-                src="/extras/p6.png" 
+                src="/extras/p6.webp" 
                 alt="Waiting Area" 
                 className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = '/images/hospital/waiting-area.jpg';
+                }}
               />
             </div>
             <div className="overflow-hidden rounded-lg shadow-lg">
               <img 
-                src="/extras/p7.png" 
+                src="/extras/p7.webp" 
                 alt="Waiting Area" 
                 className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = '/images/hospital/waiting-area.jpg';
+                }}
               />
             </div>
           </div>

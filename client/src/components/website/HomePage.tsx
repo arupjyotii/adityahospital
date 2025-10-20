@@ -288,10 +288,6 @@ export const HomePage: React.FC = () => {
                         src={doctor.image}
                         alt={doctor.name}
                         className="w-32 h-32 rounded-full object-cover border-4 border-transparent shadow-md"
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.src = '/director.jpg';
-                        }}
                       />
                       <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-amber-400 rounded-full border-2 border-white"></div>
                     </div>
@@ -359,7 +355,7 @@ export const HomePage: React.FC = () => {
                 className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
-                  target.src = '/logo.png';
+                  target.src = '/extras/p1.png';
                 }}
               />
             </div>
@@ -370,7 +366,7 @@ export const HomePage: React.FC = () => {
                 className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
-                  target.src = '/logo.png';
+                  target.src = '/extras/p2.png';
                 }}
               />
             </div>
@@ -381,7 +377,7 @@ export const HomePage: React.FC = () => {
                 className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
-                  target.src = '/logo.png';
+                  target.src = '/extras/p3.png';
                 }}
               />
             </div>
@@ -392,7 +388,7 @@ export const HomePage: React.FC = () => {
                 className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
-                  target.src = '/logo.png';
+                  target.src = '/extras/p5.png';
                 }}
               />
             </div>
@@ -403,7 +399,7 @@ export const HomePage: React.FC = () => {
                 className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
-                  target.src = '/logo.png';
+                  target.src = '/extras/p6.png';
                 }}
               />
             </div>
@@ -414,7 +410,7 @@ export const HomePage: React.FC = () => {
                 className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
-                  target.src = '/logo.png';
+                  target.src = '/extras/p7.png';
                 }}
               />
             </div>

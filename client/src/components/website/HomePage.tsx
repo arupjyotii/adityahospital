@@ -290,7 +290,7 @@ export const HomePage: React.FC = () => {
                         className="w-32 h-32 rounded-full object-cover border-4 border-transparent shadow-md"
                         onError={(e) => {
                           const target = e.target as HTMLImageElement;
-                          target.src = '/doctors/default-doctor.jpg';
+                          target.src = '/director.jpg';
                         }}
                       />
                       <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-amber-400 rounded-full border-2 border-white"></div>
@@ -354,67 +354,67 @@ export const HomePage: React.FC = () => {
           <div className="grid grid-cols-2 gap-6 md:grid-cols-2 lg:grid-cols-3">
             <div className="overflow-hidden rounded-lg shadow-lg">
               <img 
-                src="/extras/p1.webp" 
+                src="/extras/p1.png" 
                 alt="Hospital Exterior" 
                 className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
-                  target.src = '/images/hospital/hospital-exterior.jpg';
+                  target.src = '/logo.png';
                 }}
               />
             </div>
             <div className="overflow-hidden rounded-lg shadow-lg">
               <img 
-                src="/extras/p2.webp" 
+                src="/extras/p2.png" 
                 alt="Emergency Room" 
                 className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
-                  target.src = '/images/hospital/emergency-room.jpg';
+                  target.src = '/logo.png';
                 }}
               />
             </div>
             <div className="overflow-hidden rounded-lg shadow-lg">
               <img 
-                src="/extras/p3.webp" 
+                src="/extras/p3.png" 
                 alt="Operation Theater" 
                 className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
-                  target.src = '/images/hospital/operation-theater.jpg';
+                  target.src = '/logo.png';
                 }}
               />
             </div>
             <div className="overflow-hidden rounded-lg shadow-lg">
               <img 
-                src="/extras/p5.webp" 
+                src="/extras/p5.png" 
                 alt="Diagnostic Lab" 
                 className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
-                  target.src = '/images/hospital/diagnostic-lab.jpg';
+                  target.src = '/logo.png';
                 }}
               />
             </div>
             <div className="overflow-hidden rounded-lg shadow-lg">
               <img 
-                src="/extras/p6.webp" 
+                src="/extras/p6.png" 
                 alt="Waiting Area" 
                 className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
-                  target.src = '/images/hospital/waiting-area.jpg';
+                  target.src = '/logo.png';
                 }}
               />
             </div>
             <div className="overflow-hidden rounded-lg shadow-lg">
               <img 
-                src="/extras/p7.webp" 
+                src="/extras/p7.png" 
                 alt="Waiting Area" 
                 className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
-                  target.src = '/images/hospital/waiting-area.jpg';
+                  target.src = '/logo.png';
                 }}
               />
             </div>

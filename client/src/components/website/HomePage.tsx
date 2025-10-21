@@ -311,10 +311,6 @@ export const HomePage: React.FC = () => {
               src="/director.jpg"
               alt="Managing Director of Aditya Hospital"
               className="w-48 h-48 md:w-96 md:h-96 rounded-full object-cover shadow-lg border-4 border-indigo-500"
-              onError={(e) => {
-                const target = e.target as HTMLImageElement;
-                target.src = '/director.jpg';
-              }}
             />
           </div>
           <div className="w-full md:w-2/3">
@@ -353,10 +349,6 @@ export const HomePage: React.FC = () => {
                 src="/extras/p1.png" 
                 alt="Hospital Exterior" 
                 className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.src = '/extras/p1.png';
-                }}
               />
             </div>
             <div className="overflow-hidden rounded-lg shadow-lg">
@@ -364,10 +356,6 @@ export const HomePage: React.FC = () => {
                 src="/extras/p2.png" 
                 alt="Emergency Room" 
                 className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.src = '/extras/p2.png';
-                }}
               />
             </div>
             <div className="overflow-hidden rounded-lg shadow-lg">
@@ -375,10 +363,6 @@ export const HomePage: React.FC = () => {
                 src="/extras/p3.png" 
                 alt="Operation Theater" 
                 className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.src = '/extras/p3.png';
-                }}
               />
             </div>
             <div className="overflow-hidden rounded-lg shadow-lg">
@@ -386,10 +370,6 @@ export const HomePage: React.FC = () => {
                 src="/extras/p5.png" 
                 alt="Diagnostic Lab" 
                 className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.src = '/extras/p5.png';
-                }}
               />
             </div>
             <div className="overflow-hidden rounded-lg shadow-lg">
@@ -397,10 +377,6 @@ export const HomePage: React.FC = () => {
                 src="/extras/p6.png" 
                 alt="Waiting Area" 
                 className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.src = '/extras/p6.png';
-                }}
               />
             </div>
             <div className="overflow-hidden rounded-lg shadow-lg">
@@ -408,10 +384,6 @@ export const HomePage: React.FC = () => {
                 src="/extras/p7.png" 
                 alt="Waiting Area" 
                 className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.src = '/extras/p7.png';
-                }}
               />
             </div>
           </div>

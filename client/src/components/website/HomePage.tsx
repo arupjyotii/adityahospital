@@ -176,7 +176,7 @@ export const HomePage: React.FC = () => {
   const stats = [
     { number: 27, label: 'Specialist Doctors' },
     { number: 20000, label: 'Happy Patients' },
-    { number: 8, label: 'Years Experience' },
+    { number: 3, label: 'Years Experience' },
     { number: departments.length, label: 'Medical Departments' }
   ];
 
@@ -218,11 +218,11 @@ export const HomePage: React.FC = () => {
                 Trusted by 20000+ Patients
               </div>
               <h1 className="text-4xl lg:text-6xl font-bold text-white leading-tight">
-                #1 Hospital
+                Aditya
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-700 to-orange-700">
                   {' '}
                 </span>
-                {' '}in Nagaon, Assam
+                {' '}Multispeciality Hospital
               </h1>
               <p className="text-xl text-white leading-relaxed">
                 Experience exceptional medical care with our team of expert doctors,
@@ -254,8 +254,8 @@ export const HomePage: React.FC = () => {
               const { count, elementRef } = useCountAnimation(stat.number);
               return (
                 <div key={index} ref={elementRef} className="text-center">
-                  <div className="text-4xl lg:text-5xl font-bold mb-2 text-yellow-400" style={{ WebkitTextStroke: '1px black' }}>
-                    {count}{stat.label === 'Happy Patients' || stat.label === 'Specialist Doctors' ? '+' : ''}
+                  <div className="text-4xl lg:text-5xl font-bold mb-2 text-yellow-400" style={{ WebkitTextStroke: '0.5px black' }}>
+                    {count}{stat.label === 'Happy Patients' || stat.label === 'Specialist Doctors' || stat.label === 'Years Experience' ? '+' : ''}
                   </div>
                   <div className="text-gray-700 font-medium uppercase tracking-wider text-sm">{stat.label}</div>
                 </div>

@@ -8,9 +8,8 @@ export default defineConfig(({ mode }) => {
   // Load env file based on `mode` in the current working directory.
   const env = loadEnv(mode, process.cwd(), '')
   
-  // Default API URL for development
-  const apiUrl = env.VITE_API_URL || 'http://adityahospitalnagaon.com';
-  const apiTarget = apiUrl.replace('/api', '');
+  // Default API target for development (should point to the backend server)
+  const apiTarget = env.VITE_API_URL || 'http://localhost:4173';
 
   return {
     plugins: [

@@ -47,7 +47,15 @@ export const Dashboard: React.FC = () => {
           <p className="text-sm text-slate-400 mt-2">{error}</p>
           {error.includes('404') && (
             <p className="text-xs text-slate-500 mt-2">
-              This might indicate an issue with the API endpoint or authentication.
+              The dashboard API endpoint could not be found. Please check:
+              <br />1. The backend server is running
+              <br />2. The API endpoint is correctly configured
+              <br />3. The proxy settings in vite.config.js
+            </p>
+          )}
+          {error.includes('Authentication') && (
+            <p className="text-xs text-slate-500 mt-2">
+              Please try logging out and logging back in.
             </p>
           )}
         </div>

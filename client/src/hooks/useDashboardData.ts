@@ -27,7 +27,25 @@ export const useDashboardData = () => {
         const response = await apiFetch(API_ENDPOINTS.DASHBOARD);
 
         if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+          // Handle different HTTP status codes more specifically
+          switch (response.status) {
+            case 401:
+              setError('Authentication required. Please log in.');
+              break;
+            case 403:
+              setError('Access denied. Insufficient permissions.');
+              break;
+            case 404:
+              setError('Dashboard endpoint not found. Please check API configuration.');
+              break;
+            case 500:
+              setError('Server error. Please try again later.');
+              break;
+            default:
+              setError(`HTTP error! status: ${response.status}`);
+          }
+          setLoading(false);
+          return;
         }
 
         const result = await response.json();

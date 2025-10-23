@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { API_ENDPOINTS, apiFetch } from '../lib/config';
+import { useAuth } from '../contexts/AuthContext';
 
 interface DashboardData {
   doctors: number;
@@ -11,13 +12,14 @@ export const useDashboardData = () => {
   const [data, setData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { token, isAuthenticated } = useAuth();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = localStorage.getItem('authToken');
-        if (!token) {
-          setError('No authentication token found');
+        // Check if user is authenticated
+        if (!isAuthenticated || !token) {
+          setError('User not authenticated');
           setLoading(false);
           return;
         }
@@ -38,7 +40,7 @@ export const useDashboardData = () => {
     };
 
     fetchData();
-  }, []);
+  }, [isAuthenticated, token]);
 
   return { data, loading, error };
 };

@@ -2,10 +2,28 @@ import * as React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useDashboardData } from '@/hooks/useDashboardData';
 import { Users, Building2, Briefcase, TrendingUp, Activity, Calendar, Clock } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
 
 export const Dashboard: React.FC = () => {
   const { data, loading, error } = useDashboardData();
+  const { isAuthenticated, user } = useAuth();
 
+  // Check if user is authenticated
+  if (!isAuthenticated) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="text-center">
+          <div className="p-4 bg-red-500/20 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+            <div className="text-red-400 text-2xl">⚠️</div>
+          </div>
+          <p className="text-lg font-medium text-red-400">Access Denied</p>
+          <p className="text-sm text-slate-400 mt-2">Please log in to access the dashboard</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Show loading state
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -17,6 +35,7 @@ export const Dashboard: React.FC = () => {
     );
   }
 
+  // Show error state
   if (error) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -26,6 +45,11 @@ export const Dashboard: React.FC = () => {
           </div>
           <p className="text-lg font-medium text-red-400">Error loading dashboard</p>
           <p className="text-sm text-slate-400 mt-2">{error}</p>
+          {error.includes('404') && (
+            <p className="text-xs text-slate-500 mt-2">
+              This might indicate an issue with the API endpoint or authentication.
+            </p>
+          )}
         </div>
       </div>
     );
@@ -90,7 +114,7 @@ export const Dashboard: React.FC = () => {
       {/* Header */}
       <div className="text-center">
         <h1 className="text-4xl font-bold bg-gradient-to-r from-white via-slate-200 to-slate-300 bg-clip-text text-transparent mb-3">
-          Welcome Back
+          Welcome Back{user?.profile?.firstName ? `, ${user.profile.firstName}` : ''}
         </h1>
         <p className="text-lg text-slate-400 max-w-2xl mx-auto">
           Monitor key metrics and access quick actions below

@@ -75,6 +75,12 @@ export const apiFetch = async (
 ): Promise<Response> => {
   const url = buildApiUrl(endpoint);
   
+  // Log the request for debugging
+  console.log(`[API] Request to ${url}`, {
+    method: options.method || 'GET',
+    headers: options.headers
+  });
+  
   try {
     const response = await fetch(url, {
       ...options,
@@ -82,6 +88,12 @@ export const apiFetch = async (
         ...createAuthHeaders(),
         ...options.headers,
       },
+    });
+    
+    // Log the response for debugging
+    console.log(`[API] Response from ${url}`, {
+      status: response.status,
+      statusText: response.statusText
     });
     
     // Handle 401 errors globally
@@ -98,7 +110,7 @@ export const apiFetch = async (
     
     return response;
   } catch (error) {
-    console.error('API request failed:', error);
+    console.error('[API] Request failed:', error);
     throw error;
   }
 };

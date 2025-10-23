@@ -6,18 +6,28 @@
 // Get API base URL from environment variable or use relative path
 export const API_BASE_URL = import.meta.env.VITE_API_URL || '';
 
+// Log the API base URL for debugging
+console.log('[API Config] API_BASE_URL:', API_BASE_URL);
+
 // Helper function to build API URLs
 export const buildApiUrl = (endpoint: string): string => {
   // Remove leading slash if present to avoid double slashes
   const cleanEndpoint = endpoint.startsWith('/') ? endpoint.slice(1) : endpoint;
   
+  // Log the endpoint for debugging
+  console.log('[API Config] Building URL for endpoint:', endpoint, 'cleaned:', cleanEndpoint);
+  
   // If API_BASE_URL is set, use it; otherwise use relative path
   if (API_BASE_URL && API_BASE_URL !== '') {
-    return `${API_BASE_URL}/${cleanEndpoint}`;
+    const url = `${API_BASE_URL}/${cleanEndpoint}`;
+    console.log('[API Config] Using absolute URL:', url);
+    return url;
   }
   
   // Use relative path (works with Vite proxy in dev and same-origin in production)
-  return `/${cleanEndpoint}`;
+  const url = `/${cleanEndpoint}`;
+  console.log('[API Config] Using relative URL:', url);
+  return url;
 };
 
 // API endpoints

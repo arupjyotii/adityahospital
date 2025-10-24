@@ -9,7 +9,7 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   
   // Default API target for development (should point to the backend server)
-  const apiTarget = env.VITE_API_URL || 'http://localhost:4173';
+  const apiTarget = env.VITE_API_URL || 'http://adityahospitalnagaon.com';
 
   return {
     plugins: [

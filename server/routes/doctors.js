@@ -126,20 +126,24 @@ router.get('/department/:departmentId', async (req, res) => {
 // @access  Private/Admin
 router.post('/', authMiddleware, adminMiddleware, async (req, res) => {
   try {
-    // Verify department exists
-    const department = await Department.findById(req.body.department);
-    if (!department) {
-      return res.status(400).json({
-        success: false,
-        message: 'Department not found'
-      });
+    // Verify department exists if provided
+    if (req.body.department) {
+      const department = await Department.findById(req.body.department);
+      if (!department) {
+        return res.status(400).json({
+          success: false,
+          message: 'Department not found'
+        });
+      }
     }
 
     const doctor = new Doctor(req.body);
     await doctor.save();
 
-    // Populate department for response
-    await doctor.populate('department', 'name slug');
+    // Populate department for response if it exists
+    if (doctor.department) {
+      await doctor.populate('department', 'name slug');
+    }
 
     res.status(201).json({
       success: true,
@@ -162,14 +166,17 @@ router.post('/', authMiddleware, adminMiddleware, async (req, res) => {
 router.put('/:id', authMiddleware, adminMiddleware, async (req, res) => {
   try {
     // If department is being changed, verify it exists
-    if (req.body.department) {
-      const department = await Department.findById(req.body.department);
-      if (!department) {
-        return res.status(400).json({
-          success: false,
-          message: 'Department not found'
-        });
+    if (req.body.department !== undefined) {
+      if (req.body.department) {
+        const department = await Department.findById(req.body.department);
+        if (!department) {
+          return res.status(400).json({
+            success: false,
+            message: 'Department not found'
+          });
+        }
       }
+      // If department is null/empty, that's valid since it's not required
     }
 
     const doctor = await Doctor.findByIdAndUpdate(

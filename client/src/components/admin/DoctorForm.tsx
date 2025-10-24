@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useDepartments } from '@/hooks/useDepartments';
-import { User, Mail, Phone, Stethoscope, Building2, Image, Clock } from 'lucide-react';
+import { User, Mail, Phone, Stethoscope, Building2, Image, Clock, GraduationCap, Calendar } from 'lucide-react';
 
 interface DoctorFormProps {
   doctor?: any;
@@ -16,19 +16,21 @@ export const DoctorForm: React.FC<DoctorFormProps> = ({ doctor, onSubmit, onCanc
   const { departments } = useDepartments();
   const [formData, setFormData] = React.useState({
     name: doctor?.name || '',
-    email: doctor?.email || '',
-    phone: doctor?.phone || '',
+    email: doctor?.contactInfo?.email || '',
+    phone: doctor?.contactInfo?.phone || '',
     specialization: doctor?.specialization || '',
-    department_id: doctor?.department_id || '',
-    photo_url: doctor?.photo_url || '',
-    schedule: doctor?.schedule || ''
+    department: doctor?.department?._id || doctor?.department || '',
+    qualification: doctor?.qualification || '',
+    experience: doctor?.experience || 0,
+    image: doctor?.image || '',
+    bio: doctor?.bio || ''
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const submitData = {
       ...formData,
-      department_id: formData.department_id || null
+      department: formData.department || null
     };
     onSubmit(submitData);
   };
@@ -92,7 +94,7 @@ export const DoctorForm: React.FC<DoctorFormProps> = ({ doctor, onSubmit, onCanc
             </div>
             
             <div className="space-y-2">
-              <Label htmlFor="specialization" className="text-sm font-medium text-slate-300">Specialization</Label>
+              <Label htmlFor="specialization" className="text-sm font-medium text-slate-300">Specialization *</Label>
               <div className="relative">
                 <Stethoscope className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
                 <Input
@@ -100,10 +102,60 @@ export const DoctorForm: React.FC<DoctorFormProps> = ({ doctor, onSubmit, onCanc
                   value={formData.specialization}
                   onChange={(e) => handleChange('specialization', e.target.value)}
                   placeholder="e.g., Cardiology, Pediatrics"
+                  required
                   className="mt-1 pl-10 bg-slate-700/50 border-slate-600 text-white placeholder-slate-400 focus:ring-2 focus:ring-blue-500/50 focus:border-transparent"
                 />
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* Professional Information */}
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold text-white flex items-center">
+            <GraduationCap className="h-5 w-5 mr-2 text-amber-400" />
+            Professional Information
+          </h3>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="qualification" className="text-sm font-medium text-slate-300">Qualification *</Label>
+              <Input
+                id="qualification"
+                value={formData.qualification}
+                onChange={(e) => handleChange('qualification', e.target.value)}
+                placeholder="e.g., MBBS, MD"
+                required
+                className="mt-1 bg-slate-700/50 border-slate-600 text-white placeholder-slate-400 focus:ring-2 focus:ring-amber-500/50 focus:border-transparent"
+              />
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="experience" className="text-sm font-medium text-slate-300">Years of Experience *</Label>
+              <Input
+                id="experience"
+                type="number"
+                value={formData.experience}
+                onChange={(e) => handleChange('experience', e.target.value)}
+                placeholder="e.g., 5"
+                required
+                min="0"
+                max="70"
+                className="mt-1 bg-slate-700/50 border-slate-600 text-white placeholder-slate-400 focus:ring-2 focus:ring-amber-500/50 focus:border-transparent"
+              />
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="bio" className="text-sm font-medium text-slate-300">Bio</Label>
+            <textarea
+              id="bio"
+              value={formData.bio}
+              onChange={(e) => handleChange('bio', e.target.value)}
+              placeholder="Doctor's biography"
+              className="mt-1 w-full px-3 py-2 bg-slate-700/50 border-slate-600 text-white placeholder-slate-400 focus:ring-2 focus:ring-amber-500/50 focus:border-transparent rounded-md"
+              rows={4}
+            />
           </div>
         </div>
 
@@ -116,8 +168,8 @@ export const DoctorForm: React.FC<DoctorFormProps> = ({ doctor, onSubmit, onCanc
           
           <div className="space-y-2">
             <Label htmlFor="department" className="text-sm font-medium text-slate-300">Department</Label>
-            <Select value={formData.department_id} onValueChange={(value) => handleChange('department_id', value)}>
-              <SelectTrigger className="mt-1 bg-slate-700/50 border-slate-600 text-white focus:ring-2 focus:ring-blue-500/50 focus:border-transparent">
+            <Select value={formData.department} onValueChange={(value) => handleChange('department', value)}>
+              <SelectTrigger className="mt-1 bg-slate-700/50 border-slate-600 text-white focus:ring-2 focus:ring-emerald-500/50 focus:border-transparent">
                 <SelectValue placeholder="Select department (optional)" />
               </SelectTrigger>
               <SelectContent className="bg-slate-700 border-slate-600">
@@ -140,24 +192,24 @@ export const DoctorForm: React.FC<DoctorFormProps> = ({ doctor, onSubmit, onCanc
           </h3>
           
           <div className="space-y-2">
-            <Label htmlFor="photo_url" className="text-sm font-medium text-slate-300">Profile Photo URL</Label>
+            <Label htmlFor="image" className="text-sm font-medium text-slate-300">Profile Image URL</Label>
             <Input
-              id="photo_url"
-              value={formData.photo_url}
-              onChange={(e) => handleChange('photo_url', e.target.value)}
+              id="image"
+              value={formData.image}
+              onChange={(e) => handleChange('image', e.target.value)}
               placeholder="https://example.com/photo.jpg"
-              className="mt-1 bg-slate-700/50 border-slate-600 text-white placeholder-slate-400 focus:ring-2 focus:ring-blue-500/50 focus:border-transparent"
+              className="mt-1 bg-slate-700/50 border-slate-600 text-white placeholder-slate-400 focus:ring-2 focus:ring-purple-500/50 focus:border-transparent"
             />
             <p className="text-xs text-slate-500">Optional: Enter a URL for the doctor's profile photo</p>
             
             {/* Photo Preview */}
-            {formData.photo_url && (
+            {formData.image && (
               <div className="mt-3 p-3 bg-slate-800/50 rounded-lg border border-slate-600/30">
                 <p className="text-xs text-slate-400 mb-2">Photo Preview:</p>
                 <div className="flex items-center space-x-3">
                   <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-slate-600/30">
                     <img
-                      src={formData.photo_url}
+                      src={formData.image}
                       alt="Preview"
                       className="w-full h-full object-cover"
                       onError={(e) => {
@@ -181,21 +233,6 @@ export const DoctorForm: React.FC<DoctorFormProps> = ({ doctor, onSubmit, onCanc
                 </div>
               </div>
             )}
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="schedule" className="text-sm font-medium text-slate-300">Working Schedule</Label>
-            <div className="relative">
-              <Clock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
-              <Input
-                id="schedule"
-                value={formData.schedule}
-                onChange={(e) => handleChange('schedule', e.target.value)}
-                placeholder="e.g., Mon-Fri 9AM-5PM, Sat 10AM-2PM"
-                className="mt-1 pl-10 bg-slate-700/50 border-slate-600 text-white placeholder-slate-400 focus:ring-2 focus:ring-blue-500/50 focus:border-transparent"
-              />
-            </div>
-            <p className="text-xs text-slate-500">Enter working hours and days</p>
           </div>
         </div>
 

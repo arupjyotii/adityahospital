@@ -95,13 +95,21 @@ export const useDepartments = () => {
         throw new Error('No authentication token found');
       }
 
+      // Ensure we're sending the correct data structure
+      const requestData = {
+        name: departmentData.name?.trim(),
+        description: departmentData.description?.trim(),
+        // Include any other fields that might be in the departmentData
+        ...departmentData
+      };
+
       const response = await fetch('/api/departments', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(departmentData),
+        body: JSON.stringify(requestData),
       });
 
       console.log('Response status:', response.status);

@@ -100,7 +100,7 @@ export const createHospitalSchema = () => {
     "url": "https://adityahospitalnagaon.com",
     "logo": "https://adityahospitalnagaon.com/logo.png",
     "image": "https://adityahospitalnagaon.com/logo.png",
-    "telephone": "+91-8638559875",
+    "telephone": "+91-6001394372",
     "email": "info@adityahospitalnagaon.com",
     "address": {
       "@type": "PostalAddress",

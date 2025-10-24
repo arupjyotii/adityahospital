@@ -54,7 +54,7 @@ export const ContactPage: React.FC = () => {
     {
       icon: Phone,
       title: 'Phone',
-      details: ['+91 8638559875 / +91 8099983875'],
+      details: ['+91 6001394372 / +91 8099983875'],
       color: 'text-blue-600'
     },
     {
@@ -92,7 +92,7 @@ export const ContactPage: React.FC = () => {
     <div className="bg-white">
       <SEO 
         title="Contact Us - Aditya Hospital Nagaon"
-        description="Contact Aditya Hospital for appointments, inquiries, or emergency care. Located at Medical College Road, Diphalu, Nagaon - 782003. Call +91 8638559875 for immediate assistance."
+        description="Contact Aditya Hospital for appointments, inquiries, or emergency care. Located at Medical College Road, Diphalu, Nagaon - 782003. Call +91 6001394372 for immediate assistance."
         keywords="contact aditya hospital, hospital nagaon contact, emergency care nagaon, medical appointment nagaon, hospital address diphalu"
         url="https://adityahospitalnagaon.com/contact"
       />
@@ -277,7 +277,7 @@ export const ContactPage: React.FC = () => {
                   </p>
                   <div className="flex items-center space-x-3">
                     <Phone className="w-5 h-5 text-red-600" />
-                    <span className="text-red-800 font-semibold">+91 8638559875 / +91 8099983875</span>
+                    <span className="text-red-800 font-semibold">+91 6001394372 / +91 8099983875</span>
                   </div>
                 </CardContent>
               </Card>
@@ -382,7 +382,7 @@ export const ContactPage: React.FC = () => {
                 <a href="/appointments">Book Appointment</a>
               </Button>
               <Button asChild variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-blue-600 text-lg px-8 py-6">
-                <a href="tel:+91 8638559875">Call Now</a>
+                <a href="tel:+91 6001394372">Call Now</a>
               </Button>
             </div>
           </div>

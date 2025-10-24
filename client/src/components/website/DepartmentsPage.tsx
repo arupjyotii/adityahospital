@@ -75,7 +75,7 @@ export const DepartmentsPage: React.FC = () => {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {departments.map((department) => (
-                <Card key={department.id} className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden bg-blue-100/90">
+                <Card key={department._id} className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden bg-blue-100/90">
                   <CardContent className="p-0">
                     {/* Department Header */}
                     <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-6 text-white">
@@ -83,13 +83,13 @@ export const DepartmentsPage: React.FC = () => {
                         <Building2 className="w-8 h-8" />
                         <div className="text-right">
                           <div className="text-sm opacity-90">Doctors</div>
-                          <div className="text-2xl font-bold">{department.doctor_count}</div>
+                          <div className="text-2xl font-bold">0</div>
                         </div>
                       </div>
                       <h3 className="text-xl font-bold mb-2">{department.name}</h3>
                       <div className="flex items-center text-sm opacity-90">
                         <Stethoscope className="w-4 h-4 mr-2" />
-                        <span>{department.service_count} Services</span>
+                        <span>0 Services</span>
                       </div>
                     </div>
                     
@@ -102,11 +102,11 @@ export const DepartmentsPage: React.FC = () => {
                       {/* Stats */}
                       <div className="grid grid-cols-2 gap-4 mb-6">
                         <div className="text-center p-3 bg-blue-50 rounded-lg">
-                          <div className="text-2xl font-bold text-blue-600">{department.doctor_count}</div>
+                          <div className="text-2xl font-bold text-blue-600">0</div>
                           <div className="text-sm text-gray-600">Doctors</div>
                         </div>
                         <div className="text-center p-3 bg-purple-50 rounded-lg">
-                          <div className="text-2xl font-bold text-purple-600">{department.service_count}</div>
+                          <div className="text-2xl font-bold text-purple-600">0</div>
                           <div className="text-sm text-gray-600">Services</div>
                         </div>
                       </div>
@@ -115,7 +115,7 @@ export const DepartmentsPage: React.FC = () => {
                       <div className="space-y-2 mb-6">
                         <div className="flex items-center text-sm text-gray-600">
                           <Phone className="w-4 h-4 mr-2" />
-                          <span>+91 8638559875 / +91 8099983875</span>
+                          <span>+91 6001394372 / +91 8099983875</span>
                         </div>
                         <div className="flex items-center text-sm text-gray-600">
                           <Mail className="w-4 h-4 mr-2" />

@@ -346,7 +346,7 @@ export const AppointmentsPage: React.FC = () => {
                     <div className="space-y-3">
                       <div className="flex items-center space-x-3">
                         <Phone className="w-5 h-5 text-blue-600" />
-                        <span className="text-sm text-gray-600">+91 8638559875 / +91 8099983875</span>
+                        <span className="text-sm text-gray-600">+91 6001394372 / +91 8099983875</span>
                       </div>
                       <div className="flex items-center space-x-3">
                         <Mail className="w-5 h-5 text-blue-600" />
@@ -423,7 +423,7 @@ export const AppointmentsPage: React.FC = () => {
                 <a href="/contact">Contact Us</a>
               </Button>
               <Button asChild variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-blue-600 text-lg px-8 py-6">
-                <a href="tel:+91 8638559875">Call Now</a>
+                <a href="tel:+91 6001394372">Call Now</a>
               </Button>
             </div>
           </div>

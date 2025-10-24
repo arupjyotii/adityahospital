@@ -22,7 +22,7 @@ const doctorSchema = new mongoose.Schema({
   department: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Department',
-    required: true
+    required: false
   },
   qualification: {
     type: String,
@@ -138,11 +138,31 @@ const doctorSchema = new mongoose.Schema({
 // Create slug from name before saving
 doctorSchema.pre('save', function(next) {
   if (this.isModified('name')) {
-    this.slug = this.name
+    let slug = this.name
       .toLowerCase()
       .replace(/[^a-zA-Z0-9 ]/g, '')
       .replace(/\s+/g, '-')
       .trim('-');
+    
+    // Add timestamp to make slug more unique
+    slug += '-' + Date.now();
+    
+    this.slug = slug;
+  }
+  
+  // Handle department field - set to undefined if null to avoid validation issues
+  if (this.department === null) {
+    this.department = undefined;
+  }
+  
+  next();
+});
+
+// Also handle department field in updates
+doctorSchema.pre('findOneAndUpdate', function(next) {
+  const update = this.getUpdate();
+  if (update.department === null) {
+    update.department = undefined;
   }
   next();
 });

@@ -12,6 +12,9 @@ interface Doctor {
   created_at: string;
   updated_at: string;
   department_name: string | null;
+  qualification: string;  // Added missing field
+  experience: number;     // Added missing field
+  bio: string;           // Added missing field
 }
 
 // Transform API doctor object to match frontend interface
@@ -27,7 +30,10 @@ const transformDoctor = (apiDoctor: any): Doctor => {
     schedule: null, // Not provided in API
     created_at: apiDoctor.createdAt || new Date().toISOString(),
     updated_at: apiDoctor.updatedAt || new Date().toISOString(),
-    department_name: apiDoctor.department?.name || null
+    department_name: apiDoctor.department?.name || null,
+    qualification: apiDoctor.qualification || '',
+    experience: apiDoctor.experience || 0,
+    bio: apiDoctor.bio || ''
   };
 };
 
@@ -81,12 +87,27 @@ export const useDoctors = () => {
     }
   };
 
-  const createDoctor = async (doctorData: Omit<Doctor, 'id' | 'created_at' | 'updated_at' | 'department_name'>) => {
+  const createDoctor = async (doctorData: Omit<Doctor, 'id' | 'created_at' | 'updated_at' | 'department_name' | 'schedule'>) => {
     try {
       const token = localStorage.getItem('authToken');
       if (!token) {
         throw new Error('No authentication token found');
       }
+
+      // Transform the frontend data to match backend expectations
+      const requestData = {
+        name: doctorData.name,
+        specialization: doctorData.specialization,
+        qualification: doctorData.qualification,
+        experience: doctorData.experience,
+        department: doctorData.department_id || null,
+        contactInfo: {
+          email: doctorData.email,
+          phone: doctorData.phone
+        },
+        bio: doctorData.bio,
+        image: doctorData.photo_url || ''
+      };
 
       const response = await fetch('/api/doctors', {
         method: 'POST',
@@ -94,14 +115,15 @@ export const useDoctors = () => {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(doctorData),
+        body: JSON.stringify(requestData),
       });
 
       if (!response.ok) {
         if (response.status === 401) {
           throw new Error('Authentication failed. Please login again.');
         }
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorData = await response.json();
+        throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
       }
 
       const result = await response.json();

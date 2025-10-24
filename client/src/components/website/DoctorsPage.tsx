@@ -78,7 +78,7 @@ export const DoctorsPage: React.FC = () => {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {doctors.map((doctor) => (
-                <Card key={doctor.id} className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden group bg-blue-100/90">
+                <Card key={doctor._id} className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden group bg-blue-100/90">
                   <CardContent className="p-0">
                     {/* Doctor Header */}
                     <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-6 text-white relative overflow-hidden">
@@ -86,10 +86,10 @@ export const DoctorsPage: React.FC = () => {
                       <div className="relative z-10">
                         <div className="flex items-center justify-between mb-4">
                           {/* Doctor Photo */}
-                          {doctor.photo_url ? (
+                          {doctor.image ? (
                             <div className="w-[150px] h-[150px] rounded-full overflow-hidden border-2 border-white/30">
                               <img
-                                src={doctor.photo_url}
+                                src={doctor.image}
                                 alt={doctor.name}
                                 className="w-full h-full object-cover"
                                 onError={(e) => {
@@ -137,10 +137,10 @@ export const DoctorsPage: React.FC = () => {
                     {/* Doctor Content */}
                     <div className="p-6">
                       {/* Department */}
-                      {doctor.department_name && (
+                      {doctor.department?.name && (
                         <div className="flex items-center text-sm text-gray-600 mb-4 p-3 bg-blue-50 rounded-lg">
                           <Building2 className="w-4 h-4 mr-2 text-blue-600" />
-                          <span className="font-medium">{doctor.department_name} Department</span>
+                          <span className="font-medium">{doctor.department.name} Department</span>
                         </div>
                       )}
 
@@ -166,11 +166,11 @@ export const DoctorsPage: React.FC = () => {
                       <div className="flex items-center justify-between mb-6 p-3 bg-gray-50 rounded-lg">
                         <div className="flex items-center text-sm text-gray-600">
                           <Award className="w-4 h-4 mr-2 text-blue-600" />
-                          <span>Board Certified</span>
+                          <span>{doctor.qualification}</span>
                         </div>
                         <div className="flex items-center text-sm text-gray-600">
                           <Calendar className="w-4 h-4 mr-2 text-purple-600" />
-                          <span>10+ Years</span>
+                          <span>{doctor.experience} Years</span>
                         </div>
                       </div>
 
@@ -210,16 +210,16 @@ export const DoctorsPage: React.FC = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { icon: Stethoscope, title: 'General Medicine', count: doctors.filter(d => d.specialization.toLowerCase().includes('general')).length },
-              { icon: User, title: 'Cardiology', count: doctors.filter(d => d.specialization.toLowerCase().includes('cardio')).length },
-              { icon: User, title: 'Neurology', count: doctors.filter(d => d.specialization.toLowerCase().includes('neuro')).length },
-              { icon: User, title: 'Pediatrics', count: doctors.filter(d => d.specialization.toLowerCase().includes('pediatric')).length },
-              { icon: User, title: 'Orthopedics', count: doctors.filter(d => d.specialization.toLowerCase().includes('ortho')).length },
-              { icon: User, title: 'Dermatology', count: doctors.filter(d => d.specialization.toLowerCase().includes('derm')).length },
-              { icon: User, title: 'Ophthalmology', count: doctors.filter(d => d.specialization.toLowerCase().includes('ophthal')).length },
-              { icon: User, title: 'Surgery', count: doctors.filter(d => d.specialization.toLowerCase().includes('surg')).length }
-            ].map((specialty, index) => (
-              <Card key={index} className="border-0 shadow-md hover:shadow-lg transition-shadow duration-300 bg-blue-100/90">
+              { id: 'general-medicine', icon: Stethoscope, title: 'General Medicine', count: doctors.filter(d => d.specialization.toLowerCase().includes('general')).length },
+              { id: 'cardiology', icon: User, title: 'Cardiology', count: doctors.filter(d => d.specialization.toLowerCase().includes('cardio')).length },
+              { id: 'neurology', icon: User, title: 'Neurology', count: doctors.filter(d => d.specialization.toLowerCase().includes('neuro')).length },
+              { id: 'pediatrics', icon: User, title: 'Pediatrics', count: doctors.filter(d => d.specialization.toLowerCase().includes('pediatric')).length },
+              { id: 'orthopedics', icon: User, title: 'Orthopedics', count: doctors.filter(d => d.specialization.toLowerCase().includes('ortho')).length },
+              { id: 'dermatology', icon: User, title: 'Dermatology', count: doctors.filter(d => d.specialization.toLowerCase().includes('derm')).length },
+              { id: 'ophthalmology', icon: User, title: 'Ophthalmology', count: doctors.filter(d => d.specialization.toLowerCase().includes('ophthal')).length },
+              { id: 'surgery', icon: User, title: 'Surgery', count: doctors.filter(d => d.specialization.toLowerCase().includes('surg')).length }
+            ].map((specialty) => (
+              <Card key={specialty.id} className="border-0 shadow-md hover:shadow-lg transition-shadow duration-300 bg-blue-100/90">
                 <CardContent className="p-6 text-center">
                   <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
                     <specialty.icon className="w-8 h-8 text-white" />

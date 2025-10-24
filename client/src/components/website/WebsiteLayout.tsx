@@ -75,7 +75,7 @@ export const WebsiteLayout: React.FC<WebsiteLayoutProps> = ({ children }) => {
               <div className="flex items-center space-x-4 mb-1">
                 <div className="flex items-center space-x-1">
                   <Phone className="w-4 h-4 text-amber-600" />
-                  <span className="text-sm font-medium text-gray-700">+91 8638559875</span>
+                  <span className="text-sm font-medium text-gray-700">+91 6001394372</span>
                 </div>
                 <div className="flex items-center space-x-1">
                   <Mail className="w-4 h-4 text-amber-600" />
@@ -137,7 +137,7 @@ export const WebsiteLayout: React.FC<WebsiteLayoutProps> = ({ children }) => {
                   <div className="space-y-3 text-gray-600">
                     <div className="flex items-center space-x-3">
                       <Phone className="w-5 h-5" />
-                      <span className="text-base">+91 8638559875 / +91 8099983875</span>
+                      <span className="text-base">+91 6001394372 / +91 8099983875</span>
                     </div>
                     <div className="flex items-center space-x-3">
                       <Mail className="w-5 h-5" />
@@ -236,7 +236,7 @@ export const WebsiteLayout: React.FC<WebsiteLayoutProps> = ({ children }) => {
                 </div>
                 <div className="flex items-center space-x-3">
                   <Phone className="w-5 h-5 text-blue-400" />
-                  <span className="text-gray-400 text-sm">+91 8638559875 / +91 8099983875</span>
+                  <span className="text-gray-400 text-sm">+91 6001394372 / +91 8099983875</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <Mail className="w-5 h-5 text-blue-400" />

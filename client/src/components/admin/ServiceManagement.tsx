@@ -141,11 +141,13 @@ export const ServiceManagement: React.FC = () => {
               Add Service
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-2xl bg-slate-800 border-slate-600">
+          <DialogContent className="max-w-2xl bg-slate-800 border-slate-600 max-h-[80vh] flex flex-col">
             <DialogHeader>
               <DialogTitle className="text-white">Add New Service</DialogTitle>
             </DialogHeader>
-            <ServiceForm onSubmit={handleCreate} onCancel={() => setIsAddDialogOpen(false)} />
+            <div className="flex-grow overflow-y-auto pr-2 py-2 -mr-2">
+              <ServiceForm onSubmit={handleCreate} onCancel={() => setIsAddDialogOpen(false)} />
+            </div>
           </DialogContent>
         </Dialog>
       </div>
@@ -253,15 +255,17 @@ export const ServiceManagement: React.FC = () => {
       {/* Edit Dialog */}
       {editingService && (
         <Dialog open={!!editingService} onOpenChange={() => setEditingService(null)}>
-          <DialogContent className="max-w-2xl bg-slate-800 border-slate-600">
+          <DialogContent className="max-w-2xl bg-slate-800 border-slate-600 max-h-[80vh] flex flex-col">
             <DialogHeader>
               <DialogTitle className="text-white">Edit Service</DialogTitle>
             </DialogHeader>
-            <ServiceForm 
-              service={editingService} 
-              onSubmit={handleUpdate} 
-              onCancel={() => setEditingService(null)} 
-            />
+            <div className="flex-grow overflow-y-auto pr-2 py-2 -mr-2">
+              <ServiceForm 
+                service={editingService} 
+                onSubmit={handleUpdate} 
+                onCancel={() => setEditingService(null)} 
+              />
+            </div>
           </DialogContent>
         </Dialog>
       )}

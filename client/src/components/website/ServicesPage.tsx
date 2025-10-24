@@ -95,7 +95,7 @@ export const ServicesPage: React.FC = () => {
               {services.map((service) => {
                 const ServiceIcon = getServiceIcon(service.name);
                 return (
-                  <Card key={service.id} className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden group">
+                  <Card key={service._id} className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden group">
                     <CardContent className="p-0">
                       {/* Service Header */}
                       <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-6 text-white relative overflow-hidden">
@@ -105,10 +105,10 @@ export const ServicesPage: React.FC = () => {
                             <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
                               <ServiceIcon className="w-6 h-6" />
                             </div>
-                            {service.department_name && (
+                            {service.department?.name && (
                               <div className="text-right">
                                 <div className="text-sm opacity-90">Department</div>
-                                <div className="text-sm font-semibold">{service.department_name}</div>
+                                <div className="text-sm font-semibold">{service.department.name}</div>
                               </div>
                             )}
                           </div>
@@ -139,10 +139,10 @@ export const ServicesPage: React.FC = () => {
                         </div>
 
                         {/* Department Info */}
-                        {service.department_name && (
+                        {service.department?.name && (
                           <div className="flex items-center text-sm text-gray-500 mb-6 p-3 bg-gray-50 rounded-lg">
                             <Building2 className="w-4 h-4 mr-2" />
-                            <span>Part of {service.department_name} Department</span>
+                            <span>Part of {service.department.name} Department</span>
                           </div>
                         )}
 
@@ -182,17 +182,17 @@ export const ServicesPage: React.FC = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                         {[
-               { icon: Heart, title: 'Cardiology', description: 'Heart and cardiovascular care' },
-               { icon: Brain, title: 'Neurology', description: 'Brain and nervous system treatment' },
-               { icon: Baby, title: 'Pediatrics', description: 'Specialized care for children' },
-               { icon: Bone, title: 'Orthopedics', description: 'Bone and joint health' },
-               { icon: Eye, title: 'Ophthalmology', description: 'Eye care and vision services' },
-               { icon: Activity, title: 'Dental Care', description: 'Oral health and dental services' },
-               { icon: Microscope, title: 'Laboratory', description: 'Diagnostic testing and analysis' },
-               { icon: Stethoscope, title: 'General Medicine', description: 'Primary healthcare services' }
-             ].map((category, index) => (
-              <Card key={index} className="border-0 shadow-md hover:shadow-lg transition-shadow duration-300 bg-blue-100/90">
+            {[
+              { id: 'cardiology', icon: Heart, title: 'Cardiology', description: 'Heart and cardiovascular care' },
+              { id: 'neurology', icon: Brain, title: 'Neurology', description: 'Brain and nervous system treatment' },
+              { id: 'pediatrics', icon: Baby, title: 'Pediatrics', description: 'Specialized care for children' },
+              { id: 'orthopedics', icon: Bone, title: 'Orthopedics', description: 'Bone and joint health' },
+              { id: 'ophthalmology', icon: Eye, title: 'Ophthalmology', description: 'Eye care and vision services' },
+              { id: 'dental', icon: Activity, title: 'Dental Care', description: 'Oral health and dental services' },
+              { id: 'laboratory', icon: Microscope, title: 'Laboratory', description: 'Diagnostic testing and analysis' },
+              { id: 'general-medicine', icon: Stethoscope, title: 'General Medicine', description: 'Primary healthcare services' }
+            ].map((category) => (
+              <Card key={category.id} className="border-0 shadow-md hover:shadow-lg transition-shadow duration-300 bg-blue-100/90">
                 <CardContent className="p-6 text-center">
                   <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
                     <category.icon className="w-8 h-8 text-white" />

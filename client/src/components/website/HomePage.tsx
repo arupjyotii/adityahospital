@@ -184,6 +184,83 @@ export const HomePage: React.FC = () => {
 
   return (
     <div className="bg-amber-50">
+      <style>{`
+        @keyframes scroll {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+        
+        .animate-scroll {
+          display: flex;
+          animation: scroll 50s linear infinite;
+          width: max-content;
+        }
+        
+        .animate-scroll:hover {
+          animation-play-state: paused;
+        }
+        
+        /* Carousel styles */
+        .carousel-container {
+          position: relative;
+          overflow: hidden;
+          padding: 20px 0;
+          width: 100%;
+        }
+        
+        .carousel-track {
+          display: flex;
+          width: max-content;
+        }
+        
+        .carousel-card {
+          flex: 0 0 250px;
+          margin-right: 1.5rem;
+          min-width: 200px;
+        }
+        
+        @media (max-width: 1024px) {
+          .doctor-image {
+            width: 70px;
+            height: 70px;
+          }
+          
+          .doctor-card-content {
+            padding: 0.75rem;
+          }
+          
+          .doctor-name {
+            font-size: 0.875rem;
+          }
+          
+          .doctor-specialization {
+            font-size: 0.75rem;
+          }
+          
+          .doctor-experience {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+          }
+        }
+        
+        @media (max-width: 768px) {
+          .doctor-image {
+            width: 60px;
+            height: 60px;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          .doctor-image {
+            width: 50px;
+            height: 50px;
+          }
+        }
+      `}</style>
       <SEO 
         title="Aditya Hospital - Best Multispeciality Hospital in Nagaon, Assam"
         description="Aditya Hospital is the leading multispeciality hospital in Nagaon, Assam. We provide world-class healthcare services with 24/7 emergency care, expert doctors, and advanced medical technology."
@@ -276,30 +353,60 @@ export const HomePage: React.FC = () => {
               Meet our team of highly qualified and experienced doctors.
             </p>
           </div>
-          <div className="grid grid-cols-2 gap-6 md:grid-cols-2 lg:grid-cols-4">
-            {topDoctors.map((doctor, index) => (
-              // Show all 16 doctors on desktop (4x4 grid)
-              // Show only first 8 doctors on mobile (4x2 grid)
-              <Card key={doctor.id} className={`border-2 border-indigo-500 bg-white shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-lg ${index >= 8 ? 'hidden md:block' : ''}`}>
-                <CardContent className="p-3 text-center">
-                  <div className="flex justify-center mb-2">
-                    <div className="relative">
-                      <img
-                        src={doctor.image}
-                        alt={doctor.name}
-                        className="w-32 h-32 rounded-full object-cover border-4 border-transparent shadow-md"
-                      />
-                      <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-amber-400 rounded-full border-2 border-white"></div>
-                    </div>
-                  </div>
-                  <h3 className="text-base font-bold text-black mb-1">{doctor.name}</h3>
-                  <p className="text-gray-700 font-medium mb-2 text-xs uppercase tracking-wider">{doctor.specialization}</p>
-                  <div className="inline-block bg-amber-100 text-black px-2 py-1 rounded-full text-xs font-semibold">
-                    {doctor.experience} years exp
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+          
+          {/* Doctors Carousel with Loop */}
+          <div className="carousel-container">
+            <div className="carousel-track animate-scroll">
+              {/* Two sets of doctors for seamless looping */}
+              {topDoctors.map((doctor, index) => (
+                <div key={`first-${doctor.id}`} className="carousel-card">
+                  <Card className="border-2 border-indigo-500 bg-white shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-lg h-full">
+                    <CardContent className="doctor-card-content p-3 text-center">
+                      <div className="flex justify-center mb-2">
+                        <div className="relative">
+                          <img
+                            src={doctor.image}
+                            alt={doctor.name}
+                            className="doctor-image w-24 h-24 rounded-full object-cover border-4 border-transparent shadow-md mx-auto"
+                          />
+                          <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-amber-400 rounded-full border-2 border-white"></div>
+                        </div>
+                      </div>
+                      <h3 className="doctor-name text-base font-bold text-black mb-1">{doctor.name}</h3>
+                      <p className="doctor-specialization text-gray-700 font-medium mb-2 uppercase tracking-wider text-xs">{doctor.specialization}</p>
+                      <div className="inline-block doctor-experience bg-amber-100 text-black px-3 py-1 rounded-full text-xs font-semibold">
+                        {doctor.experience} years exp
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              ))}
+              
+              {/* Duplicate set for seamless looping */}
+              {topDoctors.map((doctor, index) => (
+                <div key={`second-${doctor.id}`} className="carousel-card">
+                  <Card className="border-2 border-indigo-500 bg-white shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-lg h-full">
+                    <CardContent className="doctor-card-content p-3 text-center">
+                      <div className="flex justify-center mb-2">
+                        <div className="relative">
+                          <img
+                            src={doctor.image}
+                            alt={doctor.name}
+                            className="doctor-image w-24 h-24 rounded-full object-cover border-4 border-transparent shadow-md mx-auto"
+                          />
+                          <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-amber-400 rounded-full border-2 border-white"></div>
+                        </div>
+                      </div>
+                      <h3 className="doctor-name text-base font-bold text-black mb-1">{doctor.name}</h3>
+                      <p className="doctor-specialization text-gray-700 font-medium mb-2 uppercase tracking-wider text-xs">{doctor.specialization}</p>
+                      <div className="inline-block doctor-experience bg-amber-100 text-black px-3 py-1 rounded-full text-xs font-semibold">
+                        {doctor.experience} years exp
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>

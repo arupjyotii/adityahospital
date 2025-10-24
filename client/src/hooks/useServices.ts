@@ -80,13 +80,29 @@ export const useServices = () => {
         throw new Error('No authentication token found');
       }
 
+      // Transform the frontend data to match backend expectations
+      const requestData = {
+        name: serviceData.name,
+        description: serviceData.description,
+        category: 'diagnostic', // Required field with enum values, set default
+        department: serviceData.department_id, // Transform department_id to department
+        // Add other required fields as needed
+        ...serviceData
+      };
+
+      // Ensure department is properly set
+      if (serviceData.department_id) {
+        requestData.department = serviceData.department_id;
+        delete requestData.department_id;
+      }
+
       const response = await fetch('/api/services', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(serviceData),
+        body: JSON.stringify(requestData),
       });
 
       if (!response.ok) {

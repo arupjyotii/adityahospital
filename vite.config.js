@@ -81,6 +81,19 @@ export default defineConfig(({ mode }) => {
         '/api/': {
           target: apiTarget,
           changeOrigin: true,
+          secure: false,
+          // Add logging for debugging
+          configure: (proxy, options) => {
+            proxy.on('error', (err, req, res) => {
+              console.log('Proxy error:', err);
+            });
+            proxy.on('proxyReq', (proxyReq, req, res) => {
+              console.log('Proxying request:', req.method, req.url, 'to', options.target);
+            });
+            proxy.on('proxyRes', (proxyRes, req, res) => {
+              console.log('Proxy response:', proxyRes.statusCode, 'for', req.method, req.url);
+            });
+          }
         },
       },
     },

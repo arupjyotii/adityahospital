@@ -19,9 +19,9 @@ const initDatabase = async () => {
     const existingAdmin = await User.findOne({ role: 'admin' });
     if (!existingAdmin) {
       const adminUser = new User({
-        username: 'admin',
+        username: 'admin@aditya',
         email: 'admin@adityahospitalnagaon.com',
-        password: 'admin123',
+        password: 'VtR@hSr9y9',
         role: 'admin',
         profile: {
           firstName: 'System',
@@ -31,8 +31,8 @@ const initDatabase = async () => {
       });
       await adminUser.save();
       console.log('✅ Default admin user created');
-      console.log('   Username: admin');
-      console.log('   Password: admin123');
+      console.log('   Username: admin@aditya');
+      console.log('   Password: VtR@hSr9y9');
       console.log('   Email: admin@adityahospitalnagaon.com');
     } else {
       console.log('ℹ️  Admin user already exists');

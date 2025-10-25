@@ -36,12 +36,9 @@ export const AboutPage: React.FC = () => {
   ];
 
   const milestones = [
-    { year: '1999', title: 'Hospital Founded', description: 'Aditya Hospital established with 50 beds' },
-    { year: '2005', title: 'Expansion', description: 'Added new wing with 100 additional beds' },
-    { year: '2010', title: 'Technology Upgrade', description: 'Installed advanced medical imaging equipment' },
-    { year: '2015', title: 'Recognition', description: 'Awarded Best Hospital in the region' },
-    { year: '2020', title: 'Digital Transformation', description: 'Implemented electronic health records' },
-    { year: '2024', title: 'Future Ready', description: 'Continuing to expand and innovate' }
+    { year: '2023', title: 'Recognition', description: 'Best Hospital in the region' },
+    { year: '2024', title: 'Digital Transformation', description: 'Implemented electronic health records' },
+    { year: '2025', title: 'Future Ready', description: 'Continuing to expand and innovate' }
   ];
 
   const team = [

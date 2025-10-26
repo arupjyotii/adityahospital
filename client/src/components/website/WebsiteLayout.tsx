@@ -75,13 +75,13 @@ export const WebsiteLayout: React.FC<WebsiteLayoutProps> = ({ children }) => {
               <div className="flex items-center space-x-4 mb-1">
                 <div className="flex items-center space-x-1">
                   <Phone className="w-4 h-4 text-amber-600" />
-                  <span className="text-sm font-medium text-gray-700">+91 6001394372</span>
+                  <span className="text-sm font-medium text-gray-700">+91 6001394372 / 8099983875</span>
                 </div>
-                <div className="flex items-center space-x-1">
+                {/* <div className="flex items-center space-x-1">
                   <Mail className="w-4 h-4 text-amber-600" />
                   <span className="text-sm font-medium text-gray-700">info@adityahospitalnagaon.com</span>
-                </div>
-              </div>
+                </div> */}
+              </div> 
               <div className="flex items-center space-x-1">
                 <Clock className="w-4 h-4 text-amber-600" />
                 <span className="text-xs text-amber-600 font-semibold">24/7 EMERGENCY SERVICES</span>
@@ -137,7 +137,7 @@ export const WebsiteLayout: React.FC<WebsiteLayoutProps> = ({ children }) => {
                   <div className="space-y-3 text-gray-600">
                     <div className="flex items-center space-x-3">
                       <Phone className="w-5 h-5" />
-                      <span className="text-base">+91 6001394372 / +91 8099983875</span>
+                      <span className="text-base">+91 6001394372 <br /> +91 8099983875</span>
                     </div>
                     <div className="flex items-center space-x-3">
                       <Mail className="w-5 h-5" />
@@ -209,6 +209,11 @@ export const WebsiteLayout: React.FC<WebsiteLayoutProps> = ({ children }) => {
                     </Link>
                   </li>
                 ))}
+                <li>
+                    <Link to="/contact" onClick={() => setMobileMenuOpen(false)} className="text-gray-400 hover:text-white transition-colors text-sm">
+                      Career
+                  </Link>
+                  </li>
               </ul>
             </div>
 

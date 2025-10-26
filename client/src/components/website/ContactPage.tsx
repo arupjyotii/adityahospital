@@ -60,7 +60,7 @@ export const ContactPage: React.FC = () => {
     {
       icon: Mail,
       title: 'Email',
-      details: ['info@adityahospitalnagaon.com', 'emergency@adityahospitalnagaon.com'],
+      details: ['info@adityahospitalnagaon.com', 'adityahospital123@gmail.com'],
       color: 'text-green-600'
     },
     {
@@ -97,7 +97,7 @@ export const ContactPage: React.FC = () => {
         url="https://adityahospitalnagaon.com/contact"
       />
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-50 via-white to-purple-50 py-20">
+      <section className="bg-gradient-to-br from-blue-50 via-white to-purple-50 py-10">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 mb-6">
             Get in <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Touch</span>
@@ -110,7 +110,7 @@ export const ContactPage: React.FC = () => {
       </section>
 
       {/* Contact Information */}
-      <section className="py-20 bg-white">
+      <section className="py-10 bg-white">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {contactInfo.map((info, index) => (
@@ -133,7 +133,7 @@ export const ContactPage: React.FC = () => {
       </section>
 
       {/* Contact Form & Map */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-10 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Form */}
@@ -169,7 +169,7 @@ export const ContactPage: React.FC = () => {
                         required
                         value={formData.name}
                         onChange={handleChange}
-                        className="w-full"
+                        className="w-full text-black"
                         placeholder="Enter your full name"
                       />
                     </div>
@@ -184,7 +184,7 @@ export const ContactPage: React.FC = () => {
                         required
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full"
+                        className="w-full text-black"
                         placeholder="Enter your email"
                       />
                     </div>
@@ -201,7 +201,7 @@ export const ContactPage: React.FC = () => {
                         type="tel"
                         value={formData.phone}
                         onChange={handleChange}
-                        className="w-full"
+                        className="w-full text-black"
                         placeholder="Enter your phone number"
                       />
                     </div>
@@ -216,7 +216,7 @@ export const ContactPage: React.FC = () => {
                         required
                         value={formData.subject}
                         onChange={handleChange}
-                        className="w-full"
+                        className="w-full text-black"
                         placeholder="What is this about?"
                       />
                     </div>
@@ -233,7 +233,7 @@ export const ContactPage: React.FC = () => {
                       required
                       value={formData.message}
                       onChange={handleChange}
-                      className="w-full min-h-[120px]"
+                      className="w-full min-h-[120px] text-black"
                       placeholder="Tell us how we can help you..."
                     />
                   </div>

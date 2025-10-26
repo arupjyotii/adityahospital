@@ -30,7 +30,7 @@ export const DoctorForm: React.FC<DoctorFormProps> = ({ doctor, onSubmit, onCanc
     e.preventDefault();
     const submitData = {
       ...formData,
-      department: formData.department || null
+      department: formData.department || undefined
     };
     onSubmit(submitData);
   };

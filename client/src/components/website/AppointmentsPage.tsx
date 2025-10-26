@@ -101,7 +101,7 @@ export const AppointmentsPage: React.FC = () => {
         url="https://adityahospitalnagaon.com/appointments"
       />
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-50 via-white to-purple-50 py-20">
+      <section className="bg-gradient-to-br from-blue-50 via-white to-purple-50 py-10">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 mb-6">
             Book Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Appointment</span>
@@ -114,7 +114,7 @@ export const AppointmentsPage: React.FC = () => {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-16 bg-white">
+      <section className="py-10 bg-white">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
             {benefits.map((benefit, index) => (
@@ -130,7 +130,7 @@ export const AppointmentsPage: React.FC = () => {
       </section>
 
       {/* Appointment Form */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-10 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
@@ -176,6 +176,7 @@ export const AppointmentsPage: React.FC = () => {
                               value={formData.firstName}
                               onChange={handleChange}
                               placeholder="Enter your first name"
+                              className="text-black"
                             />
                           </div>
                           <div className="space-y-2">
@@ -189,6 +190,7 @@ export const AppointmentsPage: React.FC = () => {
                               value={formData.lastName}
                               onChange={handleChange}
                               placeholder="Enter your last name"
+                              className="text-black"
                             />
                           </div>
                         </div>
@@ -206,6 +208,7 @@ export const AppointmentsPage: React.FC = () => {
                               value={formData.email}
                               onChange={handleChange}
                               placeholder="Enter your email"
+                              className="text-black"
                             />
                           </div>
                           <div className="space-y-2">
@@ -220,6 +223,7 @@ export const AppointmentsPage: React.FC = () => {
                               value={formData.phone}
                               onChange={handleChange}
                               placeholder="Enter your phone number"
+                              className="text-black"
                             />
                           </div>
                         </div>
@@ -238,6 +242,7 @@ export const AppointmentsPage: React.FC = () => {
                               value={formData.date}
                               onChange={handleChange}
                               min={new Date().toISOString().split('T')[0]}
+                              className="text-black"
                             />
                           </div>
                           <div className="space-y-2">
@@ -246,7 +251,8 @@ export const AppointmentsPage: React.FC = () => {
                             </Label>
                             <Select value={formData.time} onValueChange={(value) => handleSelectChange('time', value)}>
                               <SelectTrigger>
-                                <SelectValue placeholder="Select time" />
+                                <SelectValue placeholder="Select time" 
+                                className="text-black"/>
                               </SelectTrigger>
                               <SelectContent>
                                 {timeSlots.map((time) => (
@@ -264,7 +270,8 @@ export const AppointmentsPage: React.FC = () => {
                             </Label>
                             <Select value={formData.department} onValueChange={(value) => handleSelectChange('department', value)}>
                               <SelectTrigger>
-                                <SelectValue placeholder="Select department" />
+                                <SelectValue placeholder="Select department" 
+                                className="text-black"/>
                               </SelectTrigger>
                               <SelectContent>
                                 {departments.map((dept) => (
@@ -283,6 +290,7 @@ export const AppointmentsPage: React.FC = () => {
                               value={formData.insurance}
                               onChange={handleChange}
                               placeholder="Enter insurance provider"
+                              className="text-black"
                             />
                           </div>
                         </div>
@@ -298,6 +306,7 @@ export const AppointmentsPage: React.FC = () => {
                             value={formData.reason}
                             onChange={handleChange}
                             placeholder="Brief description of your symptoms or reason for visit"
+                            className="text-black"
                           />
                         </div>
 
@@ -311,6 +320,7 @@ export const AppointmentsPage: React.FC = () => {
                             value={formData.notes}
                             onChange={handleChange}
                             placeholder="Any additional information you'd like us to know"
+                            className="text-black"
                           />
                         </div>
 
@@ -346,7 +356,7 @@ export const AppointmentsPage: React.FC = () => {
                     <div className="space-y-3">
                       <div className="flex items-center space-x-3">
                         <Phone className="w-5 h-5 text-blue-600" />
-                        <span className="text-sm text-gray-600">+91 6001394372 / +91 8099983875</span>
+                        <span className="text-sm text-gray-600">+91 6001394372 <br /> +91 8099983875</span>
                       </div>
                       <div className="flex items-center space-x-3">
                         <Mail className="w-5 h-5 text-blue-600" />
@@ -372,7 +382,7 @@ export const AppointmentsPage: React.FC = () => {
                     </p>
                     <Button className="w-full bg-red-600 hover:bg-red-700">
                       <Phone className="w-4 h-4 mr-2" />
-                      Call Emergency
+                      <a href="tel:+91 6001394372">Call Emergency</a>
                     </Button>
                   </CardContent>
                 </Card>

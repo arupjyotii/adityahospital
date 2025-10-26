@@ -306,7 +306,7 @@ export const HomePage: React.FC = () => {
                   </Link>
                 </Button>
                 <Button asChild variant="outline" size="lg" className="bg-white hover:bg-indigo-600 text-lg px-8 py-6 text-black border-2 border-stone-700">
-                  <Link to="/departments">Our Departments
+                  <Link to="tel:+91 6001394372">Call Now
                   <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>

@@ -146,10 +146,29 @@ export const useDoctors = () => {
       }
 
       // Transform the frontend data to match backend expectations
-      const requestData = {
-        ...doctorData,
-        department: doctorData.department_id || undefined
-      };
+      // Create a clean object with only the fields we want to update
+      const requestData: any = {};
+      
+      // Add fields that are directly mapped
+      if (doctorData.name !== undefined) requestData.name = doctorData.name;
+      if (doctorData.specialization !== undefined) requestData.specialization = doctorData.specialization;
+      if (doctorData.qualification !== undefined) requestData.qualification = doctorData.qualification;
+      if (doctorData.experience !== undefined) requestData.experience = doctorData.experience;
+      if (doctorData.bio !== undefined) requestData.bio = doctorData.bio;
+      if (doctorData.photo_url !== undefined) requestData.image = doctorData.photo_url;
+      
+      // Handle contact info
+      if (doctorData.email !== undefined || doctorData.phone !== undefined) {
+        requestData.contactInfo = {
+          email: doctorData.email || '',
+          phone: doctorData.phone || ''
+        };
+      }
+      
+      // Handle department field properly
+      if (doctorData.department_id !== undefined) {
+        requestData.department = doctorData.department_id || undefined;
+      }
 
       const response = await fetch(`/api/doctors/${id}`, {
         method: 'PUT',

@@ -145,20 +145,27 @@ export const useDoctors = () => {
         throw new Error('No authentication token found');
       }
 
+      // Transform the frontend data to match backend expectations
+      const requestData = {
+        ...doctorData,
+        department: doctorData.department_id || undefined
+      };
+
       const response = await fetch(`/api/doctors/${id}`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(doctorData),
+        body: JSON.stringify(requestData),
       });
 
       if (!response.ok) {
         if (response.status === 401) {
           throw new Error('Authentication failed. Please login again.');
         }
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorData = await response.json();
+        throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
       }
 
       const result = await response.json();

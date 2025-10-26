@@ -100,7 +100,7 @@ export const useDoctors = () => {
         specialization: doctorData.specialization,
         qualification: doctorData.qualification,
         experience: doctorData.experience,
-        department: doctorData.department_id || null,
+        department: doctorData.department_id || undefined,
         contactInfo: {
           email: doctorData.email,
           phone: doctorData.phone

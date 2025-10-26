@@ -63,14 +63,14 @@ export const HomePage: React.FC = () => {
       id: '1',
       name: 'Dr. Niyor Hazarika',
       specialization: 'MD',
-      experience: 15,
+      experience: 10,
       image: '/doctors/niyor.png'
     },
     {
       id: '2',
       name: 'Dr. Hriday Haloi',
       specialization: 'MS, MCH',
-      experience: 12,
+      experience: 10,
       image: '/doctors/hriday.png'
     },
     {
@@ -84,35 +84,35 @@ export const HomePage: React.FC = () => {
       id: '4',
       name: 'Dr. Bhaskar Jyoti Malakar',
       specialization: 'MS',
-      experience: 8,
+      experience: 10,
       image: '/doctors/bhaskar.png'
     },
     {
       id: '5',
       name: 'Dr. Nizamuddin Khan',
       specialization: 'MS',
-      experience: 14,
+      experience: 5,
       image: '/doctors/niza.png'
     },
     {
       id: '6',
       name: 'Dr. Shafique Ahmed',
       specialization: 'MS',
-      experience: 9,
+      experience: 7,
       image: '/doctors/safi.png'
     },
     {
       id: '7',
       name: 'Dr. Pallabi Bhattacharjee',
       specialization: 'MS',
-      experience: 16,
+      experience: 7,
       image: '/doctors/pallabi.png'
     },
     {
       id: '8',
       name: 'Dr. Shahadat Hussain',
       specialization: 'RMO',
-      experience: 11,
+      experience: 10,
       image: '/doctors/shah.png'
     },
     {
@@ -121,13 +121,6 @@ export const HomePage: React.FC = () => {
       specialization: 'GASTROENTEROLOGY',
       experience: 13,
       image: '/doctors/arup.jpg'
-    },
-    {
-      id: '10',
-      name: 'Dr. Arjun Dey',
-      specialization: 'MS',
-      experience: 17,
-      image: '/doctors/arjun.jpg'
     },
     {
       id: '11',
@@ -147,28 +140,28 @@ export const HomePage: React.FC = () => {
       id: '13',
       name: 'Dr. Kishore Sarma',
       specialization: 'MS, MCH',
-      experience: 15,
+      experience: 10,
       image: '/doctors/kishor.jpg'
     },
     {
       id: '14',
       name: 'Dr. Surajit Hazarika',
       specialization: 'MS, MCH(Ahmedabad)',
-      experience: 9,
+      experience: 10,
       image: '/doctors/surajit.jpg'
     },
     {
       id: '15',
       name: 'Dr. Bijumoni Das',
       specialization: 'PHYSIOTHERAPY',
-      experience: 18,
+      experience: 8,
       image: '/doctors/bijumoni.jpg'
     },
     {
       id: '16',
       name: 'Dr. Siyum Ganguly',
       specialization: 'CONSULTANT PATHOLOGIST',
-      experience: 11,
+      experience: 7,
       image: '/doctors/siyum.png'
     }
   ];

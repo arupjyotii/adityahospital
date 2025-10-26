@@ -165,8 +165,8 @@ export const useDoctors = () => {
         };
       }
       
-      // Handle department field properly
-      if (doctorData.department_id !== undefined) {
+      // Handle department field properly - only add if explicitly provided
+      if ('department_id' in doctorData) {
         requestData.department = doctorData.department_id || undefined;
       }
 

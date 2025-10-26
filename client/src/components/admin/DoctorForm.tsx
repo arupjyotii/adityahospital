@@ -30,6 +30,7 @@ export const DoctorForm: React.FC<DoctorFormProps> = ({ doctor, onSubmit, onCanc
     e.preventDefault();
     const submitData = {
       ...formData,
+      // Ensure department is undefined if empty string
       department: formData.department || undefined
     };
     onSubmit(submitData);

@@ -14,7 +14,6 @@ export const buildApiUrl = (endpoint: string): string => {
   // Remove leading slash if present to avoid double slashes
   const cleanEndpoint = endpoint.startsWith('/') ? endpoint.slice(1) : endpoint;
   
-  // Log the endpoint for debugging
   console.log('[API Config] Building URL for endpoint:', endpoint, 'cleaned:', cleanEndpoint);
   
   // If API_BASE_URL is set, use it; otherwise use relative path
@@ -30,30 +29,30 @@ export const buildApiUrl = (endpoint: string): string => {
   return url;
 };
 
-// API endpoints
+// API endpoints - Remove /api prefix since buildApiUrl handles it
 export const API_ENDPOINTS = {
   // Auth endpoints
-  LOGIN: '/api/auth/login',
-  VERIFY: '/api/auth/verify',
-  LOGOUT: '/api/auth/logout',
+  LOGIN: '/auth/login',
+  VERIFY: '/auth/verify',
+  LOGOUT: '/auth/logout',
   
   // Dashboard
-  DASHBOARD: '/api/dashboard',
+  DASHBOARD: '/dashboard',
   
   // Departments
-  DEPARTMENTS: '/api/departments',
-  DEPARTMENT_BY_ID: (id: string) => `/api/departments/${id}`,
+  DEPARTMENTS: '/departments',
+  DEPARTMENT_BY_ID: (id: string) => `/departments/${id}`,
   
   // Doctors
-  DOCTORS: '/api/doctors',
-  DOCTOR_BY_ID: (id: string) => `/api/doctors/${id}`,
+  DOCTORS: '/doctors',
+  DOCTOR_BY_ID: (id: string) => `/doctors/${id}`,
   
   // Services
-  SERVICES: '/api/services',
-  SERVICE_BY_ID: (id: string) => `/api/services/${id}`,
+  SERVICES: '/services',
+  SERVICE_BY_ID: (id: string) => `/services/${id}`,
   
   // Health check
-  HEALTH: '/api/health',
+  HEALTH: '/health',
 } as const;
 
 // Environment configuration

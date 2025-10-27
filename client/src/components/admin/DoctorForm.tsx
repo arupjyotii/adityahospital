@@ -39,10 +39,11 @@ export const DoctorForm: React.FC<DoctorFormProps> = ({ doctor, onSubmit, onCanc
       experience: Number(formData.experience),
       bio: formData.bio,
       image: formData.image,
-      // Only include department if it's a valid value (not 'no-department')
-      ...(formData.department && formData.department !== 'no-department' && { department: formData.department })
+      // Send department_id (not department) to match useDoctors hook
+      department_id: formData.department !== 'no-department' ? formData.department : null
     };
     
+    console.log('Submitting doctor data:', submitData); // Debug log
     onSubmit(submitData);
   };
 

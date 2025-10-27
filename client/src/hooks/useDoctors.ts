@@ -25,7 +25,7 @@ const transformDoctor = (apiDoctor: any): Doctor => {
     email: apiDoctor.contactInfo?.email || '',
     phone: apiDoctor.contactInfo?.phone || '',
     specialization: apiDoctor.specialization,
-    department_id: apiDoctor.department?._id || null,
+    department_id: apiDoctor.department?._id || apiDoctor.departmentId || null,
     photo_url: apiDoctor.image || null,
     schedule: null,
     created_at: apiDoctor.createdAt || new Date().toISOString(),
@@ -106,10 +106,14 @@ export const useDoctors = () => {
         }
       };
 
-      // Only add department if it has a value (not null or empty string)
-      if (doctorData.department_id) {
+      // Try different department field names that the backend might expect
+      if (doctorData.department_id && doctorData.department_id !== 'no-department') {
+        // Try departmentId first (most common), then department
+        requestData.departmentId = doctorData.department_id;
         requestData.department = doctorData.department_id;
       }
+
+      console.log('Sending doctor data:', requestData); // Debug log
 
       const response = await fetch('/api/doctors', {
         method: 'POST',
@@ -122,6 +126,7 @@ export const useDoctors = () => {
 
       if (!response.ok) {
         const errorData = await response.json();
+        console.error('Backend error:', errorData); // Debug log
         throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
       }
 
@@ -161,9 +166,10 @@ export const useDoctors = () => {
         };
       }
       
-      // Handle department field properly - only add if explicitly provided
-      if ('department_id' in doctorData) {
-        requestData.department = doctorData.department_id ? doctorData.department_id : undefined;
+      // Handle department field properly - try both field names
+      if ('department_id' in doctorData && doctorData.department_id && doctorData.department_id !== 'no-department') {
+        requestData.departmentId = doctorData.department_id;
+        requestData.department = doctorData.department_id;
       }
 
       const response = await fetch(`/api/doctors/${id}`, {

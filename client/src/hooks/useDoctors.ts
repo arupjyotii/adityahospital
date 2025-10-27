@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 interface Doctor {
-  id: string; // Changed from number to string to match MongoDB _id
+  id: string;
   name: string;
   email: string;
   phone: string;
@@ -12,9 +12,9 @@ interface Doctor {
   created_at: string;
   updated_at: string;
   department_name: string | null;
-  qualification: string;  // Added missing field
-  experience: number;     // Added missing field
-  bio: string;           // Added missing field
+  qualification: string;
+  experience: number;
+  bio: string;
 }
 
 // Transform API doctor object to match frontend interface
@@ -25,9 +25,9 @@ const transformDoctor = (apiDoctor: any): Doctor => {
     email: apiDoctor.contactInfo?.email || '',
     phone: apiDoctor.contactInfo?.phone || '',
     specialization: apiDoctor.specialization,
-    department_id: apiDoctor.department?._id || apiDoctor.department || null,
+    department_id: apiDoctor.department?._id || null,
     photo_url: apiDoctor.image || null,
-    schedule: null, // Not provided in API
+    schedule: null,
     created_at: apiDoctor.createdAt || new Date().toISOString(),
     updated_at: apiDoctor.updatedAt || new Date().toISOString(),
     department_name: apiDoctor.department?.name || null,
@@ -72,9 +72,7 @@ export const useDoctors = () => {
       }
 
       const result = await response.json();
-      // Extract doctors array from the API response structure
       const doctorsData = result.data?.doctors || result;
-      // Transform API doctors to match frontend interface
       const transformedDoctors = Array.isArray(doctorsData) 
         ? doctorsData.map(transformDoctor)
         : [transformDoctor(doctorsData)];
@@ -95,19 +93,23 @@ export const useDoctors = () => {
       }
 
       // Transform the frontend data to match backend expectations
-      const requestData = {
+      const requestData: any = {
         name: doctorData.name,
         specialization: doctorData.specialization,
         qualification: doctorData.qualification,
-        experience: doctorData.experience,
-        department: doctorData.department_id || undefined,
+        experience: Number(doctorData.experience),
+        bio: doctorData.bio || '',
+        image: doctorData.photo_url || '',
         contactInfo: {
-          email: doctorData.email,
-          phone: doctorData.phone
-        },
-        bio: doctorData.bio,
-        image: doctorData.photo_url || ''
+          email: doctorData.email || '',
+          phone: doctorData.phone || ''
+        }
       };
+
+      // Only add department if it has a value (not null or empty string)
+      if (doctorData.department_id) {
+        requestData.department = doctorData.department_id;
+      }
 
       const response = await fetch('/api/doctors', {
         method: 'POST',
@@ -119,17 +121,12 @@ export const useDoctors = () => {
       });
 
       if (!response.ok) {
-        if (response.status === 401) {
-          throw new Error('Authentication failed. Please login again.');
-        }
         const errorData = await response.json();
         throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
       }
 
       const result = await response.json();
-      // Extract doctor from the API response structure
       const newDoctor = result.data?.doctor || result;
-      // Transform API doctor to match frontend interface
       const transformedDoctor = transformDoctor(newDoctor);
       setDoctors(prev => [...prev, transformedDoctor]);
       return transformedDoctor;
@@ -146,14 +143,13 @@ export const useDoctors = () => {
       }
 
       // Transform the frontend data to match backend expectations
-      // Create a clean object with only the fields we want to update
       const requestData: any = {};
       
       // Add fields that are directly mapped
       if (doctorData.name !== undefined) requestData.name = doctorData.name;
       if (doctorData.specialization !== undefined) requestData.specialization = doctorData.specialization;
       if (doctorData.qualification !== undefined) requestData.qualification = doctorData.qualification;
-      if (doctorData.experience !== undefined) requestData.experience = doctorData.experience;
+      if (doctorData.experience !== undefined) requestData.experience = Number(doctorData.experience);
       if (doctorData.bio !== undefined) requestData.bio = doctorData.bio;
       if (doctorData.photo_url !== undefined) requestData.image = doctorData.photo_url;
       
@@ -167,7 +163,7 @@ export const useDoctors = () => {
       
       // Handle department field properly - only add if explicitly provided
       if ('department_id' in doctorData) {
-        requestData.department = doctorData.department_id || undefined;
+        requestData.department = doctorData.department_id ? doctorData.department_id : undefined;
       }
 
       const response = await fetch(`/api/doctors/${id}`, {
@@ -180,17 +176,12 @@ export const useDoctors = () => {
       });
 
       if (!response.ok) {
-        if (response.status === 401) {
-          throw new Error('Authentication failed. Please login again.');
-        }
         const errorData = await response.json();
         throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
       }
 
       const result = await response.json();
-      // Extract doctor from the API response structure
       const updatedDoctor = result.data?.doctor || result;
-      // Transform API doctor to match frontend interface
       const transformedDoctor = transformDoctor(updatedDoctor);
       setDoctors(prev => prev.map(doc => 
         doc.id === id ? transformedDoctor : doc
@@ -217,9 +208,6 @@ export const useDoctors = () => {
       });
 
       if (!response.ok) {
-        if (response.status === 401) {
-          throw new Error('Authentication failed. Please login again.');
-        }
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
@@ -233,5 +221,13 @@ export const useDoctors = () => {
     fetchDoctors();
   }, []);
 
-  return { doctors, loading, error, createDoctor, updateDoctor, deleteDoctor, refetch: fetchDoctors };
+  return { 
+    doctors, 
+    loading, 
+    error, 
+    createDoctor, 
+    updateDoctor, 
+    deleteDoctor, 
+    refetch: fetchDoctors 
+  };
 };

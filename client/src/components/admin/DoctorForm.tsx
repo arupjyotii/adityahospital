@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useDepartments } from '@/hooks/useDepartments';
-import { User, Mail, Phone, Stethoscope, Building2, Image, Clock, GraduationCap, Calendar } from 'lucide-react';
+import { User, Mail, Phone, Stethoscope, Building2, Image, GraduationCap } from 'lucide-react';
 
 interface DoctorFormProps {
   doctor?: any;
@@ -13,7 +13,7 @@ interface DoctorFormProps {
 }
 
 export const DoctorForm: React.FC<DoctorFormProps> = ({ doctor, onSubmit, onCancel }) => {
-  const { departments } = useDepartments();
+  const { departments, loading, error } = useDepartments();
   const [formData, setFormData] = React.useState({
     name: doctor?.name || '',
     email: doctor?.contactInfo?.email || '',
@@ -28,11 +28,21 @@ export const DoctorForm: React.FC<DoctorFormProps> = ({ doctor, onSubmit, onCanc
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Create submit data with proper department handling
     const submitData = {
-      ...formData,
-      // Ensure department is undefined if empty string
-      department: formData.department || undefined
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      specialization: formData.specialization,
+      qualification: formData.qualification,
+      experience: Number(formData.experience),
+      bio: formData.bio,
+      image: formData.image,
+      // Only include department if it's a valid value
+      ...(formData.department && { department: formData.department })
     };
+    
     onSubmit(submitData);
   };
 
@@ -169,19 +179,33 @@ export const DoctorForm: React.FC<DoctorFormProps> = ({ doctor, onSubmit, onCanc
           
           <div className="space-y-2">
             <Label htmlFor="department" className="text-sm font-medium text-slate-300">Department</Label>
-            <Select value={formData.department} onValueChange={(value) => handleChange('department', value)}>
-              <SelectTrigger className="mt-1 bg-slate-700/50 border-slate-600 text-white focus:ring-2 focus:ring-emerald-500/50 focus:border-transparent">
-                <SelectValue placeholder="Select department (optional)" />
-              </SelectTrigger>
-              <SelectContent className="bg-slate-700 border-slate-600">
-                {departments?.map((dept) => (
-                  <SelectItem key={dept._id} value={dept._id} className="text-white hover:bg-slate-600 focus:bg-slate-600">
-                    {dept.name}
+            {loading ? (
+              <div className="text-slate-400 text-sm py-2">Loading departments...</div>
+            ) : error ? (
+              <div className="text-red-400 text-sm py-2">Error loading departments</div>
+            ) : (
+              <Select 
+                value={formData.department} 
+                onValueChange={(value) => handleChange('department', value)}
+              >
+                <SelectTrigger className="mt-1 bg-slate-700/50 border-slate-600 text-white focus:ring-2 focus:ring-emerald-500/50 focus:border-transparent">
+                  <SelectValue placeholder="Select department (optional)" />
+                </SelectTrigger>
+                <SelectContent className="bg-slate-700 border-slate-600">
+                  <SelectItem value="" className="text-slate-400">
+                    No department
                   </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <p className="text-xs text-slate-500">Assign the doctor to a specific department</p>
+                  {departments?.map((dept) => (
+                    <SelectItem key={dept._id} value={dept._id} className="text-white hover:bg-slate-600 focus:bg-slate-600">
+                      {dept.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
+            <p className="text-xs text-slate-500">
+              {departments?.length === 0 && !loading ? 'No departments available' : 'Assign the doctor to a specific department'}
+            </p>
           </div>
         </div>
 

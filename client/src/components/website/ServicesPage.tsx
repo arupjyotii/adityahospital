@@ -82,10 +82,10 @@ export const ServicesPage: React.FC = () => {
       </section>
 
       {/* Services Grid */}
-      <section className="py-20 bg-white">
+      <section className="py-10 bg-white">
         <div className="container mx-auto px-4">
           {services.length === 0 ? (
-            <div className="text-center py-20">
+            <div className="text-center py-10">
               <Stethoscope className="w-16 h-16 text-gray-400 mx-auto mb-4" />
               <h3 className="text-xl font-semibold text-gray-900 mb-2">No Services Available</h3>
               <p className="text-gray-600">Check back later for updates on our medical services.</p>

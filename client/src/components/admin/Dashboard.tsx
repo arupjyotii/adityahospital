@@ -122,7 +122,7 @@ export const Dashboard: React.FC = () => {
       {/* Header */}
       <div className="text-center">
         <h1 className="text-4xl font-bold bg-gradient-to-r from-white via-slate-200 to-slate-300 bg-clip-text text-transparent mb-3">
-          Welcome Back{user?.profile?.firstName ? `, ${user.profile.firstName}` : ''}
+          Welcome Back to the{user?.profile?.firstName ? ` ${user.profile.firstName}` : ''}
         </h1>
         <p className="text-lg text-slate-400 max-w-2xl mx-auto">
           Monitor key metrics and access quick actions below

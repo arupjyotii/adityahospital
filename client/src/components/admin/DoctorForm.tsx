@@ -19,7 +19,7 @@ export const DoctorForm: React.FC<DoctorFormProps> = ({ doctor, onSubmit, onCanc
     email: doctor?.contactInfo?.email || '',
     phone: doctor?.contactInfo?.phone || '',
     specialization: doctor?.specialization || '',
-    department: doctor?.department?._id || doctor?.department || '',
+    department: doctor?.department?._id || doctor?.department || 'no-department',
     qualification: doctor?.qualification || '',
     experience: doctor?.experience || 0,
     image: doctor?.image || '',
@@ -39,8 +39,8 @@ export const DoctorForm: React.FC<DoctorFormProps> = ({ doctor, onSubmit, onCanc
       experience: Number(formData.experience),
       bio: formData.bio,
       image: formData.image,
-      // Only include department if it's a valid value
-      ...(formData.department && { department: formData.department })
+      // Only include department if it's a valid value (not 'no-department')
+      ...(formData.department && formData.department !== 'no-department' && { department: formData.department })
     };
     
     onSubmit(submitData);
@@ -192,7 +192,7 @@ export const DoctorForm: React.FC<DoctorFormProps> = ({ doctor, onSubmit, onCanc
                   <SelectValue placeholder="Select department (optional)" />
                 </SelectTrigger>
                 <SelectContent className="bg-slate-700 border-slate-600">
-                  <SelectItem value="" className="text-slate-400">
+                  <SelectItem value="no-department" className="text-slate-400">
                     No department
                   </SelectItem>
                   {departments?.map((dept) => (
